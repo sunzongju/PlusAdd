@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e8e9ee">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/border"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_oldpwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:hint="原密码" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/border"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_newpwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:hint="新密码" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_press"
+        android:onClick="click"
+        android:text="完成"
+        android:textColor="#ffffff" />
+
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/BaseActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/BaseFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/CommnActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/MainActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/accountview/activitys/ActivityCenterActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/accountview/activitys/EssayActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/accountview/activitys/InvitationActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/accountview/activitys/RechargeActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/accountview/activitys/RedPacketActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/accountview/activitys/VoucherActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/accountview/adapters/ActivityCenterAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/accountview/fragments/AccountFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/bean/ActivityListBean.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/bean/RedPacketBean.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/financingview/fragments/FinancingFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/homeview/fragments/HomeFrament.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/FindPassActivity.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/FindwordActivity.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/LoginActivity.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/PhoneActivity.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/RegisterActivity.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/moreview/activitys/AlterPassActivity.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/moreview/fragments/MoreFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/ActivityCollectorTool.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/Base64Util.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/CutBitmap.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/DES3Util.java" charset="UTF-16" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/HttpXutilTool.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/SingleUserIdTool.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/UrlTool.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/view/DiaLog.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/color/radio_text_color.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/border2.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/dialog_btn.xml" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

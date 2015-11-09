@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e8e9ee">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager_index"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@id/rg_group" />
+        <RadioGroup
+            android:id="@+id/rg_index"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <RadioButton style="@style/radio_cycle" />
+
+            <RadioButton style="@style/radio_cycle" />
+
+            <RadioButton style="@style/radio_cycle" />
+        </RadioGroup>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:gravity="center"
+           android:orientation="horizontal">
+           <Button
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="安全"/>
+           <Button
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="安全"/>
+           <Button
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="安全"/>
+
+       </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ListView
+        android:id="@+id/lv_plan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+            android:divider="#ddd"
+         android:dividerHeight="20px"/>
+
+    </LinearLayout>
+
+</LinearLayout>

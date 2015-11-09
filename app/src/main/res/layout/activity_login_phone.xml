@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e8e9ee">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/border"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="+86"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="@null"
+            android:hint="清输入手机号"
+            android:numeric="integer" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="已注册用户点击下一步进行密码验证；"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="未注册用户点击下一步进行注册。"
+        android:textSize="15sp" />
+
+    <Button
+        style="@style/button_style"
+        android:layout_margin="20dp"
+        android:onClick="click"
+        android:text="下一步" />
+
+    <ProgressBar
+        android:id="@+id/pro_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+</LinearLayout>

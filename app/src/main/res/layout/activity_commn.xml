@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/frag_container">
+    </LinearLayout>
+    <RadioGroup
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#ddd"
+        >
+        <RadioButton
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_home"
+            android:button="@null"
+            android:checked="true"
+            android:textSize="11sp"
+            android:text="首页"
+            android:drawableTop="@drawable/main_menu_select" />
+        <RadioButton
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_financing"
+            android:button="@null"
+            android:textSize="11sp"
+            android:text="理财"
+            android:drawableTop="@drawable/main_menu_select" />
+        <RadioButton
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_account"
+            android:button="@null"
+            android:text="账户"
+            android:textSize="11sp"
+            android:drawableTop="@drawable/main_menu_select"
+            />
+        <RadioButton
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_more"
+            android:button="@null"
+            android:textSize="11sp"
+            android:text="更多"
+            android:drawableTop="@drawable/main_menu_select"
+            />
+        />
+    </RadioGroup>
+
+</LinearLayout>

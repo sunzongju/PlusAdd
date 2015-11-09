@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wrmoney.administrator.plusadd" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".wecomeview.WelcomeActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".CommnActivity"/>
+        <activity android:name=".accountview.activitys.EssayActivity" />
+        <activity android:name=".accountview.activitys.InvitationActivity"/>
+        <activity android:name=".accountview.activitys.RedPacketActivity"/>
+        <activity android:name=".accountview.activitys.InvestMentActivity"/>
+        <activity android:name=".accountview.activitys.ActivityCenterActivity"/>
+        <activity android:name=".accountview.activitys.MoneyWaterActivity"/>
+        <activity android:name=".accountview.activitys.RechargeActivity"/>
+        <activity android:name=".accountview.activitys.VoucherActivity"/>
+        <activity android:name=".moreview.activitys.AlterPassActivity"/>
+        <activity android:name=".loginview.activitys.FindPassActivity"/>
+        <activity android:name=".loginview.activitys.FindwordActivity"/>
+        <activity android:name=".loginview.activitys.LoginActivity"/>
+        <activity android:name=".loginview.activitys.PhoneActivity"/>
+        <activity android:name=".loginview.activitys.RegisterActivity"/>
+        <activity android:name=".financingview.activitys.InvestDetailActivity"/>
+        <activity android:name=".financingview.activitys.InvestActivity"/>
+        <activity android:name=".financingview.activitys.InvestJoinActivity"/>
+    </application>
+
+</manifest>

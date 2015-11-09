@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="乘10计划B（043期）"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="预期年化收益率" />
+
+        <ProgressBar
+            android:id="@+id/pro_rate"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:minHeight="2dp"
+            android:progress="50"
+            android:progressDrawable="@drawable/progressbar" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="投资期限0个月 项目规模100万" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="按月付息" />
+
+        <!--<Button-->
+        <!--android:id="@+id/btn_invest"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_below="@id/tv_pay"-->
+        <!--android:text="投资" />-->
+
+        <Button
+            android:id="@+id/btn_invest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_pay"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/dialog_btn"
+            android:text="投资"
+            android:textColor="#ff6600" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>
