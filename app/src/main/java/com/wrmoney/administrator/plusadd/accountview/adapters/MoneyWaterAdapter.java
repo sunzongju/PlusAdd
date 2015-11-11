@@ -1,9 +1,15 @@
 package com.wrmoney.administrator.plusadd.accountview.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.wrmoney.administrator.plusadd.R;
+import com.wrmoney.administrator.plusadd.bean.MoneyWaterBean;
+import com.wrmoney.administrator.plusadd.bean.RedPacketBean;
 
 import java.util.List;
 
@@ -11,31 +17,52 @@ import java.util.List;
  * Created by Administrator on 2015/10/16.
  */
 public class MoneyWaterAdapter extends BaseAdapter {
-    private List<String > list;
+    private List<MoneyWaterBean> list;
     private Context context;
 
-    public MoneyWaterAdapter(List<String> list, Context context) {
+    public MoneyWaterAdapter(List<MoneyWaterBean> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return list.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.account_money_water_item, null);
+            convertView.setTag(new ViewHolder(convertView));
+        }
+        ViewHolder holder = (ViewHolder) convertView.getTag();
+        MoneyWaterBean bean = list.get(position);
+//        holder.tv_lotteryStatus.setText(redPacketBean.getLotteryStatus());
+//        holder.tv_lotteryValidTime.setText(redPacketBean.getLotteryValidTime());
+//        holder.tv_lotteryAmount.setText(redPacketBean.getLotteryAmount());
+        return convertView;
+    }
+
+    public static class ViewHolder {
+        private TextView tv_time;//红包金额
+        private TextView tv_type;//红包状态
+        private TextView tv_money;//有效期
+
+        public ViewHolder(View itemView) {
+            this.tv_time = (TextView) itemView.findViewById(R.id.tv_time);
+            this.tv_type = (TextView) itemView.findViewById(R.id.tv_type);
+            this.tv_money = (TextView) itemView.findViewById(R.id.tv_money);
+        }
     }
 }

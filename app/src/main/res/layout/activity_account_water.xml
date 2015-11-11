@@ -4,18 +4,68 @@
     android:layout_height="match_parent"
     android:background="#e8e9ee">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="资金流水" />
-    <ListView
-        android:id="@+id/lv_water"
+    <include layout="@layout/tab_view"/>
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <TextView
-        android:id="@+id/zhnawei"
-        android:layout_width="wrap_content"
+        android:layout_height="150dp">
+        <TextView
+            android:id="@+id/tv_nul"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_centerInParent="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tv_nul"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:textColor="#ff0000"
+            android:text="账号资产（元）"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_nul"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:textColor="#ff0000"
+            android:text="2.000.00"/>
+
+    </RelativeLayout>
+    <RadioGroup
+        android:id="@+id/rg_water"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="暂无数据"/>
+        android:background="#ffffff"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/btn_all"
+            style="@style/radio_style2"
+            android:background="@null"
+            android:text="全部"/>
+        <RadioButton
+            android:id="@+id/btn_add"
+            style="@style/radio_style2"
+            android:text="收入"
+            />
+        <RadioButton
+            android:id="@+id/btn_cut"
+            style="@style/radio_style2"
+            android:text="支出"/>
+        <RadioButton
+            android:id="@+id/btn_recharge"
+            style="@style/radio_style2"
+            android:text="充值"/>
+        <RadioButton
+            android:id="@+id/btn_invest"
+            style="@style/radio_style2"
+            android:text="提现"/>
+    </RadioGroup>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp" />
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

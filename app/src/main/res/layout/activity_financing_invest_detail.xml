@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:background="#e8e9ee">
 
+    <include layout="@layout/tab_view" />
+
  <ListView
      android:id="@+id/lv_product"
      android:layout_width="match_parent"

@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:background="#e8e9ee">
 
+    <include layout="@layout/tab_view" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,14 +27,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/border"
         android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="金额（元）" />
@@ -50,14 +51,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/border"
         android:gravity="center"
         android:orientation="horizontal">
 
         <EditText
+            android:layout_marginLeft="20dp"
             android:id="@+id/et_captcha"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
