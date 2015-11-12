@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
    >
 
@@ -12,9 +13,8 @@
         android:id="@+id/frag_container">
     </LinearLayout>
     <RadioGroup
-
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="#ddd"
         >
@@ -28,6 +28,7 @@
             android:checked="true"
             android:textSize="11sp"
             android:text="首页"
+            android:drawablePadding="-5dp"
             android:drawableTop="@drawable/main_menu_select" />
         <RadioButton
             android:gravity="center"
@@ -38,6 +39,7 @@
             android:button="@null"
             android:textSize="11sp"
             android:text="理财"
+            android:drawablePadding="-5dp"
             android:drawableTop="@drawable/main_menu_select" />
         <RadioButton
             android:gravity="center"
@@ -48,6 +50,7 @@
             android:button="@null"
             android:text="账户"
             android:textSize="11sp"
+            android:drawablePadding="-5dp"
             android:drawableTop="@drawable/main_menu_select"
             />
         <RadioButton
@@ -59,6 +62,7 @@
             android:button="@null"
             android:textSize="11sp"
             android:text="更多"
+            android:drawablePadding="-5dp"
             android:drawableTop="@drawable/main_menu_select"
             />
         />

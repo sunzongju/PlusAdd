@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 初始化默认颜色 -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#333333</color>
+    <color name="black1">#1e0e00</color>
+    <color name="black2">#555555</color>
+    <color name="black3">#332b2b</color>
+    <color name="gray">#999999</color>
+    <color name="orange">#fb7e00</color>
+    <color name="red">#ea5652</color>
+    <color name="green">#39b44a</color>
+    <color name="blue">#288df0</color>
+    <color name="clickGray">#e5e5e5</color>
+    <color name="borderGray">#e5e5e5</color>
+    <color name="selectGray">#c9c9ce</color>
+    <color name="bgGray">#efeff4</color>
+    <color name="gray_text">#666666</color>
+    <color name="green_bj">#43b853</color>
+    <color name="pressed_false">#39b44a</color>
+    <color name="pressed_true">#189a2a</color>
+
+</resources>

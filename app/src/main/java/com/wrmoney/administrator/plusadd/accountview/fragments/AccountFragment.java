@@ -7,7 +7,9 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ import com.wrmoney.administrator.plusadd.accountview.activitys.MoneyWaterActivit
 import com.wrmoney.administrator.plusadd.accountview.activitys.RechargeActivity;
 import com.wrmoney.administrator.plusadd.accountview.activitys.RedPacketActivity;
 import com.wrmoney.administrator.plusadd.accountview.activitys.VoucherActivity;
+import com.wrmoney.administrator.plusadd.accountview.adapters.AccountMenuAdapter;
+import com.wrmoney.administrator.plusadd.bean.PictureBean;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
@@ -35,6 +39,9 @@ import com.wrmoney.administrator.plusadd.tools.UrlTool;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2015/11/2.
@@ -49,6 +56,12 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private String userid;
     private Button btn_recharge;
     private HttpUtils utils;
+    private GridView gv_menu;
+    private List<PictureBean> list=new ArrayList<PictureBean>();
+    private int[] pic={R.drawable.account_01,R.drawable.account_02,R.drawable.account_03,R.drawable.account_04,
+    R.drawable.account_05,R.drawable.account_06,R.drawable.account_07,R.drawable.account_08,0};
+    private String[] tle={"投资管理","资金流水","活动专区","邀请机制","红包","抵用券",
+    "充值","取现",""};
 
     @Nullable
     @Override
@@ -69,22 +82,86 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
 
     private void init() {
         activity = getActivity();
-        tv_money = (TextView) view.findViewById(R.id.tv_money);
-        tv_addup = (TextView) view.findViewById(R.id.tv_addup);
-        tv_count = (TextView) view.findViewById(R.id.tv_count);
+//        tv_money = (TextView) view.findViewById(R.id.tv_money);
+//        tv_addup = (TextView) view.findViewById(R.id.tv_addup);
+//        tv_count = (TextView) view.findViewById(R.id.tv_count);
         userid = SingleUserIdTool.newInstance().getUserid();
-        btn_recharge=(Button)view.findViewById(R.id.btn_recharge);
-        btn_recharge.setOnClickListener(this);
+//        btn_recharge=(Button)view.findViewById(R.id.btn_recharge);
+//        btn_recharge.setOnClickListener(this);
+        int len=pic.length;
+        list.clear();
+        for (int i=0;i<len;i++){
+            PictureBean bean=new PictureBean();
+            bean.setImageId(pic[i]);
+            bean.setTitle(tle[i]);
+            list.add(bean);
+        }
+        gv_menu=(GridView)view.findViewById(R.id.gv_menu);
+        AccountMenuAdapter adapter=new AccountMenuAdapter(activity,list);
+        gv_menu.setAdapter(adapter);
 
-        view.findViewById(R.id.btn_investment).setOnClickListener(this);//投资管理
-        view.findViewById(R.id.btn_moneywater).setOnClickListener(this);//资金流水
-        view.findViewById(R.id.btn_activitycenter).setOnClickListener(this);//活动专区
-        view.findViewById(R.id.btn_voucher).setOnClickListener(this);//抵用券
+        gv_menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               PictureBean bean= list.get(position);
+                switch (bean.getImageId()){
+                    case R.drawable.account_01://投资管理
+                        Intent intent1 = new Intent(activity, InvestMentActivity.class);
+                        intent1.putExtra("USERID", userid);
+                        startActivity(intent1);
+                        break;
+                    case R.drawable.account_02://资金流水
+                        Intent intent2 = new Intent(activity, MoneyWaterActivity.class);
+                        intent2.putExtra("USERID", userid);
+                        startActivity(intent2);
+                        break;
+                    case R.drawable.account_03://活动专区
+//             Intent intent6=new Intent(this, ActivityListActivity.class);
+//             startActivity(intent6);
+                        Intent intent3 = new Intent(activity, ActivityCenterActivity.class);
+                        intent3.putExtra("USERID", userid);
+                        startActivity(intent3);
+                        break;
+                    case R.drawable.account_04://抵用券
+//             Intent intent6=new Intent(this, ActivityListActivity.class);
+//             startActivity(intent6);
+                        Intent intent4 = new Intent(activity,VoucherActivity.class);
+                        intent4.putExtra("USERID", userid);
+                        startActivity(intent4);
+                        break;
 
-        view.findViewById(R.id.btn_recharge).setOnClickListener(this);//充值
-        view.findViewById(R.id.btn_essay).setOnClickListener(this);//取现
-        view.findViewById(R.id.btn_invitation).setOnClickListener(this);//邀请机制
-        view.findViewById(R.id.btn_red).setOnClickListener(this);//红包
+                    case R.drawable.account_05://充值
+                        Toast.makeText(activity,"充值",Toast.LENGTH_SHORT).show();
+                        Intent intent5 = new Intent(activity, RechargeActivity.class);
+                        startActivity(intent5);
+                        break;
+                    case R.drawable.account_06://取现
+                        Intent intent6 = new Intent(activity,EssayActivity.class);
+                        startActivity(intent6);
+                        break;
+                    case R.drawable.account_07://要请机制
+                        Intent intent7 = new Intent(activity, InvitationActivity.class);
+                        startActivity(intent7);
+                        break;
+                    case R.drawable.account_08://红包
+                        Intent intent8 = new Intent(activity, RedPacketActivity .class);
+                        startActivity(intent8);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+//        view.findViewById(R.id.btn_investment).setOnClickListener(this);//投资管理
+//        view.findViewById(R.id.btn_moneywater).setOnClickListener(this);//资金流水
+//        view.findViewById(R.id.btn_activitycenter).setOnClickListener(this);//活动专区
+//        view.findViewById(R.id.btn_voucher).setOnClickListener(this);//抵用券
+//
+//        view.findViewById(R.id.btn_recharge).setOnClickListener(this);//充值
+//        view.findViewById(R.id.btn_essay).setOnClickListener(this);//取现
+//        view.findViewById(R.id.btn_invitation).setOnClickListener(this);//邀请机制
+//        view.findViewById(R.id.btn_red).setOnClickListener(this);//红包
 
         utils= HttpXutilTool.getUtils();
 
@@ -135,53 +212,54 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
 //        });
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_investment://投资管理
-                Intent intent1 = new Intent(activity, InvestMentActivity.class);
-                intent1.putExtra("USERID", userid);
-                startActivity(intent1);
-                break;
-            case R.id.btn_moneywater://资金流水
-                Intent intent2 = new Intent(activity, MoneyWaterActivity.class);
-                intent2.putExtra("USERID", userid);
-                startActivity(intent2);
-                break;
-            case R.id.btn_activitycenter://活动专区
-//             Intent intent6=new Intent(this, ActivityListActivity.class);
-//             startActivity(intent6);
-                Intent intent3 = new Intent(activity, ActivityCenterActivity.class);
-                intent3.putExtra("USERID", userid);
-                startActivity(intent3);
-                break;
-            case R.id.btn_voucher://抵用券
-//             Intent intent6=new Intent(this, ActivityListActivity.class);
-//             startActivity(intent6);
-                Intent intent4 = new Intent(activity,VoucherActivity.class);
-                intent4.putExtra("USERID", userid);
-                startActivity(intent4);
-                break;
-
-            case R.id.btn_recharge://充值
-                Toast.makeText(activity,"充值",Toast.LENGTH_SHORT).show();
-                Intent intent5 = new Intent(activity, RechargeActivity.class);
-                startActivity(intent5);
-                break;
-            case R.id.btn_essay://取现
-                Intent intent6 = new Intent(activity,EssayActivity.class);
-                startActivity(intent6);
-                break;
-            case R.id.btn_invitation://要请机制
-                Intent intent7 = new Intent(activity, InvitationActivity.class);
-                startActivity(intent7);
-                break;
-            case R.id.btn_red://红包
-                Intent intent8 = new Intent(activity, RedPacketActivity .class);
-                startActivity(intent8);
-                break;
-            default:
-                break;
+//            case R.id.btn_investment://投资管理
+//                Intent intent1 = new Intent(activity, InvestMentActivity.class);
+//                intent1.putExtra("USERID", userid);
+//                startActivity(intent1);
+//                break;
+//            case R.id.btn_moneywater://资金流水
+//                Intent intent2 = new Intent(activity, MoneyWaterActivity.class);
+//                intent2.putExtra("USERID", userid);
+//                startActivity(intent2);
+//                break;
+//            case R.id.btn_activitycenter://活动专区
+////             Intent intent6=new Intent(this, ActivityListActivity.class);
+////             startActivity(intent6);
+//                Intent intent3 = new Intent(activity, ActivityCenterActivity.class);
+//                intent3.putExtra("USERID", userid);
+//                startActivity(intent3);
+//                break;
+//            case R.id.btn_voucher://抵用券
+////             Intent intent6=new Intent(this, ActivityListActivity.class);
+////             startActivity(intent6);
+//                Intent intent4 = new Intent(activity,VoucherActivity.class);
+//                intent4.putExtra("USERID", userid);
+//                startActivity(intent4);
+//                break;
+//
+//            case R.id.btn_recharge://充值
+//                Toast.makeText(activity,"充值",Toast.LENGTH_SHORT).show();
+//                Intent intent5 = new Intent(activity, RechargeActivity.class);
+//                startActivity(intent5);
+//                break;
+//            case R.id.btn_essay://取现
+//                Intent intent6 = new Intent(activity,EssayActivity.class);
+//                startActivity(intent6);
+//                break;
+//            case R.id.btn_invitation://要请机制
+//                Intent intent7 = new Intent(activity, InvitationActivity.class);
+//                startActivity(intent7);
+//                break;
+//            case R.id.btn_red://红包
+//                Intent intent8 = new Intent(activity, RedPacketActivity .class);
+//                startActivity(intent8);
+//                break;
+//            default:
+//                break;
 
         }
     }

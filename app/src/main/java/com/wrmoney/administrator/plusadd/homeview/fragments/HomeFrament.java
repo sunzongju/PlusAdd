@@ -1,15 +1,20 @@
 package com.wrmoney.administrator.plusadd.homeview.fragments;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wrmoney.administrator.plusadd.BaseFragment;
@@ -17,6 +22,8 @@ import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.bean.FinancingPlanBean;
 import com.wrmoney.administrator.plusadd.financingview.adapters.FinancingPlanAdapter;
 import com.wrmoney.administrator.plusadd.homeview.adapters.HomePagerAdapter;
+import com.wrmoney.administrator.plusadd.view.DiaLog;
+import com.wrmoney.administrator.plusadd.view.MyDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +41,7 @@ public class HomeFrament extends BaseFragment {
     private RadioGroup rg_index;
     private ListView lv_plan;
     private List<FinancingPlanBean> listBean=new ArrayList<FinancingPlanBean>();
+    private Button btn1;
 
     @Nullable
     @Override
@@ -61,6 +69,26 @@ public class HomeFrament extends BaseFragment {
 //        rb_join.setOnClickListener(this);
         rg_index = (RadioGroup) view.findViewById(R.id.rg_index);
         vp_index= (ViewPager) view.findViewById(R.id.pager_index);
+        btn1=(Button)view.findViewById(R.id.btn1);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyDialog selectDialog = new MyDialog(activity,R.style.dialog);//创建Dialog并设置样式主题
+//                Window win = selectDialog.getWindow();
+//                WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+//                params.x = -80;//设置x坐标
+//                params.y = -60;//设置y坐标
+//                win.setAttributes(params);
+//                TextView tv=(TextView)selectDialog.findViewById(R.id.tv_title);
+//                tv.setText("哈哈");
+                selectDialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
+                selectDialog.show();
+//                DiaLog.AlterPassFinishDialog(this,"");
+
+            }
+        });
+
+
         list.clear();
         list.add(LayoutInflater.from(activity).inflate(R.layout.home_index_pager_01, null));
         list.add(LayoutInflater.from(activity).inflate(R.layout.home_index_pager_02, null));

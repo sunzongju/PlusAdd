@@ -8,8 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_margin="20dp"
-        android:background="@drawable/border"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="#ffffff"
         android:orientation="horizontal">
 
         <TextView
@@ -41,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginBottom="40dp"
         android:text="未注册用户点击下一步进行注册。"
         android:textSize="15sp" />
 

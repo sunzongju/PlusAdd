@@ -32,6 +32,6 @@
         android:background="@drawable/dialog_btn"
         android:onClick="click"
         android:text="确定"
-        android:textColor="#ff6600" />
+        android:textColor="@color/orange" />
 
 </LinearLayout>

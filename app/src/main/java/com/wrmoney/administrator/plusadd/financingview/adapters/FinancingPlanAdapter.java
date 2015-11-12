@@ -61,7 +61,7 @@ public class FinancingPlanAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.financing_plan_item, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.financing_plan_item,parent, false);
             convertView.setTag(new ViewHolder(convertView));
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();

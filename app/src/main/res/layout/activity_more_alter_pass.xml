@@ -4,52 +4,72 @@
     android:layout_height="match_parent"
     android:background="#e8e9ee">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/border"
-        android:orientation="horizontal">
-
+ <include layout="@layout/tab_view"/>
+<FrameLayout
+    android:layout_marginTop="14dp"
+    android:layout_width="match_parent"
+    android:layout_height="43dp"
+    android:background="@color/white">
         <EditText
             android:id="@+id/et_oldpwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:background="@null"
             android:hint="原密码" />
-    </LinearLayout>
 
-    <LinearLayout
+</FrameLayout>
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/border"
-        android:orientation="horizontal">
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="@color/white">
         <EditText
             android:id="@+id/et_newpwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:background="@null"
-            android:hint="新密码" />
+            android:hint="设置取现密码" />
 
-    </LinearLayout>
+    </FrameLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="@color/white">
+        <EditText
+            android:id="@+id/et_renewpwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@null"
+            android:hint="重复取现密码" />
+    </FrameLayout>
     <Button
         android:id="@+id/btn_finish"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="305dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/button_press"
         android:onClick="click"
+        android:layout_gravity="center_horizontal"
         android:text="完成"
-        android:textColor="#ffffff" />
+        android:textColor="@color/white" />
 
 </LinearLayout>

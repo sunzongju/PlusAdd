@@ -31,7 +31,7 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/HttpXutilTool.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/SingleUserIdTool.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/UrlTool.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/view/DiaLog.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/view/DiaLog.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/color/radio_text_color.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/border2.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/dialog_btn.xml" charset="GBK" />

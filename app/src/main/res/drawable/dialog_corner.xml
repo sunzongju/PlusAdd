@@ -5,7 +5,7 @@
         android:bottomRightRadius="5dip"
         android:topLeftRadius="5dip"
         android:topRightRadius="5dip" />
-    <stroke
-        android:width="1dp"
-        android:color="#fb7e00" />
+    <stroke android:color="@color/white" />
+    <gradient android:startColor="@color/white"
+        android:endColor="@color/white"/>
 </shape>

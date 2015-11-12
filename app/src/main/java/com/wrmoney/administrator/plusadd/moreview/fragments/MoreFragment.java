@@ -178,7 +178,7 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_alterpass:
+            case R.id.btn_alterpass://修改登录密码
                 Intent intent2 = new Intent(activity, AlterPassActivity.class);
                 startActivity(intent2);
                 break;

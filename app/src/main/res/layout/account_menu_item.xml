@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="76dp"
+    android:background="#e8e9ee">
+
+    <!--<Button-->
+    <!--android:id="@+id/btn_investment"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:drawableTop="@drawable/account_01"-->
+    <!--android:background="@null"-->
+    <!--android:onClick="click"-->
+    <!--android:textColor="@color/black3"-->
+    <!--android:textSize="11sp"-->
+    <!--android:text="投资管理" />-->
+    <ImageView
+        android:id="@+id/iv_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/tv_tle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:textColor="@color/black3"
+        />
+</LinearLayout>

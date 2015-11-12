@@ -4,11 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e8e9ee">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/image_corner"
         android:onClick="click"
@@ -18,18 +23,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:textColor="@color/black2"
+        android:textSize="13sp"
         android:text="15610341303" />
-
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="40dp"
-        android:layout_weight="1"
-        android:background="@drawable/border"
+        android:layout_height="43dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -44,12 +52,14 @@
             android:layout_gravity="end|center_vertical"
             android:text="未认证" />
     </LinearLayout>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/border"
+        android:layout_height="43dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
@@ -68,12 +78,14 @@
             android:src="@drawable/index1" />
 
     </LinearLayout>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/border"
+        android:layout_height="43dp"
+       android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
@@ -92,13 +104,15 @@
             android:onClick="click"
             android:text="9818" />
     </LinearLayout>
-
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="1dp"
+         android:background="@color/gray"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="43dp"
         android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:background="@drawable/border"
+        android:background="@color/white"
         android:orientation="horizontal">
         <!--android:drawableLeft="@mipmap/ic_launcher"-->
         <TextView
@@ -114,12 +128,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical" />
     </LinearLayout>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/border"
+        android:layout_height="43dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
@@ -137,19 +153,16 @@
             android:layout_gravity="end|center_vertical"
             android:onClick="click" />
     </LinearLayout>
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/border"
-        android:orientation="horizontal" />
-
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
     <Button
         android:id="@+id/btn_finish"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_marginTop="87dp"
+        android:layout_width="305dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
         android:background="@drawable/button_press"
         android:onClick="click"
         android:text="退出登录"

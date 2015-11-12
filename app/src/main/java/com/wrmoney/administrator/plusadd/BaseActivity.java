@@ -2,6 +2,7 @@ package com.wrmoney.administrator.plusadd;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.wrmoney.administrator.plusadd.tools.ActivityCollectorTool;
@@ -14,6 +15,8 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityCollectorTool.addActivity(this);
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.hide();
     }
 
     @Override
