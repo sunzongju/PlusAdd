@@ -26,7 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * ÕÒ»ØÃÜÂë
+ * æ‰¾å›å¯†ç ï¿½ï¿½ï¿½ï¿½ï¿½
  * Created by Administrator on 2015/9/21.
  */
 public class FindwordActivity extends Activity {
@@ -51,7 +51,7 @@ public class FindwordActivity extends Activity {
         mobile = getIntent().getStringExtra("MOBILE");
         et_captcha = (EditText) this.findViewById(R.id.et_captcha);
         bt_timer = (Button) this.findViewById(R.id.bt_timer);
-        time = new TimeCount(60000, 1000);//¹¹ÔìCountDownTimer¶ÔÏó?
+        time = new TimeCount(60000, 1000);//æ„é€ CountDownTimerå¯¹è±¡?ï¿½?
         bt_timer.callOnClick();
         time.start();
         bt_timer.setOnClickListener(new View.OnClickListener() {
@@ -62,19 +62,19 @@ public class FindwordActivity extends Activity {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
                         time.start();
-                        Toast.makeText(FindwordActivity.this, "·¢ËÍ³É¹¦", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FindwordActivity.this, "å‘é€æˆåŠŸ", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(HttpException e, String s) {
                         e.printStackTrace();
-                        Toast.makeText(FindwordActivity.this, "·¢ËÍÊ§°Ü", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FindwordActivity.this, "å‘é€å¤±è´¥", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
         tv_phone = (TextView) this.findViewById(R.id.tv_phone);
-        tv_phone.setText("ÎÒÃÇÒÑ¾­·¢ËÍ¶ÌĞÅÑéÖ¤ÂëÖÁ" + mobile + "£¬ÇëÔÚÊäÈë¿òÄÚÌîĞ´ÑéÖ¤Âë£¬ÈôÎ´ÊÕµ½ÇëÄÍĞÄµÈ´ı");
+        tv_phone.setText("æˆ‘ä»¬å·²ç»å‘é€çŸ­ä¿¡éªŒè¯ç è‡³" + mobile + "ï¼Œè¯·åœ¨è¾“å…¥æ¡†å†…å¡«å†™éªŒè¯ç ï¼Œè‹¥æœªæ”¶åˆ°è¯·è€å¿ƒç­‰å¾…");
     }
 
     public void click(View view) {
@@ -99,7 +99,7 @@ public class FindwordActivity extends Activity {
                         //intent.putExtra("CAPTCHA", captcha);
                         startActivity(intent);
                     } else {
-                        // Toast.makeText(FindwordActivity.this, "ÑéÖ¤ÂëÊäÈë´íÎó", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(FindwordActivity.this, "éªŒè¯ç è¾“å…¥é”™è¯¯", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -117,19 +117,19 @@ public class FindwordActivity extends Activity {
 
     class TimeCount extends CountDownTimer {
         public TimeCount(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);//²ÎÊıÒÀ´ÎÎª×ÜÊ±³¤,ºÍ¼ÆÊ±µÄÊ±¼ä¼ä¸ô?
+            super(millisInFuture, countDownInterval);//å‚æ•°ä¾æ¬¡ä¸ºæ€»æ—¶é•¿,å’Œè®¡æ—¶çš„æ—¶é—´é—´éš”?
         }
 
         @Override
-        public void onFinish() {//¼ÆÊ±Íê±ÏÊ±´¥·¢???
-            bt_timer.setText("ÖØĞÂÑéÖ¤?");
+        public void onFinish() {//è®¡æ—¶å®Œæ¯•æ—¶è§¦å‘???
+            bt_timer.setText("é‡æ–°éªŒè¯??");
             bt_timer.setClickable(true);
         }
 
         @Override
         public void onTick(long millisUntilFinished) {//?????????
             bt_timer.setClickable(false);
-            bt_timer.setText(millisUntilFinished / 1000 + "ÃëºóÖØĞÂ·¢ËÍ");
+            bt_timer.setText(millisUntilFinished / 1000 + "ç§’åé‡æ–°å‘é€");
         }
     }
 }

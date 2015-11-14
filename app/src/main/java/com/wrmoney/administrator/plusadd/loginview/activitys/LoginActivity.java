@@ -90,15 +90,15 @@ public class LoginActivity extends Activity {
                     String rescode = obj2.getString("rescode");
                     if ("0000".equals(rescode)) {
                         String userID = obj2.getString("ID");
-                        Toast.makeText(LoginActivity.this, "µÇÂ¼³É¹¦", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "ç™»å½•æˆåŠŸ", Toast.LENGTH_SHORT).show();
                         SingleUserIdTool.newInstance().setUserid(userID);
                         Intent intent = new Intent(LoginActivity.this, CommnActivity.class);
                         //intent.putExtra("ID",userID);
                         startActivity(intent);
                         finish();
                     } else if ("0001".equals(rescode)) {
-                        DiaLog.showDialog(LoginActivity.this, "ÄúÊäÈëÃÜÂë´íÎó£¬ÇëÖØĞÂÊäÈë");
-                        //Toast.makeText(LoginActivity.this,"ÕËºÅ»òÕßÃÜÂë´íÎó£¬ÇëÖØĞÂÊäÈë",Toast.LENGTH_SHORT).show();
+                        DiaLog.showDialog(LoginActivity.this, "æ‚¨è¾“å…¥çš„å¯†ç æœ‰è¯¯è¯·é‡æ–°è¾“å…¥");
+                        //Toast.makeText(LoginActivity.this,"ï¿½ËºÅ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {

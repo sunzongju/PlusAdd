@@ -17,11 +17,11 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/bean/RedPacketBean.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/financingview/fragments/FinancingFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/homeview/fragments/HomeFrament.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/FindPassActivity.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/FindwordActivity.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/LoginActivity.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/PhoneActivity.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/RegisterActivity.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/FindPassActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/FindwordActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/LoginActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/PhoneActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/RegisterActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/moreview/activitys/AlterPassActivity.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/moreview/fragments/MoreFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/ActivityCollectorTool.java" charset="UTF-8" />

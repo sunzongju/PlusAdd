@@ -17,6 +17,7 @@ import com.wrmoney.administrator.plusadd.accountview.fragments.AccountFragment;
 import com.wrmoney.administrator.plusadd.allinterface.FragmentCallback;
 import com.wrmoney.administrator.plusadd.financingview.fragments.FinancingFragment;
 import com.wrmoney.administrator.plusadd.homeview.fragments.HomeFrament;
+import com.wrmoney.administrator.plusadd.loginview.activitys.PhoneActivity;
 import com.wrmoney.administrator.plusadd.moreview.fragments.MoreFragment;
 import com.wrmoney.administrator.plusadd.tools.CutBitmap;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
@@ -86,11 +87,11 @@ public class CommnActivity extends BaseActivity implements CompoundButton.OnChec
                 transaction2.commit();
                 break;
             case R.id.radio_financing:
-//                if (userid == null) {
-//                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
-//                    Intent intent00 = new Intent(this, PhoneActivity.class);
-//                    startActivity(intent00);
-//                } else {
+                if (userid == null) {
+                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
+                    Intent intent00 = new Intent(this, PhoneActivity.class);
+                    startActivity(intent00);
+                } else {
                     if (!finacingFragment.isAdded()){
                         transaction2.replace(R.id.frag_container, finacingFragment);
                     }
@@ -98,7 +99,7 @@ public class CommnActivity extends BaseActivity implements CompoundButton.OnChec
                         transaction2.show(finacingFragment);
                     }
                     transaction2.commit();
-               // }
+                }
                 break;
             case R.id.radio_account:
 

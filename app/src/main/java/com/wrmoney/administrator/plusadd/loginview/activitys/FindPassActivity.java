@@ -81,7 +81,7 @@ public class FindPassActivity extends Activity {
                 }
             });
         }else {
-            Toast.makeText(this,"Ê§°Ü",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"å¤±è´¥",Toast.LENGTH_SHORT).show();
         }
 
     }

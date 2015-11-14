@@ -26,7 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * ÊäÈëÊÖ»úºÅ½øĞĞÑéÖ¤
+ * è¾“å…¥æ‰‹æœºå·è¿›è¡ŒéªŒè¯ï¿½ï¿½ï¿½ï¿½Ö¤
  * Created by Administrator on 2015/9/7.
  */
 public class PhoneActivity extends Activity {
@@ -58,7 +58,7 @@ public class PhoneActivity extends Activity {
                 //String str = DES3Util.encode(json);
                 params = LoginParams.getPhoneCode(strPhone);
                 //params.addQueryStringParameter("argEncPara", str);
-                utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL,params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
                         String result = responseInfo.result;
@@ -69,7 +69,7 @@ public class PhoneActivity extends Activity {
                             Toast.makeText(PhoneActivity.this, strDe, Toast.LENGTH_SHORT).show();
                             JSONObject obj2 = new JSONObject(strDe);
                             String type = obj2.getString("isRegFlag");
-                            Toast.makeText(PhoneActivity.this, "ÇëÇó³É¹¦", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PhoneActivity.this, "ç™»å½•æˆåŠŸ", Toast.LENGTH_SHORT).show();
                             if ("1".equals(type)) {
                                 Intent intent = new Intent(PhoneActivity.this, LoginActivity.class);
                                 intent.putExtra("PHONE", strPhone);
@@ -92,7 +92,7 @@ public class PhoneActivity extends Activity {
                                     }
                                 });
                             } else {
-                                // Toast.makeText(PhoneActivity.this, "Ê§°Ü", Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(PhoneActivity.this, "Ê§ï¿½ï¿½", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -106,7 +106,7 @@ public class PhoneActivity extends Activity {
                     public void onFailure(HttpException e, String s) {
                         //e.getExceptionCode();
                         e.printStackTrace();
-                        Toast.makeText(PhoneActivity.this, "ÇëÇóÊ§°Ü", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PhoneActivity.this, "é“¾æ¥å¤±è´¥", Toast.LENGTH_SHORT).show();
                         pro_bar.setVisibility(View.GONE);
                     }
                 });
@@ -116,11 +116,11 @@ public class PhoneActivity extends Activity {
             }
         } else {
 //            AlertDialog.Builder builder=new AlertDialog.Builder(this);
-//            builder.setTitle("ÌáÊ¾");
-//            builder.setMessage("ÄúÊäÈëµÄÊÖ»úºÅÓĞÎó£¬ÇëÖØĞÂÊäÈë");
+//            builder.setTitle("ï¿½ï¿½Ê¾");
+//            builder.setMessage("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 //            builder.show();
-            DiaLog.showDialog(PhoneActivity.this, "ÄúÊäÈëµÄÊÖ»úºÅÓĞÎó£¬ÇëÖØĞÂÊäÈë");
-            // Toast.makeText(this,i+"ÊäÈëµÄÊÖ»úºÅÓĞÎó£¬ÇëÖØĞÂÊäÈë",Toast.LENGTH_SHORT).show();
+            DiaLog.showDialog(PhoneActivity.this, "æ‚¨è¾“å…¥çš„æ‰‹æœºå·æœ‰è¯¯");
+            // Toast.makeText(this,i+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",Toast.LENGTH_SHORT).show();
         }
 
     }

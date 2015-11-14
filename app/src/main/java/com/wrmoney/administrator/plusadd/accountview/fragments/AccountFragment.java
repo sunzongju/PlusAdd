@@ -122,29 +122,32 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                         intent3.putExtra("USERID", userid);
                         startActivity(intent3);
                         break;
-                    case R.drawable.account_04://抵用券
+                    case R.drawable.account_04://邀请机制
 //             Intent intent6=new Intent(this, ActivityListActivity.class);
 //             startActivity(intent6);
-                        Intent intent4 = new Intent(activity,VoucherActivity.class);
+
+                        Intent intent4 = new Intent(activity,InvitationActivity.class);
                         intent4.putExtra("USERID", userid);
                         startActivity(intent4);
                         break;
 
-                    case R.drawable.account_05://充值
+                    case R.drawable.account_05://红包
+
                         Toast.makeText(activity,"充值",Toast.LENGTH_SHORT).show();
-                        Intent intent5 = new Intent(activity, RechargeActivity.class);
+                        Intent intent5 = new Intent(activity,RedPacketActivity .class );
                         startActivity(intent5);
                         break;
-                    case R.drawable.account_06://取现
-                        Intent intent6 = new Intent(activity,EssayActivity.class);
+                    case R.drawable.account_06://抵用券
+
+                        Intent intent6 = new Intent(activity, VoucherActivity.class);
                         startActivity(intent6);
                         break;
-                    case R.drawable.account_07://要请机制
-                        Intent intent7 = new Intent(activity, InvitationActivity.class);
+                    case R.drawable.account_07://充值
+                        Intent intent7 = new Intent(activity, RechargeActivity.class);
                         startActivity(intent7);
                         break;
-                    case R.drawable.account_08://红包
-                        Intent intent8 = new Intent(activity, RedPacketActivity .class);
+                    case R.drawable.account_08://取现
+                        Intent intent8 = new Intent(activity,EssayActivity.class );
                         startActivity(intent8);
                         break;
                     default:

@@ -57,11 +57,11 @@ public class RegisterActivity extends Activity {
         et_repassword = (EditText)this.findViewById(R.id.et_repassword);
         et_invitCode=(EditText)this.findViewById(R.id.et_invitCode);
         tv_phone=(TextView)this.findViewById(R.id.tv_phone);
-        tv_phone.setText("ÎÒÃÇÒÑ¾­·¢ËÍ¶ÌĞÅÑéÖ¤ÂëÖÁ"+str_phone+"£¬ÇëÔÚÊäÈë¿òÄÚÌîĞ´ÑéÖ¤Âë£¬ÈôÎ´ÊÕµ½ÇëÄÍĞÄµÈ´ı");
+        tv_phone.setText("æˆ‘ä»¬å·²ç»å‘é€çŸ­ä¿¡éªŒè¯ç è‡³"+str_phone+"ï¼Œè¯·åœ¨è¾“å…¥æ¡†å†…å¡«å†™éªŒè¯ç ï¼Œè‹¥æœªæ”¶åˆ°è¯·è€å¿ƒç­‰å¾…");
         cb_sure = (CheckBox)this.findViewById(R.id.cb_sure);
         // bt_ok = (Button)this.findViewById(R.id.bt_ok);
         bt_timer=(Button)this.findViewById(R.id.bt_timer);
-        time = new TimeCount(60000, 1000);//¹¹ÔìCountDownTimer¶ÔÏó
+        time = new TimeCount(60000, 1000);//æ„é€ CountDownTimerå¯¹è±¡ï¿½ï¿½ï¿½
         bt_timer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +69,7 @@ public class RegisterActivity extends Activity {
                 utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params2, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
-                        time.start();  //¼ÆÊ±¿ªÊ¼
+                        time.start();  //è®¡æ—¶å¼€å§‹
                     }
                     @Override
                     public void onFailure(HttpException e, String s) {
@@ -82,17 +82,17 @@ public class RegisterActivity extends Activity {
     }
 
     public void click(View view){
-      String captcha=et_captcha.getText().toString();//ÑéÖ¤Âë?????
-      String password=et_password.getText().toString();//ÃÜÂë????
-      final String repassword=et_repassword.getText().toString();//È·ÈÏÃÜÂë?
-      String invitCode=et_invitCode.getText().toString();//ÑûÇëÂë ??????
-      String sure=cb_sure.getText().toString();//Í¬ÒâĞ­Òé¡¢//
+      String captcha=et_captcha.getText().toString();//éªŒè¯ç ?????
+      String password=et_password.getText().toString();//å¯†ç ????
+      final String repassword=et_repassword.getText().toString();//ç¡®è®¤å¯†ç ?
+      String invitCode=et_invitCode.getText().toString();//é‚€è¯·ç  ??????
+      String sure=cb_sure.getText().toString();//åŒæ„åè®®ã€//
       if("".equals(captcha)){
-       Toast.makeText(this,"ÑéÖ¤Âë²»ÄÜÎª¿Õ",Toast.LENGTH_SHORT).show();
+       Toast.makeText(this,"éªŒè¯ç ä¸èƒ½ä¸ºç©º",Toast.LENGTH_SHORT).show();
       // ?????
       }else{
           if("".equals(password)||"".equals(repassword)){
-              Toast.makeText(this,"ÃÜÂë²»ÄÜÎª¿Õ",Toast.LENGTH_SHORT).show();
+              Toast.makeText(this,"å¯†ç ä¸èƒ½ä¸ºç©º",Toast.LENGTH_SHORT).show();
           }else{
               if(cb_sure.isChecked()){
                   if(password.equals(repassword)){
@@ -106,7 +106,7 @@ public class RegisterActivity extends Activity {
                                   obj = new JSONObject(result);
                                   String strResponse = obj.getString("argEncPara");
                                   String strDe = DES3Util.decode(strResponse);
-                                  Toast.makeText(RegisterActivity.this, strDe + "³É¹¦", Toast.LENGTH_SHORT).show();
+                                  Toast.makeText(RegisterActivity.this, strDe + "æˆåŠŸ", Toast.LENGTH_SHORT).show();
 //                      Intent intent=new Intent(PhoneActivity.this, RegisterActivity.class);
 //                      intent.putExtra("PHONE",strPhone);
                                   //   startActivity(intent);
@@ -120,11 +120,11 @@ public class RegisterActivity extends Activity {
                           @Override
                           public void onFailure(HttpException e, String s) {
                               e.printStackTrace();
-                              Toast.makeText(RegisterActivity.this, "×¢²áÊ§°Ü", Toast.LENGTH_SHORT).show();
+                              Toast.makeText(RegisterActivity.this, "×¢æ³¨å†Œå¤±è´¥", Toast.LENGTH_SHORT).show();
                           }
                       });
                   }else {
-                      Toast.makeText(this,"ÃÜÂë²»Ò»ÖÂ",Toast.LENGTH_SHORT).show();
+                      Toast.makeText(this,"å¯†ç ä¸ä¸€è‡´",Toast.LENGTH_SHORT).show();
                   }
               }else {
                   finish();
@@ -137,17 +137,17 @@ public class RegisterActivity extends Activity {
   }
     class TimeCount extends CountDownTimer {
         public TimeCount(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);//²ÎÊıÒÀ´ÎÎª×ÜÊ±³¤,ºÍ¼ÆÊ±µÄÊ±¼ä¼ä¸ô
+            super(millisInFuture, countDownInterval);//å‚æ•°ä¾æ¬¡ä¸ºæ€»æ—¶é•¿,å’Œè®¡æ—¶çš„æ—¶é—´é—´éš”ï¿½ï¿½ï¿½
         }
         @Override
-        public void onFinish() {//¼ÆÊ±Íê±ÏÊ±´¥·¢
-            bt_timer.setText("ÖØĞÂÑéÖ¤");
+        public void onFinish() {//è®¡æ—¶å®Œæ¯•æ—¶è§¦å‘
+            bt_timer.setText("é‡æ–°éªŒè¯Ö¤");
             bt_timer.setClickable(true);
         }
         @Override
-        public void onTick(long millisUntilFinished){//¼ÆÊ±¹ı³ÌÏÔÊ¾
+        public void onTick(long millisUntilFinished){//è®¡æ—¶è¿‡ç¨‹æ˜¾ç¤ºï¿½ï¿½ï¿½ï¿½Ê¾
             bt_timer.setClickable(false);
-            bt_timer.setText(millisUntilFinished /1000+"ÃëºóÖØĞÂ·¢ËÍ");
+            bt_timer.setText(millisUntilFinished /1000+"ç§’åé‡æ–°å‘é€");
         }
     }
 }
