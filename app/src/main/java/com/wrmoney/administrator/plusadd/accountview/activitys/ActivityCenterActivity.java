@@ -36,6 +36,7 @@ public class ActivityCenterActivity extends BaseActivity {
     private String userid;
     private List<ActivityListBean> list = new ArrayList<ActivityListBean>();
     private ActivityCenterAdapter adapter;
+    private int[] pics={R.drawable.wallpaper_1,R.drawable.wallpaper_2,R.drawable.wallpaper_3};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,12 @@ public class ActivityCenterActivity extends BaseActivity {
 
     private void init() {
         getIntent().getStringExtra("USERID");
+        for(int i=0;i<3;i++){
+            ActivityListBean bean=new ActivityListBean();
+            bean.setPic(pics[i]);
+            list.add(bean);
+
+        }
         lv_news = (ListView) this.findViewById(R.id.lv_news);
         adapter = new ActivityCenterAdapter(list, this);
         lv_news.setAdapter(adapter);

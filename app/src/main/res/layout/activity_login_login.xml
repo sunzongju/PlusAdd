@@ -17,6 +17,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:background="@null"
+            android:textColor="@color/gray"
+            android:textSize="13sp"
             android:hint="请输入登录密码" />
     </LinearLayout>
 
@@ -35,8 +37,9 @@
             android:id="@+id/tv_findword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="11sp"
             android:text="忘记密码？"
-            android:textColor="#ff0000" />
+            android:textColor="@color/red1" />
     </LinearLayout>
 
     <Button
@@ -45,7 +48,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="40dp"
         android:onClick="click"
-        android:text="登录" />
+        android:text="下一步" />
     <ProgressBar
         android:id="@+id/pro_bar"
         android:layout_width="wrap_content"

@@ -5,24 +5,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wrmoney.administrator.plusadd.R;
-import com.wrmoney.administrator.plusadd.bean.ActivityListBean;
+import com.wrmoney.administrator.plusadd.bean.InvestMentBean;
+import com.wrmoney.administrator.plusadd.bean.MoneyWaterBean;
 
 import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by Administrator on 2015/11/3.
+ * Created by Administrator on 2015/11/13.
  */
-public class ActivityCenterAdapter extends BaseAdapter {
+public class InvestMentAdapter extends BaseAdapter{
 
-    private List<ActivityListBean> list;
+    private List<InvestMentBean> list;
     private Context context;
 
-    public ActivityCenterAdapter(List<ActivityListBean> list, Context context) {
+    public InvestMentAdapter(List<InvestMentBean> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -42,8 +42,8 @@ public class ActivityCenterAdapter extends BaseAdapter {
         return position;
     }
 
-    public void addAll(Collection<? extends ActivityListBean> collection) {
-        list.addAll(collection);
+    public void addAll(Collection<? extends InvestMentBean> listBean){
+        list.addAll(listBean);
         notifyDataSetChanged();
 
     }
@@ -51,29 +51,21 @@ public class ActivityCenterAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.account_activity_item, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.account_invest_ment_item, null);
             convertView.setTag(new ViewHolder(convertView));
-
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();
-        ActivityListBean news = list.get(position);
-        holder.iv_imag.setImageResource(news.getPic());
-//        holder.tv_title.setText(news.getTitle());
-//        holder.tv_time.setText(news.getTime());
-//        holder.tv_content.setText(news.getContent());
+        InvestMentBean bean = list.get(position);
+//        holder.tv_lotteryStatus.setText(redPacketBean.getLotteryStatus());
+//        holder.tv_lotteryValidTime.setText(redPacketBean.getLotteryValidTime());
+//        holder.tv_lotteryAmount.setText(redPacketBean.getLotteryAmount());
         return convertView;
     }
 
     public static class ViewHolder {
-        private ImageView iv_imag;
-
-
+        private TextView tv_title;//红包金额
         public ViewHolder(View itemView) {
-           this.iv_imag = (ImageView) itemView.findViewById(R.id.iv_image);
-//            this.tv_time = (TextView) itemView.findViewById(R.id.tv_time);
-//            this.tv_content = (TextView) itemView.findViewById(R.id.tv_content);
-//            this.tv_btn = (TextView) itemView.findViewById(R.id.tv_btn);
+            this.tv_title = (TextView) itemView.findViewById(R.id.tv_time);
         }
     }
-
 }

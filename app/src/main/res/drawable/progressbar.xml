@@ -14,9 +14,9 @@
                 <!--android:endColor="#ff747674"-->
                 <!--android:startColor="#ff9d9e9d" />-->
             <gradient
-                android:centerColor="#ff9d9e9d"
-                android:endColor="#ff9d9e9d"
-                android:startColor="#ff9d9e9d" />
+                android:centerColor="@color/gray"
+                android:endColor="@color/gray"
+                android:startColor="@color/gray" />
 
         </shape>
     </item>
@@ -31,10 +31,10 @@
 
                 <gradient
                     android:angle="0"
-                    android:centerColor="#80ffb600"
+                    android:centerColor="@color/orange"
                     android:centerY="0.75"
-                    android:endColor="#a0ffcb00"
-                    android:startColor="#80ffd300" />
+                    android:endColor="@color/orange"
+                    android:startColor="@color/orange" />
             </shape>
         </clip>
     </item>

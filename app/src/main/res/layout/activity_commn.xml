@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="#ddd"
+        android:background="@color/gray2"
         >
         <RadioButton
             android:gravity="center"
@@ -27,6 +27,7 @@
             android:button="@null"
             android:checked="true"
             android:textSize="11sp"
+            android:textColor="@color/gray3"
             android:text="首页"
             android:drawablePadding="-5dp"
             android:drawableTop="@drawable/main_menu_select" />
@@ -38,6 +39,7 @@
             android:id="@+id/radio_financing"
             android:button="@null"
             android:textSize="11sp"
+            android:textColor="@color/gray3"
             android:text="理财"
             android:drawablePadding="-5dp"
             android:drawableTop="@drawable/main_menu_select" />
@@ -50,6 +52,7 @@
             android:button="@null"
             android:text="账户"
             android:textSize="11sp"
+            android:textColor="@color/gray3"
             android:drawablePadding="-5dp"
             android:drawableTop="@drawable/main_menu_select"
             />
@@ -61,6 +64,7 @@
             android:id="@+id/radio_more"
             android:button="@null"
             android:textSize="11sp"
+            android:textColor="@color/gray3"
             android:text="更多"
             android:drawablePadding="-5dp"
             android:drawableTop="@drawable/main_menu_select"

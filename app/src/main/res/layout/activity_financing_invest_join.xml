@@ -16,6 +16,8 @@
         android:id="@+id/tv_nate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black2"
+        android:textSize="13sp"
         android:text="买入新手财富"/>
      <TextView
          android:id="@+id/tv_cast"
@@ -28,6 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/tv_cast"
+        android:textColor="@color/black2"
+        android:textSize="13sp"
         android:text="剩余可投金额0.0元"/>
  </RelativeLayout>
 <LinearLayout
@@ -40,12 +44,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black2"
+        android:textSize="13sp"
         android:text="金额（元）"/>
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:textSize="10sp"
+        android:textSize="13sp"
+        android:textColor="@color/gray5"
         android:hint="最低100元起"/>
 </LinearLayout>
 <LinearLayout
@@ -57,6 +64,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black2"
+        android:textSize="13sp"
         android:text="*锁定期内，预计收益"/>
     <TextView
         android:layout_width="wrap_content"
@@ -69,28 +78,34 @@
      android:layout_height="0dp"
      android:layout_weight="1"
      android:gravity="center_vertical"
+     android:textColor="@color/black2"
+     android:textSize="13sp"
      android:text="支付方式"/>
  <RelativeLayout
      android:layout_width="match_parent"
      android:layout_height="0dp"
      android:layout_weight="1"
      android:gravity="center_vertical"
-     android:background="#ffffff">
+     android:background="@color/white">
      <TextView
          android:id="@+id/tv_use"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
+         android:textColor="@color/black2"
+         android:textSize="13sp"
          android:text="可用金额："/>
      <TextView
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_toRightOf="@id/tv_use"
-         android:textColor="#ff0000"
+         android:textColor="@color/red"
          android:text="0.00元"/>
-     <RadioButton
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentRight="true"/>
+    <CheckBox
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:button="@null"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/check_select"/>
  </RelativeLayout>
   <TextView
       android:layout_width="match_parent"
@@ -101,23 +116,28 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:background="#ffffff">
+        android:background="@color/white">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black2"
+            android:textSize="13sp"
             android:text="网银支付："/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <CheckBox
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:checked="true"
-            android:layout_alignParentRight="true"/>
+            android:button="@null"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/check_select"/>
     </RelativeLayout>
   <TextView
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
       android:gravity="center_vertical"
-      android:textColor="#ff0000"
+      android:textColor="@color/red"
+      android:textSize="13sp"
       android:text="《服务协议》"/>
    <RelativeLayout
        android:layout_width="match_parent"
@@ -128,6 +148,8 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_centerVertical="true"
+           android:textColor="@color/black2"
+           android:textSize="13sp"
            android:text="可使用的红包"/>
        <TextView
            android:id="@+id/tv_redpacket"

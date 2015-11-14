@@ -65,7 +65,7 @@
         android:id="@+id/lv_plan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-            android:divider="#e8e9ee"
+            android:divider="@color/gray1"
          android:dividerHeight="10dp"/>
 
     </LinearLayout>

@@ -3,27 +3,29 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/dialog_corner">
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="提示"/>
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_marginTop="58dp"
-        android:layout_marginLeft="93dp"
-        android:layout_marginRight="93dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textColor="@color/black"
-        android:text="密码修改成功"/>
+        android:text="剩余可提现金额不足1元，请在次输入金额"/>
 
     <Button
         android:id="@+id/btn_finish"
-        android:layout_marginTop="22dp"
-        android:layout_marginBottom="58dp"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:background="@drawable/finish"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_btn"
+        android:text="确定"
         />
 
 </LinearLayout>

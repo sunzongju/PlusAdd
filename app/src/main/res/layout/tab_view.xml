@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="标题"
+            android:textColor="@color/black0"
             android:textSize="20sp"/>
         <ImageView
             android:id="@+id/iv_answer"

@@ -3,18 +3,18 @@ package com.wrmoney.administrator.plusadd.view;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 
 import com.wrmoney.administrator.plusadd.R;
 
-import java.nio.channels.SelectableChannel;
-
 /**
- * 密码修改成功
- * Created by Administrator on 2015/11/12.
+ * Created by Administrator on 2015/11/13.
  */
-public class MyDialog extends Dialog {
-    public MyDialog(Context context, int theme) {
+public class MoneyShorDialog extends Dialog {
+    public MoneyShorDialog(Context context) {
+        super(context);
+    }
+
+    public MoneyShorDialog (Context context, int theme) {
         super(context, theme);
     }
 
@@ -22,7 +22,6 @@ public class MyDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.custom_alterpass_succeed_dialog);
+       setContentView(R.layout.custom_money_short_dialog);
     }
-
 }

@@ -7,7 +7,7 @@ package com.wrmoney.administrator.plusadd.bean;
 public class ActivityListBean  {
     private String title;
     private String time;
-    private String content;
+    private int pic;
 
     public String getTitle() {
         return title;
@@ -25,11 +25,11 @@ public class ActivityListBean  {
         this.time = time;
     }
 
-    public String getContent() {
-        return content;
+    public int getPic() {
+        return pic;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setPic(int pic) {
+        this.pic = pic;
     }
 }

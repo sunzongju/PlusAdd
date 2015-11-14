@@ -10,13 +10,12 @@
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
-        android:background="#ffffff"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="60dp"
+            android:layout_height="43dp"
             android:gravity="center"
             android:text="+86"
             android:textSize="15sp" />
@@ -27,6 +26,7 @@
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:background="@null"
+            android:textSize="13sp"
             android:hint="清输入手机号"
             android:numeric="integer" />
     </LinearLayout>
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:text="已注册用户点击下一步进行密码验证；"
-        android:textSize="15sp" />
+        android:textSize="10sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="40dp"
         android:text="未注册用户点击下一步进行注册。"
-        android:textSize="15sp" />
+        android:textSize="10sp" />
 
     <Button
         style="@style/button_style"

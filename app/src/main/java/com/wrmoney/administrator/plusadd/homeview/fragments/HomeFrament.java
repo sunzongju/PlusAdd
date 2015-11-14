@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -22,7 +23,11 @@ import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.bean.FinancingPlanBean;
 import com.wrmoney.administrator.plusadd.financingview.adapters.FinancingPlanAdapter;
 import com.wrmoney.administrator.plusadd.homeview.adapters.HomePagerAdapter;
+import com.wrmoney.administrator.plusadd.moreview.activitys.AlterPassActivity;
+import com.wrmoney.administrator.plusadd.view.AlterPassFinishDialog;
+import com.wrmoney.administrator.plusadd.view.ClaculatorDialog;
 import com.wrmoney.administrator.plusadd.view.DiaLog;
+import com.wrmoney.administrator.plusadd.view.MoneyShorDialog;
 import com.wrmoney.administrator.plusadd.view.MyDialog;
 
 import java.util.ArrayList;
@@ -73,7 +78,9 @@ public class HomeFrament extends BaseFragment {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyDialog selectDialog = new MyDialog(activity,R.style.dialog);//创建Dialog并设置样式主题
+               //final MyDialog selectDialog = new MyDialog(activity,R.style.dialog);//创建Dialog并设置样式主题
+               // AlterPassFinishDialog dialog=new AlterPassFinishDialog(activity,R.style.dialog);
+                MoneyShorDialog dialog=new MoneyShorDialog(activity);
 //                Window win = selectDialog.getWindow();
 //                WindowManager.LayoutParams params = new WindowManager.LayoutParams();
 //                params.x = -80;//设置x坐标
@@ -81,8 +88,18 @@ public class HomeFrament extends BaseFragment {
 //                win.setAttributes(params);
 //                TextView tv=(TextView)selectDialog.findViewById(R.id.tv_title);
 //                tv.setText("哈哈");
-                selectDialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
-                selectDialog.show();
+//                LinearLayout layout=(LinearLayout)LayoutInflater.from(activity).inflate(R.layout.custom_alterpass_succeed_dialog,null);
+//                Button button=(Button)layout.findViewById(R.id.btn_finish);
+//                selectDialog.getWindow().setContentView(layout);
+                dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
+                dialog.show();
+//                button.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        selectDialog.dismiss();
+//                    }
+//                });
 //                DiaLog.AlterPassFinishDialog(this,"");
 
             }

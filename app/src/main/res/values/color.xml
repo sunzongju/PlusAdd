@@ -3,12 +3,23 @@
     <!-- 初始化默认颜色 -->
     <color name="white">#FFFFFF</color>
     <color name="black">#333333</color>
+    <color name="black0">#000000</color>
     <color name="black1">#1e0e00</color>
     <color name="black2">#555555</color>
     <color name="black3">#332b2b</color>
+    <color name="black4">#010503</color>
     <color name="gray">#999999</color>
+    <color name="gray0">#b3b3b3</color>
+    <color name="gray1">#e7e9ee</color>
+    <color name="gray2">#cfcfcf</color>
+    <color name="gray3">#666666</color>
+    <color name="gray4">#797979</color>
+    <color name="gray5">#c7c7c7</color>
+    <color name="backgro">#e8e9ee</color>
     <color name="orange">#fb7e00</color>
-    <color name="red">#ea5652</color>
+    <color name="red">#ef2121</color>
+    <color name="red0">#ea5652</color>
+    <color name="red1">#d50707</color>
     <color name="green">#39b44a</color>
     <color name="blue">#288df0</color>
     <color name="clickGray">#e5e5e5</color>

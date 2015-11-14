@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_marginTop="11dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
@@ -22,22 +22,22 @@
             android:textColor="@color/black"
             android:textSize="15sp" />
         <LinearLayout
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="23sp"
                 android:includeFontPadding="false"
                 android:textColor="@color/orange"
                 android:text="0"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray"
-                android:textSize="12sp"
+                android:textColor="@color/orange"
+                android:textSize="13sp"
                 android:text="%"/>
         <TextView
             android:id="@+id/tv_rate"
@@ -50,7 +50,7 @@
 
         <ProgressBar
             android:id="@+id/pro_rate"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
 
         <TextView
             android:id="@+id/tv_content"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"

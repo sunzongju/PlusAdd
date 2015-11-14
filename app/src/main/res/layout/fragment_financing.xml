@@ -11,7 +11,7 @@
         android:id="@+id/lv_money_plan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#ddd"
-        android:dividerHeight="20px"/>
+        android:divider="@color/gray1"
+        android:dividerHeight="10dp"/>
 
 </LinearLayout>
