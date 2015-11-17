@@ -92,18 +92,18 @@
 
     <Button
         android:id="@+id/btn_quit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/button_style"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
         android:text="是否退出计划" />
 
     <Button
         android:id="@+id/btn_http"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/button_style"
         android:layout_above="@id/btn_quit"
         android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
         android:text="借款协议" />
 
     <ListView

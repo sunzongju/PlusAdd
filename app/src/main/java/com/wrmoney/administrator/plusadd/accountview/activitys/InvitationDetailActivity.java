@@ -55,22 +55,22 @@ public class InvitationDetailActivity extends BaseActivity {
                 sAnim.setDuration(2000);
                 sAnim.setFillAfter(true);
                 //遍历所有的RadioButton
-                for (int i = 0; i < group.getChildCount(); i++) {
-                    RadioButton radioBtn = (RadioButton) group.getChildAt(i);
-                    if (radioBtn.isChecked()) {
-                        //radioBtn.startAnimation(sAnim);
-                        //radioBtn.setBackgroundColor(0xff660000);
-                        radioBtn.setBackgroundColor(0xffff6600);
-                        radioBtn.setTextColor(Color.WHITE);
-                    } else {
-                        //radioBtn.clearAnimation();
-                        //radioBtn.setBackground(border2);
-                        //radioBtn.setBackground(border2);
-                        //radioBtn.setBackgroundResource(0xffff6600);
-                        radioBtn.setBackgroundColor(0xffffffff);
-                        radioBtn.setTextColor(Color.GRAY);
-                    }
-                }
+//                for (int i = 0; i < group.getChildCount(); i++) {
+//                    RadioButton radioBtn = (RadioButton) group.getChildAt(i);
+//                    if (radioBtn.isChecked()) {
+//                        //radioBtn.startAnimation(sAnim);
+//                        //radioBtn.setBackgroundColor(0xff660000);
+//                        radioBtn.setBackgroundColor(0xffff6600);
+//                        radioBtn.setTextColor(Color.WHITE);
+//                    } else {
+//                        //radioBtn.clearAnimation();
+//                        //radioBtn.setBackground(border2);
+//                        //radioBtn.setBackground(border2);
+//                        //radioBtn.setBackgroundResource(0xffff6600);
+//                        radioBtn.setBackgroundColor(0xffffffff);
+//                        radioBtn.setTextColor(Color.GRAY);
+//                    }
+//                }
 //                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) indicator
 //                        .getLayoutParams();
                 FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();

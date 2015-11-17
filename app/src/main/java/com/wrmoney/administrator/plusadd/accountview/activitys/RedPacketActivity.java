@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -69,44 +70,44 @@ public class RedPacketActivity extends BaseActivity {
         adapter = new RedPacketAdapter(list, this);
         // lv_redpacket.setAdapter(adapter);
         RequestParams params = UserCenterParams.getBonusCode(userid, "0", "1", "10");
-//        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-//            @Override
-//            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                String result = responseInfo.result;
-//                JSONObject object = null;
-//                try {
-//                    object = new JSONObject(result);
-//                    String strResponse = object.getString("argEncPara");
-//                    String strDe = DES3Util.decode(strResponse);
-//                    //Toast.makeText(RedPacketActivity.this, strDe, Toast.LENGTH_SHORT).show();
-//                    Log.v("======", strDe);
-//                    JSONObject obj2 = new JSONObject(strDe);
-//                    JSONArray array = obj2.getJSONArray("lotteryList");
-//                    int size = array.length();
-//                    for (int i = 0; i < size; i++) {
-//                        RedPacketBean bean = new RedPacketBean();
-//                        JSONObject obj3 = array.getJSONObject(i);
-//                        bean.setLotteryAmount(obj3.getString("lotteryAmount"));
-//                        bean.setLotteryStatus(obj3.getString("lotteryStatus"));
-//                        bean.setLotteryValidTime(obj3.getString("lotteryValidTime"));
-//                        list.add(bean);
-//                    }
-//                    adapter.addAll(list);
-//
-//                    // String rescode=obj2.getString("rescode");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(HttpException e, String s) {
-//                e.printStackTrace();
-//            }
-//        });
+        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                String result = responseInfo.result;
+                JSONObject object = null;
+                try {
+                    object = new JSONObject(result);
+                    String strResponse = object.getString("argEncPara");
+                    String strDe = DES3Util.decode(strResponse);
+                    Toast.makeText(RedPacketActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                    Log.v("======", strDe);
+                    JSONObject obj2 = new JSONObject(strDe);
+                    JSONArray array = obj2.getJSONArray("lotteryList");
+                    int size = array.length();
+                    for (int i = 0; i < size; i++) {
+                        RedPacketBean bean = new RedPacketBean();
+                        JSONObject obj3 = array.getJSONObject(i);
+                        bean.setLotteryAmount(obj3.getString("lotteryAmount"));
+                        bean.setLotteryStatus(obj3.getString("lotteryStatus"));
+                        bean.setLotteryValidTime(obj3.getString("lotteryValidTime"));
+                        list.add(bean);
+                    }
+                    adapter.addAll(list);
+
+                    // String rescode=obj2.getString("rescode");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                e.printStackTrace();
+            }
+        });
     }
 
     /**
@@ -122,9 +123,9 @@ public class RedPacketActivity extends BaseActivity {
         redExpiredFragment = new RedExpiredFragment();
         transaction1.add(R.id.container, redAllFragment);
         transaction1.commit();
-        RadioButton radioBtn = (RadioButton) rg_group.getChildAt(0);
-        radioBtn.setBackgroundColor(0xffff6600);
-        radioBtn.setTextColor(Color.WHITE);
+//        RadioButton radioBtn = (RadioButton) rg_group.getChildAt(0);
+//        radioBtn.setBackgroundColor(0xffff6600);
+//        radioBtn.setTextColor(Color.WHITE);
         rg_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -135,21 +136,21 @@ public class RedPacketActivity extends BaseActivity {
                 sAnim.setFillAfter(true);
 
                 //遍历所有的RadioButton
-                for (int i = 0; i < group.getChildCount(); i++) {
-                    RadioButton radioBtn = (RadioButton) group.getChildAt(i);
-                    if (radioBtn.isChecked()) {
-                        //radioBtn.startAnimation(sAnim);
-                        //radioBtn.setBackgroundColor(0xff660000);
-                        radioBtn.setBackgroundColor(0xffff6600);
-                        radioBtn.setTextColor(Color.WHITE);
-                    } else {
-                        //radioBtn.clearAnimation();
-                        //radioBtn.setBackground(border2);
-                        //radioBtn.setBackground(border2);
-                        radioBtn.setBackgroundResource(R.drawable.border2);
-                        radioBtn.setTextColor(Color.GRAY);
-                    }
-                }
+//                for (int i = 0; i < group.getChildCount(); i++) {
+//                    RadioButton radioBtn = (RadioButton) group.getChildAt(i);
+//                    if (radioBtn.isChecked()) {
+//                        //radioBtn.startAnimation(sAnim);
+//                        //radioBtn.setBackgroundColor(0xff660000);
+//                        radioBtn.setBackgroundColor(0xffff6600);
+//                        radioBtn.setTextColor(Color.WHITE);
+//                    } else {
+//                        //radioBtn.clearAnimation();
+//                        //radioBtn.setBackground(border2);
+//                        //radioBtn.setBackground(border2);
+//                        radioBtn.setBackgroundResource(R.drawable.border2);
+//                        radioBtn.setTextColor(Color.GRAY);
+//                    }
+//                }
 //                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) indicator
 //                        .getLayoutParams();
                 FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();

@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="43dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/border"
         android:orientation="horizontal">
@@ -14,41 +14,32 @@
         <EditText
             android:id="@+id/et_pass"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@null"
+            style="@style/edit_style"
             android:hint="请设置密码" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="43dp"
         android:background="@drawable/border"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/et_repass"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@null"
+            style="@style/edit_style"
             android:hint="请重复密码" />
 
     </LinearLayout>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/button_press"
+        style="@style/button_style"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"
         android:onClick="click"
         android:text="完成"
-        android:textColor="#ffffff" />
+         />
 
 </LinearLayout>

@@ -42,6 +42,7 @@ public class FinancingFragment extends BaseFragment{
 
     public void init(){
         activity = getActivity();
+        list.clear();
         for (int i=0;i<10;i++){
             FinancingPlanBean planBean=new FinancingPlanBean();
             planBean.setTitle("标题");

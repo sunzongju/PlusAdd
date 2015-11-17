@@ -45,30 +45,30 @@ public class RechargeActivity extends BaseActivity {
             case R.id.btn_next:
                 String rechargeAmount = et_recharge.getText().toString();
                 RequestParams params = RechargeParams.getRechargeCode(userid, rechargeAmount);
-//                utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-//                    @Override
-//                    public void onSuccess(ResponseInfo<String> responseInfo) {
-//                        String result = responseInfo.result;
-//                        JSONObject object = null;
-//                        try {
-//                            object = new JSONObject(result);
-//                            String strResponse = object.getString("argEncPara");
-//                            String strDe = DES3Util.decode(strResponse);
-//                            Toast.makeText(RechargeActivity.this, strDe, Toast.LENGTH_SHORT).show();
-//                            // JSONObject obj2 = new JSONObject(strDe);
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(HttpException e, String s) {
-//                        Toast.makeText(RechargeActivity.this, "��ֵʧ��", Toast.LENGTH_SHORT).show();
-//                        e.printStackTrace();
-//                    }
-//                });
+                utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        String result = responseInfo.result;
+                        JSONObject object = null;
+                        try {
+                            object = new JSONObject(result);
+                            String strResponse = object.getString("argEncPara");
+                            String strDe = DES3Util.decode(strResponse);
+                            Toast.makeText(RechargeActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                            // JSONObject obj2 = new JSONObject(strDe);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(HttpException e, String s) {
+                        Toast.makeText(RechargeActivity.this, "��ֵʧ��", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                });
                 break;
         }
 

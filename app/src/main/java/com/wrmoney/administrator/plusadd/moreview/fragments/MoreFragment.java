@@ -31,6 +31,7 @@ import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.allinterface.FragmentCallback;
 import com.wrmoney.administrator.plusadd.encode.SetUpParams;
 import com.wrmoney.administrator.plusadd.moreview.activitys.AlterPassActivity;
+import com.wrmoney.administrator.plusadd.moreview.activitys.HelpCenterActivity;
 import com.wrmoney.administrator.plusadd.tools.CutBitmap;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
@@ -61,6 +62,7 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
     private ImageView btn_alterpass;
     private ImageView iv_photo;
     private Button btn_finish;
+    private TextView tv_help;
 
     @Nullable
     @Override
@@ -84,52 +86,54 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
         btn_finish.setOnClickListener(this);
         iv_photo = (ImageView)view.findViewById(R.id.iv_photo);//更换头像
         iv_photo.setOnClickListener(this);
+        tv_help=(TextView)view.findViewById(R.id.tv_help);
+        tv_help.setOnClickListener(this);
         tv_mobile = (TextView) view.findViewById(R.id.tv_mobile);
         tv_idCard = (TextView) view.findViewById(R.id.tv_idCard);
         tv_invitCode = (TextView) view.findViewById(R.id.tv_invitCode);
         userid = SingleUserIdTool.newInstance().getUserid();
         utils = HttpXutilTool.getUtils();
-       // userId = SingleUserId.newInstance().getUserid();
+        userId = SingleUserIdTool.newInstance().getUserid();
         RequestParams params= SetUpParams.getMysetCode(userid);
-//        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-//            @Override
-//            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                String result = responseInfo.result;
-//                try {
-//                    JSONObject obj = new JSONObject(result);
-//                    String strResponse = obj.getString("argEncPara");
-//                    String strDe = DES3Util.decode(strResponse);
-//                    Toast.makeText(activity, strDe, Toast.LENGTH_SHORT).show();
-//                    JSONObject obj2 = new JSONObject(strDe);
-//
-//                    String mobile = obj2.getString("mobile");//手机号
-//                    tv_mobile.setText(mobile);
-//                    if (obj2.has("idCard")) {
-//                        String idCard = obj2.optString("idCard");//身份证
-//                        if (idCard.length() > 0) {
-//                            tv_idCard.setText(idCard);
-//                        }
-//                    }
-//                    String invitCode = obj2.getString("invitCode");//邀请码
-//                    if (invitCode != null && !invitCode.equals("")) {
-//                        tv_invitCode.setText(invitCode);
-//                    }
-//                    //obj2.getString("idCard");//身份证
-////                            Toast.makeText(AlterPassActivity.this,"请求失败",Toast.LENGTH_SHORT).show();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(HttpException e, String s) {
-//                //e.getExceptionCode();
-//                e.printStackTrace();
-//                Toast.makeText(activity, "请求成功", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                String result = responseInfo.result;
+                try {
+                    JSONObject obj = new JSONObject(result);
+                    String strResponse = obj.getString("argEncPara");
+                    String strDe = DES3Util.decode(strResponse);
+                    Toast.makeText(activity, strDe, Toast.LENGTH_SHORT).show();
+                    JSONObject obj2 = new JSONObject(strDe);
+
+                    String mobile = obj2.getString("mobile");//手机号
+                    tv_mobile.setText(mobile);
+                    if (obj2.has("idCard")) {
+                        String idCard = obj2.optString("idCard");//身份证
+                        if (idCard.length() > 0) {
+                            tv_idCard.setText(idCard);
+                        }
+                    }
+                    String invitCode = obj2.getString("invitCode");//邀请码
+                    if (invitCode != null && !invitCode.equals("")) {
+                        tv_invitCode.setText(invitCode);
+                    }
+                    //obj2.getString("idCard");//身份证
+//                            Toast.makeText(AlterPassActivity.this,"请求失败",Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                //e.getExceptionCode();
+                e.printStackTrace();
+                Toast.makeText(activity, "请求成功", Toast.LENGTH_SHORT).show();
+            }
+        });
 //        btn_news=(Button)this.findViewById(R.id.btn_news);
 //        btn_activity=(Button)this.findViewById(R.id.btn_activity);
 //        btn_red=(Button)this.findViewById(R.id.btn_red);
@@ -193,6 +197,12 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
                 activity.setTheme(R.style.ActionSheetStyleiOS7);
                 showActionSheet();
                 break;
+            case R.id.tv_help:
+                Intent intent1=new Intent(activity, HelpCenterActivity.class);
+                startActivity(intent1);
+                break;
+            default:
+                break;
 
         }
     }
@@ -225,5 +235,8 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
 
         }
     }
+
+
+
 
 }

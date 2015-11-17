@@ -55,11 +55,11 @@ public class ActivityCenterActivity extends BaseActivity {
 
     private void init() {
         getIntent().getStringExtra("USERID");
+        list.clear();
         for(int i=0;i<3;i++){
             ActivityListBean bean=new ActivityListBean();
             bean.setPic(pics[i]);
             list.add(bean);
-
         }
         lv_news = (ListView) this.findViewById(R.id.lv_news);
         adapter = new ActivityCenterAdapter(list, this);
@@ -67,38 +67,38 @@ public class ActivityCenterActivity extends BaseActivity {
         userid = SingleUserIdTool.newInstance().getUserid();
         utils = HttpXutilTool.getUtils();
         RequestParams params = UserCenterParams.getMessageListCode(userid, "1", "10");
-//        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-//            @Override
-//            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                String result = responseInfo.result;
-//                JSONObject object = null;
-//                try {
-//                    object = new JSONObject(result);
-//                    String strResponse = object.getString("argEncPara");
-//                    String strDe = DES3Util.decode(strResponse);
-//                    Toast.makeText(ActivityCenterActivity.this, strDe, Toast.LENGTH_SHORT).show();
-//                    for (int i = 0; i < 10; i++) {
-//                        ActivityListBean bean = new ActivityListBean();
-//                        bean.setTitle("活动");
-//                        bean.setTime("2015-08-16 14:30");
-//                        bean.setContent("����������������������������������������");
-//                        list.add(bean);
-//                    }
-//                    adapter.addAll(list);
-//                    //JSONObject obj2=new JSONObject(strDe);
-//                    // String rescode=obj2.getString("rescode");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(HttpException e, String s) {
-//                e.printStackTrace();
-//            }
-//        });
+        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                String result = responseInfo.result;
+                JSONObject object = null;
+                try {
+                    object = new JSONObject(result);
+                    String strResponse = object.getString("argEncPara");
+                    String strDe = DES3Util.decode(strResponse);
+                    Toast.makeText(ActivityCenterActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                    for (int i = 0; i < 10; i++) {
+                        ActivityListBean bean = new ActivityListBean();
+                        bean.setTitle("活动");
+                        bean.setTime("2015-08-16 14:30");
+                       // bean.setContent("����������������������������������������");
+                        //list.add(bean);
+                    }
+                   // adapter.addAll(list);
+                    //JSONObject obj2=new JSONObject(strDe);
+                    // String rescode=obj2.getString("rescode");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                e.printStackTrace();
+            }
+        });
     }
 }

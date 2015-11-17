@@ -95,13 +95,9 @@
         android:layout_height="43dp"
         android:background="@color/white">
         <EditText
-            android:layout_marginLeft="10dp"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@null"
-            android:textColor="@color/gray4"
-            android:textSize="13sp"
+            style="@style/edit_style"
             android:hint="您的邀请码：F40201"/>
         <TextView
             android:id="@+id/tv_invitation"

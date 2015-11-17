@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="146dp"
+        android:gravity="center"
+        android:textSize="17sp"
+        android:text="请选择要使用的抵用券"/>
+    <ListView
+        android:id="@+id/lv_vou"
+        android:layout_width="match_parent"
+        android:layout_height="176dp"/>
+    <Button
+        android:id="@+id/btn_sure"
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:text="确定"/>
+</LinearLayout>

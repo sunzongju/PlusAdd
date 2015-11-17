@@ -4,13 +4,25 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.wrmoney.administrator.plusadd.BaseActivity;
+import com.wrmoney.administrator.plusadd.MainActivity;
 import com.wrmoney.administrator.plusadd.R;
+import com.wrmoney.administrator.plusadd.accountview.adapters.VoucherAdapter;
+import com.wrmoney.administrator.plusadd.view.VoucherDialog;
+
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2015/11/3.
@@ -18,6 +30,11 @@ import android.widget.Toast;
 public class InvestJoinActivity extends BaseActivity {
     private TextView tv_redpacket;
     private TextView tv_nate;
+    private ListView lv_vou;
+    private List<String> list = new ArrayList<String>();
+    private String[] str={};
+    private Button btn_sure;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +45,17 @@ public class InvestJoinActivity extends BaseActivity {
         tv_redpacket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupWindow(v);
+//                showPopupWindow(v);
+                VoucherDialog dialog=new VoucherDialog(InvestJoinActivity.this,R.style.dialog);
+//                lv_vou=(ListView)dialog.findViewById(R.id.lv_vou);
+//
+//                for (int i = 0; i <4; i++) {
+//                    list.add("抵用券名称");
+//                }
+               // lv_vou.setAdapter(adapter);
+                dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
+                dialog.show();
+
             }
         });
 

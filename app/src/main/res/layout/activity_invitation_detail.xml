@@ -10,7 +10,6 @@
         android:id="@+id/rg_invitation"
         android:layout_width="match_parent"
         android:layout_height="31dp"
-        android:background="#ffffff"
         android:orientation="horizontal">
         <RadioButton
             android:id="@+id/btn_all"

@@ -65,9 +65,9 @@ public class InvestMentActivity extends BaseActivity{
         rg_invest=(RadioGroup) this.findViewById(R.id.rg_invest);
         lv_invest = (ListView) this.findViewById(R.id.lv_invest);
         userid = getIntent().getStringExtra("USERID");
-        RadioButton radioBtn = (RadioButton) rg_invest.getChildAt(0);
-        radioBtn.setBackgroundColor(0xffff6600);
-        radioBtn.setTextColor(Color.WHITE);
+//        RadioButton radioBtn = (RadioButton) rg_invest.getChildAt(0);
+//        radioBtn.setBackgroundColor(0xffff6600);
+//        radioBtn.setTextColor(Color.WHITE);
         list.clear();
         for(int i=0;i<2;i++){
             InvestMentBean bean=new InvestMentBean();
@@ -84,22 +84,22 @@ public class InvestMentActivity extends BaseActivity{
                 sAnim.setDuration(2000);
                 sAnim.setFillAfter(true);
                 //遍历所有的RadioButton
-                for (int i = 0; i < group.getChildCount(); i++) {
-                    RadioButton radioBtn = (RadioButton) group.getChildAt(i);
-                    if (radioBtn.isChecked()) {
-                        //radioBtn.startAnimation(sAnim);
-                        //radioBtn.setBackgroundColor(0xff660000);
-                        radioBtn.setBackgroundColor(0xffff6600);
-                        radioBtn.setTextColor(Color.WHITE);
-                    } else {
-                        //radioBtn.clearAnimation();
-                        //radioBtn.setBackground(border2);
-                        //radioBtn.setBackground(border2);
-                        //radioBtn.setBackgroundResource(0xffff6600);
-                        radioBtn.setBackgroundColor(0xffffffff);
-                        radioBtn.setTextColor(Color.GRAY);
-                    }
-                }
+//                for (int i = 0; i < group.getChildCount(); i++) {
+//                    RadioButton radioBtn = (RadioButton) group.getChildAt(i);
+//                    if (radioBtn.isChecked()) {
+//                        //radioBtn.startAnimation(sAnim);
+//                        //radioBtn.setBackgroundColor(0xff660000);
+//                        radioBtn.setBackgroundColor(0xffff6600);
+//                        radioBtn.setTextColor(Color.WHITE);
+//                    } else {
+//                        //radioBtn.clearAnimation();
+//                        //radioBtn.setBackground(border2);
+//                        //radioBtn.setBackground(border2);
+//                        //radioBtn.setBackgroundResource(0xffff6600);
+//                        radioBtn.setBackgroundColor(0xffffffff);
+//                        radioBtn.setTextColor(Color.GRAY);
+//                    }
+//                }
 //                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) indicator
 //                        .getLayoutParams();
                 FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
@@ -133,31 +133,31 @@ public class InvestMentActivity extends BaseActivity{
 
         utils = HttpXutilTool.getUtils();
         RequestParams params = UserCenterParams.getInvestManagerCode(userid, "0", "1", "10");
-//        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-//            @Override
-//            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                String result = responseInfo.result;
-//                JSONObject object = null;
-//                try {
-//                    object = new JSONObject(result);
-//                    String strResponse = object.getString("argEncPara");
-//                    String strDe = DES3Util.decode(strResponse);
-//                    Toast.makeText(InvestMentActivity.this, strDe, Toast.LENGTH_SHORT).show();
-//                    //JSONObject obj2=new JSONObject(strDe);
-//                    // String rescode=obj2.getString("rescode");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(HttpException e, String s) {
-//                e.printStackTrace();
-//                Toast.makeText(InvestMentActivity.this, "失败", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                String result = responseInfo.result;
+                JSONObject object = null;
+                try {
+                    object = new JSONObject(result);
+                    String strResponse = object.getString("argEncPara");
+                    String strDe = DES3Util.decode(strResponse);
+                    Toast.makeText(InvestMentActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                    //JSONObject obj2=new JSONObject(strDe);
+                    // String rescode=obj2.getString("rescode");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                e.printStackTrace();
+                Toast.makeText(InvestMentActivity.this, "失败", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

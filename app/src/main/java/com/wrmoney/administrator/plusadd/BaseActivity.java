@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.wrmoney.administrator.plusadd.tools.ActivityCollectorTool;
 
@@ -17,6 +19,9 @@ public class BaseActivity extends AppCompatActivity {
         ActivityCollectorTool.addActivity(this);
         ActionBar supportActionBar = getSupportActionBar();
         supportActionBar.hide();
+        //(ImageView)this.findViewById(R.id.iv_return);
+
+
     }
 
     @Override
@@ -24,4 +29,19 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         ActivityCollectorTool.removeActivity(this);
     }
+
+    public void click(View view){
+        switch (view.getId()){
+            case R.id.iv_return:
+                finish();
+                break;
+            default:
+                break;
+
+
+        }
+
+
+    }
+
 }

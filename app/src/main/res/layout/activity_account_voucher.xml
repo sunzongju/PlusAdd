@@ -4,4 +4,80 @@
     android:layout_height="match_parent"
     android:background="#e8e9ee">
 
+    <include layout="@layout/tab_view"/>
+    <LinearLayout
+        android:layout_marginTop="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@color/white"
+            android:text="我收到的"/>
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@color/white"
+            android:text="我收到的"/>
+    </LinearLayout>
+   <LinearLayout
+       android:layout_marginTop="10dp"
+       android:layout_width="match_parent"
+       android:layout_height="90dp"
+       android:orientation="horizontal">
+
+       <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:gravity="center"
+           android:background="@color/white"
+           android:layout_weight="1">
+           <TextView
+               android:id="@+id/tv_lab1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="累计获得（元）"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/tv_lab1"
+               android:text="90.00"/>
+       </RelativeLayout>
+       <TextView
+           android:layout_width="1dp"
+           android:layout_height="match_parent" />
+       <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:gravity="center"
+           android:background="@color/white"
+           android:layout_weight="1">
+           <TextView
+               android:id="@+id/tv_lab2"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="累计获得（个）"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/tv_lab2"
+               android:text="13"/>
+       </RelativeLayout>
+
+   </LinearLayout>
+   <ListView
+       android:id="@+id/lv_red"
+       android:layout_marginTop="10dp"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       />
+
 </LinearLayout>

@@ -168,15 +168,10 @@
            <!--android:src="@drawable/index1" />-->
 
    </RelativeLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_press"
-        android:textColor="#ffffff"
+        android:layout_marginTop="40dp"
+        style="@style/button_style"
+        android:layout_gravity="center_horizontal"
         android:text="确定买入"/>
     <TextView
         android:layout_width="match_parent"

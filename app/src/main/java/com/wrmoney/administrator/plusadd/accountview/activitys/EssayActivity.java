@@ -48,29 +48,29 @@ public class EssayActivity extends BaseActivity{
                 String drawalAmount=et_essay.getText().toString();
                 String captcha=et_captcha.getText().toString();
                 RequestParams params= RechargeParams.getWithdrawCashCode(userid, drawalAmount, captcha);
-//                utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-//                    @Override
-//                    public void onSuccess(ResponseInfo<String> responseInfo) {
-//                        String result = responseInfo.result;
-//                        JSONObject object = null;
-//                        try {
-//                            object = new JSONObject(result);
-//                            String strResponse = object.getString("argEncPara");
-//                            String strDe = DES3Util.decode(strResponse);
-//                            Toast.makeText(EssayActivity.this, strDe, Toast.LENGTH_SHORT).show();
-//                            // JSONObject obj2 = new JSONObject(strDe);
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                    @Override
-//                    public void onFailure(HttpException e, String s) {
-//                        Toast.makeText(EssayActivity.this,"取现失败",Toast.LENGTH_SHORT).show();
-//                        e.printStackTrace();
-//                    }
-//                });
+                utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        String result = responseInfo.result;
+                        JSONObject object = null;
+                        try {
+                            object = new JSONObject(result);
+                            String strResponse = object.getString("argEncPara");
+                            String strDe = DES3Util.decode(strResponse);
+                            Toast.makeText(EssayActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                            // JSONObject obj2 = new JSONObject(strDe);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onFailure(HttpException e, String s) {
+                        Toast.makeText(EssayActivity.this,"取现失败",Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                });
                 break;
         }
     }

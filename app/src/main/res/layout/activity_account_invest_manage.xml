@@ -78,28 +78,32 @@
     <RadioGroup
         android:id="@+id/rg_invest"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_height="29dp"
         android:orientation="horizontal">
         <RadioButton
+            android:layout_marginLeft="1dp"
             android:id="@+id/btn_all"
             style="@style/radio_style2"
-            android:background="@null"
+            android:checked="true"
             android:text="全部"/>
         <RadioButton
+            android:layout_marginLeft="1dp"
             android:id="@+id/btn_locked"
             style="@style/radio_style2"
             android:text="已锁定"
             />
         <RadioButton
+            android:layout_marginLeft="1dp"
             android:id="@+id/btn_unlock"
             style="@style/radio_style2"
             android:text="已解锁"/>
         <RadioButton
+            android:layout_marginLeft="1dp"
             android:id="@+id/btn_quit"
             style="@style/radio_style2"
             android:text="退出中"/>
         <RadioButton
+            android:layout_marginLeft="1dp"
             android:id="@+id/btn_quited"
             style="@style/radio_style2"
             android:text="已退出"/>

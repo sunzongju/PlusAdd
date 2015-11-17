@@ -34,13 +34,12 @@
     <RadioGroup
         android:id="@+id/rg_water"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
+        android:layout_height="29dp"
         android:orientation="horizontal">
         <RadioButton
             android:id="@+id/btn_all"
             style="@style/radio_style2"
-            android:background="@null"
+            android:checked="true"
             android:text="全部"/>
         <RadioButton
             android:id="@+id/btn_add"

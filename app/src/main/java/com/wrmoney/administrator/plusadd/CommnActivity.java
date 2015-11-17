@@ -103,11 +103,11 @@ public class CommnActivity extends BaseActivity implements CompoundButton.OnChec
                 break;
             case R.id.radio_account:
 
-//                if (userid == null) {
-//                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
-//                    Intent intent00 = new Intent(this, PhoneActivity.class);
-//                    startActivity(intent00);
-//                } else {
+                if (userid == null) {
+                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
+                    Intent intent00 = new Intent(this, PhoneActivity.class);
+                    startActivity(intent00);
+                } else {
                     if (!accountFragment.isAdded()){
                         transaction2.replace(R.id.frag_container, accountFragment);
                     }
@@ -115,14 +115,14 @@ public class CommnActivity extends BaseActivity implements CompoundButton.OnChec
                         transaction2.show(accountFragment);
                     }
                     transaction2.commit();
-               // }
+                }
                 break;
             case R.id.radio_more:
-//                if (userid == null) {
-//                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
-//                    Intent intent00 = new Intent(this, PhoneActivity.class);
-//                    startActivity(intent00);
-//                } else {
+                if (userid == null) {
+                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
+                    Intent intent00 = new Intent(this, PhoneActivity.class);
+                    startActivity(intent00);
+                } else {
                     if (!moreFragment.isAdded()){
                         transaction2.replace(R.id.frag_container, moreFragment);
                     }
@@ -130,7 +130,7 @@ public class CommnActivity extends BaseActivity implements CompoundButton.OnChec
                         transaction2.show(moreFragment);
                     }
                     transaction2.commit();
-//                }
+                }
                 break;
             default:
                 break;
