@@ -8,9 +8,11 @@
     <include layout="@layout/tab_view" />
 
  <ListView
+     android:layout_marginTop="14dp"
      android:id="@+id/lv_product"
      android:layout_width="match_parent"
-     android:layout_height="match_parent"/>
+     android:layout_height="match_parent"
+     android:background="@color/white"/>
 
 
 

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="14dp"
         android:text="我们已经发送短信验证码至150****9818，请在输入框内填写
 验证码，若未收到请耐心等候" />
 

@@ -21,11 +21,13 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.wrmoney.administrator.plusadd.BaseActivity;
 import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.accountview.adapters.RedPacketAdapter;
+import com.wrmoney.administrator.plusadd.accountview.adapters.VouchersAdapter;
 import com.wrmoney.administrator.plusadd.accountview.fragments.RedAllFragment;
 import com.wrmoney.administrator.plusadd.accountview.fragments.RedAvailableFragment;
 import com.wrmoney.administrator.plusadd.accountview.fragments.RedExpiredFragment;
 import com.wrmoney.administrator.plusadd.accountview.fragments.RedUsedFragment;
 import com.wrmoney.administrator.plusadd.bean.RedPacketBean;
+import com.wrmoney.administrator.plusadd.bean.VoucherBean;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
@@ -46,7 +48,7 @@ import java.util.List;
 public class RedPacketActivity extends BaseActivity {
     private String userid;
     private HttpUtils utils;
-    private List<RedPacketBean> list = new ArrayList<RedPacketBean>();
+    private List<VoucherBean> list = new ArrayList<VoucherBean>();
     private ListView lv_redpacket;
     private RedPacketAdapter adapter;
     private RadioGroup rg_group;
@@ -56,6 +58,7 @@ public class RedPacketActivity extends BaseActivity {
     private RedAvailableFragment redAvailable;
     private RedUsedFragment redUsedFragment;
     private RedExpiredFragment redExpiredFragment;
+    private ListView lv_voucher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,7 @@ public class RedPacketActivity extends BaseActivity {
         getIntent().getStringExtra("USERID");
         userid = SingleUserIdTool.newInstance().getUserid();
         utils = HttpXutilTool.getUtils();
-        adapter = new RedPacketAdapter(list, this);
+//        adapter = new RedPacketAdapter(list, this);
         // lv_redpacket.setAdapter(adapter);
         RequestParams params = UserCenterParams.getBonusCode(userid, "0", "1", "10");
         utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
@@ -84,15 +87,15 @@ public class RedPacketActivity extends BaseActivity {
                     JSONObject obj2 = new JSONObject(strDe);
                     JSONArray array = obj2.getJSONArray("lotteryList");
                     int size = array.length();
-                    for (int i = 0; i < size; i++) {
-                        RedPacketBean bean = new RedPacketBean();
-                        JSONObject obj3 = array.getJSONObject(i);
-                        bean.setLotteryAmount(obj3.getString("lotteryAmount"));
-                        bean.setLotteryStatus(obj3.getString("lotteryStatus"));
-                        bean.setLotteryValidTime(obj3.getString("lotteryValidTime"));
-                        list.add(bean);
-                    }
-                    adapter.addAll(list);
+//                    for (int i = 0; i < size; i++) {
+//                        RedPacketBean bean = new RedPacketBean();
+//                        JSONObject obj3 = array.getJSONObject(i);
+//                        bean.setLotteryAmount(obj3.getString("lotteryAmount"));
+//                        bean.setLotteryStatus(obj3.getString("lotteryStatus"));
+//                        bean.setLotteryValidTime(obj3.getString("lotteryValidTime"));
+//                        list.add(bean);
+//                    }
+//                    adapter.addAll(list);
 
                     // String rescode=obj2.getString("rescode");
                 } catch (JSONException e) {
@@ -115,14 +118,19 @@ public class RedPacketActivity extends BaseActivity {
      */
     public void init() {
         rg_group = (RadioGroup) this.findViewById(R.id.rg);
+        lv_voucher=(ListView)this.findViewById(R.id.lv_voucher);
+        for (int i=0;i<3;i++){
+            VoucherBean bean=new VoucherBean();
+            list.add(bean);
+        }
+        VouchersAdapter adapter=new VouchersAdapter(list,this);
+        lv_voucher.setAdapter(adapter);
         //indicator = (TextView)this.findViewById(R.id.indicator);
         transaction1 = getSupportFragmentManager().beginTransaction();
         redAllFragment = new RedAllFragment();
         redAvailable = new RedAvailableFragment();
         redUsedFragment = new RedUsedFragment();
         redExpiredFragment = new RedExpiredFragment();
-        transaction1.add(R.id.container, redAllFragment);
-        transaction1.commit();
 //        RadioButton radioBtn = (RadioButton) rg_group.getChildAt(0);
 //        radioBtn.setBackgroundColor(0xffff6600);
 //        radioBtn.setTextColor(Color.WHITE);
@@ -158,42 +166,19 @@ public class RedPacketActivity extends BaseActivity {
                     case R.id.btn1:
 //                        params.leftMargin = (int) ((0.5) * params.width);
 //                        indicator.setLayoutParams(params);
-                        if (!redAllFragment.isAdded()) {
-                            transaction2.replace(R.id.container, redAllFragment);
-                        } else {
-                            transaction2.show(redAllFragment);
-                        }
                         transaction2.commit();
                         break;
                     case R.id.btn2:
 //                        params.leftMargin = (int) ((2.5) * params.width);
 //                        indicator.setLayoutParams(params);
-                        if (!redAvailable.isAdded()) {
-                            transaction2.replace(R.id.container, redAvailable);
-                        } else {
-                            transaction2.show(redAvailable);
-                        }
-                        transaction2.commit();
                         break;
                     case R.id.btn3:
 //                        params.leftMargin = (int) ((4) * params.width);
 //                        indicator.setLayoutParams(params);
-                        if (!redUsedFragment.isAdded()) {
-                            transaction2.replace(R.id.container, redUsedFragment);
-                        } else {
-                            transaction2.show(redUsedFragment);
-                        }
-                        transaction2.commit();
                         break;
                     case R.id.btn4:
 //                        params.leftMargin = (int) ((5.5) * params.width);
 //                        indicator.setLayoutParams(params);
-                        if (!redExpiredFragment.isAdded()) {
-                            transaction2.replace(R.id.container, redExpiredFragment);
-                        } else {
-                            transaction2.show(redExpiredFragment);
-                        }
-                        transaction2.commit();
                         break;
                     default:
                         break;

@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e8e9ee">
+    android:background="@color/backgro">
+
+    <include layout="@layout/tab_view"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="14dp"
         android:orientation="vertical">
 
         <RadioGroup
@@ -45,9 +47,19 @@
         <!--android:background="#00ff00"/>-->
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/container"
+    <!--<FrameLayout-->
+        <!--android:id="@+id/container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="9dp"
+        android:background="@color/backgro"/>
+   <ListView
+       android:id="@+id/lv_voucher"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:dividerHeight="10dp"
+       android:divider="@color/backgro"
+       />
 </LinearLayout>

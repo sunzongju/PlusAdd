@@ -71,13 +71,16 @@
                android:layout_below="@id/tv_lab2"
                android:text="13"/>
        </RelativeLayout>
-
    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
    <ListView
        android:id="@+id/lv_red"
-       android:layout_marginTop="10dp"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
+       android:dividerHeight="10dp"
+       android:divider="@color/backgro"
        />
 
 </LinearLayout>

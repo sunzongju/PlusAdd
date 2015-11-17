@@ -1,101 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e8e9ee">
+    android:orientation="vertical"
+    android:background="@color/backgro">
 
-    <LinearLayout
-        android:id="@+id/rl_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:background="@drawable/border"
-            android:src="@mipmap/ic_launcher"
-            android:text="已解锁" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/border">
-
-                <TextView
-                    android:id="@+id/tv_rate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="预期收益率8%" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_rate"
-                    android:text="2015-08-06" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:text="财富A计划" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:background="@drawable/border">
-
-                <TextView
-                    android:id="@+id/tv_buy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="买入金额" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_buy"
-                    android:text="1000.0" />
-
-                <TextView
-                    android:id="@+id/tv_lock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="锁定期" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@id/tv_lock"
-                    android:text="360天" />
-            </RelativeLayout>
-        </LinearLayout>
-    </LinearLayout>
-
+    <include layout="@layout/tab_view"/>
     <TextView
-        android:id="@+id/tv_lable"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_title"
-        android:text="债权明细" />
+        android:layout_height="10dp" />
+    <include layout="@layout/account_invest_ment_item"/>
+    <TextView
+        android:paddingLeft="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/gray3"
+        android:textSize="13sp"
+        android:text="债权明细"/>
 
+    <ListView
+        android:id="@+id/lv_creditor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+       />
     <Button
         android:id="@+id/btn_quit"
         style="@style/button_style"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:text="是否退出计划" />
 
     <Button
@@ -103,14 +38,7 @@
         style="@style/button_style"
         android:layout_above="@id/btn_quit"
         android:layout_marginBottom="20dp"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:text="借款协议" />
 
-    <ListView
-        android:id="@+id/lv_invest"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/btn_http"
-        android:layout_below="@id/tv_lable" />
-
-</RelativeLayout>
+</LinearLayout>

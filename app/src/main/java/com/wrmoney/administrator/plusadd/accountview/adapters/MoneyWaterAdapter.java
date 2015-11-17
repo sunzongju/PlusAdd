@@ -43,7 +43,7 @@ public class MoneyWaterAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.account_money_water_item, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.account_money_water_item,parent,false);
             convertView.setTag(new ViewHolder(convertView));
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();

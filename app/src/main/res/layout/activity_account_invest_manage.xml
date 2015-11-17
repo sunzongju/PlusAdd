@@ -73,7 +73,7 @@
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="10dp"
         android:background="@color/gray1"/>
     <RadioGroup
         android:id="@+id/rg_invest"
@@ -110,11 +110,13 @@
     </RadioGroup>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="10dp"
         android:background="@color/gray1"/>
     <ListView
         android:id="@+id/lv_invest"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:dividerHeight="10dp"
+        android:divider="@color/backgro"/>
 
 </LinearLayout>

@@ -17,6 +17,7 @@
     <color name="gray4">#797979</color>
     <color name="gray5">#c7c7c7</color>
     <color name="gray6">#aaaaaa</color>
+    <color name="gray7">#8e8e8e</color>
     <color name="backgro">#e8e9ee</color>
     <color name="orange">#fb7e00</color>
     <color name="red">#ef2121</color>
@@ -24,6 +25,8 @@
     <color name="red1">#d50707</color>
     <color name="red2">#FF4040</color>
     <color name="red3">#f72349</color>
+    <color name="red4">#ff5555</color>
+    <color name="red5">#ff4343</color>
     <color name="green">#39b44a</color>
     <color name="blue">#288df0</color>
     <color name="clickGray">#e5e5e5</color>

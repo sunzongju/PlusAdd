@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="44dp"
+    android:gravity="center_vertical"
+    android:background="@color/white"
     >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:background="#ffffff">
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/water_lab"/>
+        android:layout_marginLeft="15dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/account_01"/>
     <LinearLayout
+        android:layout_marginLeft="15dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -24,23 +22,24 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="13sp"
+            android:textColor="@color/gray3"
             android:text="2015-08-06"/>
         <TextView
             android:id="@+id/tv_type"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="13sp"
+            android:textColor="@color/gray3"
             android:text="用户充值"/>
         <TextView
             android:id="@+id/tv_money"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/red"
+            android:textSize="13sp"
             android:text="+1,000,0"/>
     </LinearLayout>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="#e8e9ee"/>
 </LinearLayout>
