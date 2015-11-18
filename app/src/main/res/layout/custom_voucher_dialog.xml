@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="270dp"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="146dp"
+        android:layout_height="73dp"
         android:gravity="center"
         android:textSize="17sp"
+        android:textColor="@color/black0"
         android:text="请选择要使用的抵用券"/>
     <ListView
         android:id="@+id/lv_vou"
@@ -17,7 +18,12 @@
         android:layout_height="176dp"/>
     <Button
         android:id="@+id/btn_sure"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="220dp"
         android:layout_height="40dp"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_press"
         android:text="确定"/>
 </LinearLayout>

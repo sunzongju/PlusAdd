@@ -1,9 +1,12 @@
 package com.wrmoney.administrator.plusadd.moreview.activitys;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lidroid.xutils.HttpUtils;
@@ -12,12 +15,14 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.wrmoney.administrator.plusadd.CommnActivity;
 import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.encode.SetUpParams;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
+import com.wrmoney.administrator.plusadd.view.AlterPassFinishDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +38,7 @@ public class AlterPassActivity extends Activity {
     private String userId;
     private String oldPwd;
     private String password;
+    private AlterPassFinishDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +70,30 @@ public class AlterPassActivity extends Activity {
                         String strResponse = obj.getString("argEncPara");
                         String strDe = DES3Util.decode(strResponse);
                         Toast.makeText(AlterPassActivity.this, strDe, Toast.LENGTH_SHORT).show();
-//                            JSONObject obj2=new JSONObject(strDe);
+                        JSONObject obj2=new JSONObject(strDe);
+                        String rescode = obj2.getString("rescode");
+                        if ("0000".equals(rescode)) {
+                            dialog=new AlterPassFinishDialog(AlterPassActivity.this,R.style.dialog);
+                            dialog.setCanceledOnTouchOutside(true);//ÔøΩÔøΩÔøΩ√µÔøΩÔøΩDialogÔøΩ‚≤øÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÿ±ÔøΩDialog
+                            dialog.show();
+//                DiaLog.AlterPassFinishDialog(this,"");
+                            Button btn_finsish=(Button)dialog.findViewById(R.id.btn_finish);
+                            TextView textView=(TextView)dialog.findViewById(R.id.tv_title);
+                            textView.setText("ÂØÜÁ†Å‰øÆÊîπÊàêÂäü");
+                            btn_finsish.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+//                                    Intent intent = new Intent(AlterPassActivity.this, CommnActivity.class);
+//                                    AlterPassActivity.this.startActivity(intent);
+                                    AlterPassActivity.this.finish();
+                                }
+                            });
+                        } else {
+                            // Toast.makeText(FindwordActivity.this, "???", Toast.LENGTH_SHORT).show();
+                        }
 //                            String type=obj2.getString("isRegFlag");
-//                            Toast.makeText(AlterPassActivity.this,"«Î«Û ß∞‹",Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(AlterPassActivity.this,"ÔøΩÔøΩÔøΩÔøΩ ßÔøΩÔøΩ",Toast.LENGTH_SHORT).show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     } catch (Exception e) {
@@ -78,7 +105,7 @@ public class AlterPassActivity extends Activity {
                 public void onFailure(HttpException e, String s) {
                     //e.getExceptionCode();
                     e.printStackTrace();
-                    Toast.makeText(AlterPassActivity.this, "«Î«Û≥…π¶", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AlterPassActivity.this, "ÔøΩÔøΩÔøΩÔøΩ…πÔøΩ", Toast.LENGTH_SHORT).show();
                 }
             });
 

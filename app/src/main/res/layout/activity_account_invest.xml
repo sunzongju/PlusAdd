@@ -31,6 +31,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
         android:layout_gravity="center_horizontal"
+        android:onClick="click"
         android:text="是否退出计划" />
 
     <Button
@@ -39,6 +40,7 @@
         android:layout_above="@id/btn_quit"
         android:layout_marginBottom="20dp"
         android:layout_gravity="center_horizontal"
+        android:onClick="click"
         android:text="借款协议" />
 
 </LinearLayout>

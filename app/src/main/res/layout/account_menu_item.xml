@@ -4,7 +4,7 @@
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="76dp"
-    android:background="#e8e9ee">
+    android:background="@color/backgro">
 
     <!--<Button-->
     <!--android:id="@+id/btn_investment"-->

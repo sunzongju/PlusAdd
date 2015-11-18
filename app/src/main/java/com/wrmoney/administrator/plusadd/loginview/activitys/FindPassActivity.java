@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.wrmoney.administrator.plusadd.encode.LoginParams;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
+import com.wrmoney.administrator.plusadd.view.AlterPassFinishDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +34,7 @@ public class FindPassActivity extends Activity {
     private EditText et_repass;
     private HttpUtils utils;
     private String mobile;
+    private AlterPassFinishDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +64,24 @@ public class FindPassActivity extends Activity {
                         String rescode = obj2.getString("rescode");
                         //Toast.makeText(FindwordActivity.this,rescode , Toast.LENGTH_SHORT).show();
                         if ("0000".equals(rescode)) {
-                            Intent intent = new Intent(FindPassActivity.this, CommnActivity.class);
-                            //intent.putExtra("MOBILE", mobile);
-                            //intent.putExtra("CAPTCHA", captcha);
-                            startActivity(intent);
+//                            Intent intent = new Intent(FindPassActivity.this, CommnActivity.class);
+//                            //intent.putExtra("MOBILE", mobile);
+//                            //intent.putExtra("CAPTCHA", captcha);
+//                            startActivity(intent);
+
+                            dialog=new AlterPassFinishDialog(FindPassActivity.this,R.style.dialog);
+                            dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
+                            dialog.show();
+//                DiaLog.AlterPassFinishDialog(this,"");
+                            Button btn_finsish=(Button)dialog.findViewById(R.id.btn_finish);
+                            btn_finsish.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    Intent intent = new Intent(FindPassActivity.this, CommnActivity.class);
+                                    FindPassActivity.this.startActivity(intent);
+                                }
+                            });
                         } else {
                             // Toast.makeText(FindwordActivity.this, "???", Toast.LENGTH_SHORT).show();
                         }

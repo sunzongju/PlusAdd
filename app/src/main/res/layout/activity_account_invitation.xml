@@ -84,6 +84,7 @@
 
     <TextView
         android:id="@+id/tv_indetail"
+        android:paddingRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="33dp"
         android:gravity="right|center_vertical"

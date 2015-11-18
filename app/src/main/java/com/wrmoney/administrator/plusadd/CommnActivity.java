@@ -2,6 +2,7 @@ package com.wrmoney.administrator.plusadd;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -50,8 +51,14 @@ public class CommnActivity extends BaseActivity implements CompoundButton.OnChec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commn);
+
+//        drawables = getCompoundDrawables();
+//        drawables[1].setBounds();
+//        setCompoundDrawables(drawables[0],drawables[1],drawables[2].drawables[3]);
+
         userid = SingleUserIdTool.newInstance().getUserid();
         radio_home = ((RadioButton) findViewById(R.id.radio_home));
+        //radio_home.setCompoundDrawables(10,10,10,10);
         radio_financing = ((RadioButton) findViewById(R.id.radio_financing));
         radio_account = ((RadioButton) findViewById(R.id.radio_account));
         radio_more = ((RadioButton) findViewById(R.id.radio_more));

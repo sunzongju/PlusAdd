@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e8e9ee">
+    android:background="@color/backgro">
 
     <include layout="@layout/tab_view" />
 
@@ -14,6 +14,7 @@
      >
     <TextView
         android:id="@+id/tv_nate"
+        android:layout_marginLeft="13dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black2"
@@ -21,6 +22,7 @@
         android:text="买入新手财富"/>
      <TextView
          android:id="@+id/tv_cast"
+         android:layout_marginRight="13dp"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_alignParentRight="true"
@@ -32,7 +34,7 @@
         android:layout_toLeftOf="@id/tv_cast"
         android:textColor="@color/black2"
         android:textSize="13sp"
-        android:text="剩余可投金额0.0元"/>
+        android:text="剩余可投金额"/>
  </RelativeLayout>
 <LinearLayout
     android:layout_width="match_parent"
@@ -42,6 +44,7 @@
     android:gravity="center_vertical"
     android:background="#ffffff">
     <TextView
+        android:layout_marginLeft="13dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black2"
@@ -62,6 +65,7 @@
     android:gravity="center_vertical"
     android:orientation="horizontal">
     <TextView
+        android:layout_marginLeft="13dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black2"
@@ -74,6 +78,7 @@
         android:text="0.00元"/>
 </LinearLayout>
  <TextView
+     android:paddingLeft="13dp"
      android:layout_width="match_parent"
      android:layout_height="0dp"
      android:layout_weight="1"
@@ -89,6 +94,7 @@
      android:background="@color/white">
      <TextView
          android:id="@+id/tv_use"
+         android:layout_marginLeft="13dp"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:textColor="@color/black2"
@@ -118,12 +124,14 @@
         android:gravity="center_vertical"
         android:background="@color/white">
         <TextView
+            android:layout_marginLeft="13dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black2"
             android:textSize="13sp"
             android:text="网银支付："/>
         <CheckBox
+            android:layout_marginRight="13dp"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:checked="true"
@@ -132,6 +140,7 @@
             android:background="@drawable/check_select"/>
     </RelativeLayout>
   <TextView
+      android:paddingLeft="13dp"
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
@@ -143,8 +152,9 @@
        android:layout_width="match_parent"
        android:layout_height="0dp"
        android:layout_weight="1"
-       android:background="#ffffff">
+       android:background="@color/white">
        <TextView
+           android:layout_marginLeft="13dp"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_centerVertical="true"
@@ -153,6 +163,7 @@
            android:text="可使用的红包"/>
        <TextView
            android:id="@+id/tv_redpacket"
+           android:layout_marginRight="13dp"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_alignParentRight="true"

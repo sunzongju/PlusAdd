@@ -68,6 +68,7 @@
         android:id="@+id/btn_next"
         style="@style/button_style"
         android:layout_marginTop="40dp"
+        android:layout_marginBottom="1dp"
         android:layout_gravity="center_horizontal"
         android:onClick="click"
         android:text="下一步" />

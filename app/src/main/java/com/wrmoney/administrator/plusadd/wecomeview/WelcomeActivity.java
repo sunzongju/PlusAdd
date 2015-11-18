@@ -22,7 +22,7 @@ import java.util.List;
 public class WelcomeActivity extends BaseActivity {
     private ViewPager vp_wel;
     private List<View> list = new ArrayList<View>();
-    private int view[] = {R.drawable.u2, R.drawable.u30, R.drawable.u46};
+    private int view[] = {R.drawable.u30, R.drawable.u30, R.drawable.u46};
     private RadioGroup rg_group;
     private Boolean type = true;
 
@@ -76,7 +76,7 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     /**
-     * µã»÷"Á¢¼´¿ªÊ¼"£¬Ìø×ªµ½Ö÷½çÃæ
+     * ï¿½ï¿½ï¿½"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼"ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * @param view
      */

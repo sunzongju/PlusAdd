@@ -31,17 +31,14 @@
         android:textSize="13sp"
         android:text="15610341303" />
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="43dp"
+        android:layout_height="42dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
+            android:layout_marginLeft="15dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -53,22 +50,22 @@
 
         <TextView
             android:id="@+id/tv_idCard"
+            android:layout_marginRight="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
             android:text="未认证" />
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"/>
+
     <LinearLayout
+        android:layout_marginTop="1dp"
         android:layout_width="match_parent"
-        android:layout_height="43dp"
+        android:layout_height="42dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
+            android:layout_marginLeft="15dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -79,6 +76,7 @@
             android:text="修改登录密码" />
 
         <ImageView
+            android:layout_marginRight="15dp"
             android:id="@+id/btn_alterpass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,17 +84,16 @@
             android:src="@drawable/index1" />
 
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"/>
+
     <LinearLayout
+        android:layout_marginTop="1dp"
         android:layout_width="match_parent"
-        android:layout_height="43dp"
+        android:layout_height="42dp"
        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
+            android:layout_marginLeft="15dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -107,6 +104,7 @@
             android:text="我的邀请码" />
 
         <TextView
+            android:layout_marginRight="15dp"
             android:id="@+id/tv_invitCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -114,19 +112,17 @@
             android:onClick="click"
             android:text="9818" />
     </LinearLayout>
-     <TextView
-         android:layout_width="match_parent"
-         android:layout_height="1dp"
-         android:background="@color/gray"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="43dp"
+        android:layout_height="42dp"
         android:layout_marginTop="20dp"
         android:background="@color/white"
         android:orientation="horizontal">
         <!--android:drawableLeft="@mipmap/ic_launcher"-->
         <TextView
             android:id="@+id/tv_help"
+            android:layout_marginLeft="15dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -141,17 +137,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical" />
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"/>
     <LinearLayout
+        android:layout_marginTop="1dp"
         android:layout_width="match_parent"
-        android:layout_height="43dp"
+        android:layout_height="42dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
+            android:layout_marginLeft="15dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -168,14 +162,35 @@
             android:layout_gravity="end|center_vertical"
             android:onClick="click" />
     </LinearLayout>
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"/>
+        android:layout_height="42dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <!--android:drawableLeft="@mipmap/ic_launcher"-->
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:id="@+id/tv_update"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:textColor="@color/black2"
+            android:textSize="13sp"
+            android:text="检查更新" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical" />
+    </LinearLayout>
     <Button
         android:id="@+id/btn_finish"
         style="@style/button_style"
-        android:layout_marginTop="87dp"
+        android:layout_marginTop="18dp"
         android:layout_gravity="center_horizontal"
         android:onClick="click"
         android:text="退出登录"

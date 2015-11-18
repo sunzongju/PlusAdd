@@ -2,9 +2,12 @@ package com.wrmoney.administrator.plusadd.homeview.fragments;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +26,15 @@ import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.bean.FinancingPlanBean;
 import com.wrmoney.administrator.plusadd.financingview.adapters.FinancingPlanAdapter;
 import com.wrmoney.administrator.plusadd.homeview.adapters.HomePagerAdapter;
+import com.wrmoney.administrator.plusadd.loginview.activitys.PhoneActivity;
 import com.wrmoney.administrator.plusadd.moreview.activitys.AlterPassActivity;
 import com.wrmoney.administrator.plusadd.view.AlterPassFinishDialog;
 import com.wrmoney.administrator.plusadd.view.ClaculatorDialog;
+import com.wrmoney.administrator.plusadd.view.CreditorDetailDialog;
 import com.wrmoney.administrator.plusadd.view.DiaLog;
 import com.wrmoney.administrator.plusadd.view.MoneyShorDialog;
 import com.wrmoney.administrator.plusadd.view.MyDialog;
+import com.wrmoney.administrator.plusadd.view.QuitPlanDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +53,7 @@ public class HomeFrament extends BaseFragment {
     private ListView lv_plan;
     private List<FinancingPlanBean> listBean=new ArrayList<FinancingPlanBean>();
     private Button btn1;
+//    private AlterPassFinishDialog dialog;
 
     @Nullable
     @Override
@@ -76,11 +83,11 @@ public class HomeFrament extends BaseFragment {
         vp_index= (ViewPager) view.findViewById(R.id.pager_index);
         btn1=(Button)view.findViewById(R.id.btn1);
         btn1.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                //final MyDialog selectDialog = new MyDialog(activity,R.style.dialog);//创建Dialog并设置样式主题
                // AlterPassFinishDialog dialog=new AlterPassFinishDialog(activity,R.style.dialog);
-                MoneyShorDialog dialog=new MoneyShorDialog(activity);
 //                Window win = selectDialog.getWindow();
 //                WindowManager.LayoutParams params = new WindowManager.LayoutParams();
 //                params.x = -80;//设置x坐标
@@ -91,16 +98,32 @@ public class HomeFrament extends BaseFragment {
 //                LinearLayout layout=(LinearLayout)LayoutInflater.from(activity).inflate(R.layout.custom_alterpass_succeed_dialog,null);
 //                Button button=(Button)layout.findViewById(R.id.btn_finish);
 //                selectDialog.getWindow().setContentView(layout);
+                //MoneyShorDialog dialog=new MoneyShorDialog(activity);
+//                CreditorDetailDialog dialog=new CreditorDetailDialog(activity,R.style.dialog);
+//                //dialog=new AlterPassFinishDialog(activity,R.style.dialog);
+//
+                QuitPlanDialog dialog=new QuitPlanDialog(activity,R.style.dialog);
                 dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
                 dialog.show();
-//                button.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
+//                builder.setNeutralButton("中立", new DialogInterface.OnClickListener() {
 //
-//                        selectDialog.dismiss();
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        //text_main_info.setText("您点击了：" + which);
 //                    }
 //                });
+
+
 //                DiaLog.AlterPassFinishDialog(this,"");
+                //Button btn_finsish=(Button)dialog.findViewById(R.id.btn_finish);
+//                btn_finsish.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog.dismiss();
+//                        Intent intent=new Intent(activity, PhoneActivity.class);
+//                        activity.startActivity(intent);
+//                    }
+//                });
 
             }
         });
@@ -146,4 +169,5 @@ public class HomeFrament extends BaseFragment {
         FinancingPlanAdapter adapter1=new FinancingPlanAdapter(listBean,activity);
         lv_plan.setAdapter(adapter1);
     }
+
 }

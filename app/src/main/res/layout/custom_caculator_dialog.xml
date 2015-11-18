@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
   <TextView
@@ -19,7 +20,7 @@
         android:text="X"/>
     
     <TextView
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="40dp"
         android:id="@+id/tv_income"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,14 +30,16 @@
         android:text="200.40"/>
     <LinearLayout
         android:id="@+id/rl_01"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="43dp"
+        android:layout_height="30dp"
         android:background="@drawable/layout_corner"
         android:layout_below="@id/tv_income"
         android:orientation="horizontal">
         <TextView
+            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray4"
@@ -45,6 +48,7 @@
             android:textSize="13sp"
             android:text="买入金额"/>
         <EditText
+            android:layout_marginRight="8dp"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_alignParentRight="true"
@@ -54,23 +58,25 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/rl_02"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="43dp"
+        android:layout_height="30dp"
         android:layout_below="@id/rl_01"
         android:background="@drawable/layout_corner"
         android:orientation="horizontal">
         <TextView
+            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textColor="@color/gray4"
             android:gravity="center_vertical"
             android:background="@null"
             android:textSize="13sp"
             android:text="买入天数"/>
         <EditText
+            android:layout_marginRight="8dp"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_alignParentRight="true"
@@ -81,24 +87,26 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/rl_03"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:layout_below="@id/rl_02"
         android:gravity="center_vertical"
         android:background="@drawable/layout_corner"
         android:orientation="horizontal">
         <TextView
+            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textColor="@color/gray4"
             android:gravity="center_vertical"
             android:background="@null"
             android:textSize="13sp"
             android:text="预期收益率"/>
         <EditText
+            android:layout_marginRight="8dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -108,12 +116,12 @@
             android:hint="8%"/>
     </LinearLayout>
   <Button
-      android:layout_marginTop="40dp"
-      android:layout_marginLeft="50dp"
-      android:layout_marginRight="50dp"
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="20dp"
+      android:layout_width="240dp"
+      android:layout_height="30dp"
       android:layout_below="@id/rl_03"
+      android:layout_centerHorizontal="true"
       android:background="@drawable/dialog_btn"
       android:textSize="14sp"
       android:textColor="@color/orange"

@@ -22,11 +22,11 @@ public class InvestDetailActivity extends BaseActivity {
     private Button btn_join;
     List<Map<String, String>> listitem = new ArrayList<Map<String, String>>();
     private String[] title=new String[]{
-            "名称","介绍","投资内容","合作机构","加入条件","计划周期","还款方式","退出","退出到帐时间","费用"
+            "名称","介绍","投资内容","加入条件","计划周期","还款方式","退出","退出到帐时间","费用"
     };
     private String[] content=new String[]{
       "财富B计划001期","财富B计划001期，产品是plus0推出的100%本息担保的优势借款项目","机构担保标，实际认证标",
-            "北京金宇浩投资有限公司","100天起，100天整数倍递增","180天","到期还本付息",
+            "100天起，100天整数倍递增","180天","到期还本付息",
             "锁定期内不得退出，锁定期到期后可选择解除锁定，如无申请本息自动复投","T+3",
             "加入费率:0.0% 退出费率0.0%"
 

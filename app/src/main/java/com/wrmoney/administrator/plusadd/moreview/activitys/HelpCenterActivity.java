@@ -1,7 +1,9 @@
 package com.wrmoney.administrator.plusadd.moreview.activitys;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -41,4 +43,18 @@ public class HelpCenterActivity extends BaseActivity {
        lv_help.setAdapter(adapter);
 
     }
+
+    public void click(View view){
+        switch (view.getId()){
+            case R.id.tv_01:
+                Intent intent=new Intent(this,HelpDetailActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+
+        }
+
+    }
+
 }

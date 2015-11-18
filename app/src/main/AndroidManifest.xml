@@ -44,6 +44,7 @@
         <activity android:name=".accountview.activitys.InvitationFriendActivity"/>
         <activity android:name=".moreview.activitys.HelpCenterActivity"/>
         <activity android:name=".accountview.activitys.MessageActivity"/>
+        <activity android:name=".moreview.activitys.HelpDetailActivity"/>
     </application>
 
 </manifest>

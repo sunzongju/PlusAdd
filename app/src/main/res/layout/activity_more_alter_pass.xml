@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_gravity="center_vertical"
             style="@style/edit_style"
+            android:inputType="textPassword"
             android:hint="原密码" />
 
 </FrameLayout>
@@ -33,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_gravity="center_vertical"
             style="@style/edit_style"
+            android:inputType="textPassword"
             android:hint="设置取现密码" />
     </FrameLayout>
 
@@ -49,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_gravity="center_vertical"
             style="@style/edit_style"
+            android:inputType="textPassword"
             android:hint="重复取现密码" />
     </FrameLayout>
     <Button

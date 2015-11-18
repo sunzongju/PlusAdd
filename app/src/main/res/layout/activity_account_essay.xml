@@ -22,7 +22,7 @@
         android:gravity="center_horizontal"
         android:paddingTop="20dp"
         android:text="2,000,00"
-        android:textColor="#ff0000"
+        android:textColor="@color/red"
         android:textSize="20dp" />
     -
 
@@ -84,6 +84,7 @@
         android:id="@+id/btn_next"
         style="@style/button_style"
         android:layout_marginTop="40dp"
+        android:layout_marginBottom="1dp"
         android:onClick="click"
         android:text="下一步"
         />

@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e8e9ee">
+    android:background="@color/backgro">
 
     <TextView
         android:id="@+id/tv_lotteryAmount"

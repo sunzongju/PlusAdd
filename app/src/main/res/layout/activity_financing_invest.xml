@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e8e9ee"
+    android:background="@color/backgro"
     android:orientation="vertical">
 
     <include layout="@layout/tab_view" />
@@ -98,6 +98,8 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/account_01" />
@@ -119,14 +121,17 @@
             android:layout_height="0dp"
             android:layout_marginTop="1dp"
             android:layout_weight="1"
-            android:background="#ffffff">
+            android:gravity="center_vertical"
+            android:background="@color/white">
 
             <TextView
+                android:layout_marginLeft="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="加入条件" />
 
             <TextView
+                android:layout_marginRight="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -138,14 +143,17 @@
             android:layout_height="0dp"
             android:layout_marginTop="1dp"
             android:layout_weight="1"
-            android:background="#ffffff">
+            android:gravity="center_vertical"
+            android:background="@color/white">
 
             <TextView
+                android:layout_marginLeft="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="计息方式" />
 
             <TextView
+                android:layout_marginRight="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -157,14 +165,17 @@
             android:layout_height="0dp"
             android:layout_marginTop="1dp"
             android:layout_weight="1"
-            android:background="#ffffff">
+            android:gravity="center_vertical"
+            android:background="@color/white">
 
             <TextView
+                android:layout_marginLeft="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="还款方式" />
 
             <TextView
+                android:layout_marginRight="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -176,14 +187,17 @@
             android:layout_height="0dp"
             android:layout_marginTop="1dp"
             android:layout_weight="1"
-            android:background="#ffffff">
+            android:gravity="center_vertical"
+            android:background="@color/white">
 
             <TextView
+                android:layout_marginLeft="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="安全保障" />
 
             <TextView
+                android:layout_marginRight="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -197,29 +211,27 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:background="#ffffff"
+        android:background="@color/white"
         android:text="查看详情" />
 
     <LinearLayout
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
-
         <ImageView
             android:id="@+id/iv_cal"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="20dp"
-            android:src="@mipmap/ic_launcher" />
-
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/account_01" />
         <Button
             android:id="@+id/btn_join"
             style="@style/button_style"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
             android:text="立即加入/立即投标" />
     </LinearLayout>
 </LinearLayout>
