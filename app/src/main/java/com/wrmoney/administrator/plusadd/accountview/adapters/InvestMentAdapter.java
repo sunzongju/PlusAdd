@@ -56,16 +56,27 @@ public class InvestMentAdapter extends BaseAdapter{
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();
         InvestMentBean bean = list.get(position);
-//        holder.tv_lotteryStatus.setText(redPacketBean.getLotteryStatus());
-//        holder.tv_lotteryValidTime.setText(redPacketBean.getLotteryValidTime());
-//        holder.tv_lotteryAmount.setText(redPacketBean.getLotteryAmount());
+        holder.planName.setText(bean.getPlanName());
+        holder.investDate.setText(bean.getInvestDate());
+        holder.expectedRate.setText("预期收益率"+bean.getExpectedRate());
+        holder.investAmount.setText(bean.getInvestAmount());
+        holder.lockTime.setText(bean.getLockTime()+"天");
         return convertView;
     }
 
     public static class ViewHolder {
-        private TextView tv_title;//红包金额
+        private String orderId;//计划ID
+        private TextView planName;//投资类型
+        private TextView investDate;//日期
+        private TextView expectedRate;//预期收益率
+        private TextView investAmount;//买入金额
+        private TextView lockTime;//锁定期
         public ViewHolder(View itemView) {
-            this.tv_title = (TextView) itemView.findViewById(R.id.tv_time);
+            this.planName = (TextView) itemView.findViewById(R.id.tv_planName);
+            this.investDate=(TextView)itemView.findViewById(R.id.tv_investDate);
+            this.expectedRate=(TextView)itemView.findViewById(R.id.tv_expectedRate);
+            this.investAmount=(TextView)itemView.findViewById(R.id.tv_investAmount);
+            this.lockTime=(TextView)itemView.findViewById(R.id.tv_lockTime);
         }
     }
 }

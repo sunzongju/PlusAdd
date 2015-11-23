@@ -3,6 +3,7 @@ package com.wrmoney.administrator.plusadd.loginview.activitys;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -40,6 +41,7 @@ public class PhoneActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_phone);
+        //Log.i("========","phoneCreate");
         HttpXutilTool.init();
         et_phone = (EditText) this.findViewById(R.id.et_phone);
         utils = HttpXutilTool.getUtils();
@@ -73,7 +75,7 @@ public class PhoneActivity extends Activity {
                             if ("1".equals(type)) {
                                 Intent intent = new Intent(PhoneActivity.this, LoginActivity.class);
                                 intent.putExtra("PHONE", strPhone);
-                                startActivity(intent);
+                                startActivityForResult(intent,300);
                                 finish();
                             } else if ("0".equals(type)) {
                                 RequestParams params2 = IdentifyParams.getSendIdentifyCode(strPhone, "1");
@@ -82,7 +84,8 @@ public class PhoneActivity extends Activity {
                                     public void onSuccess(ResponseInfo<String> responseInfo) {
                                         Intent intent = new Intent(PhoneActivity.this, RegisterActivity.class);
                                         intent.putExtra("PHONE", strPhone);
-                                        startActivity(intent);
+                                        //startActivity(intent);
+                                        startActivityForResult(intent,400);
                                         finish();
                                     }
 

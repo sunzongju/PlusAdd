@@ -9,17 +9,19 @@ import android.widget.TextView;
 
 import com.wrmoney.administrator.plusadd.BaseActivity;
 import com.wrmoney.administrator.plusadd.R;
+import com.wrmoney.administrator.plusadd.bean.CreditorListBean;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by Administrator on 2015/11/17.
  */
 public class CreditorAdapter  extends BaseAdapter{
-    private List<String> list;
+    private List<CreditorListBean> list;
     private Context context;
 
-    public CreditorAdapter(List<String> list, Context context) {
+    public CreditorAdapter(List<CreditorListBean> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -39,6 +41,10 @@ public class CreditorAdapter  extends BaseAdapter{
         return position;
     }
 
+    public void addAll(Collection<? extends CreditorListBean> add){
+        list.addAll(add);
+        notifyDataSetChanged();
+    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -46,13 +52,15 @@ public class CreditorAdapter  extends BaseAdapter{
             convertView.setTag(new ViewHolder(convertView));
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();
+        CreditorListBean bean=list.get(position);
+        holder.tv_offLineAgreementCd.setText(bean.getOffLineAgreementCd());
         return convertView;
     }
 
     public static class ViewHolder {
-        private TextView tv_detail;//债券明细
+        private TextView tv_offLineAgreementCd;//债券明细
         public ViewHolder(View itemView) {
-            this.tv_detail = (TextView) itemView.findViewById(R.id.tv_detail);
+            this.tv_offLineAgreementCd = (TextView) itemView.findViewById(R.id.tv_offLineAgreementCd);
         }
     }
 }

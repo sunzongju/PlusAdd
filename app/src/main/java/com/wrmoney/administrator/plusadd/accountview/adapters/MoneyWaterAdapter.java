@@ -11,6 +11,7 @@ import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.bean.MoneyWaterBean;
 import com.wrmoney.administrator.plusadd.bean.RedPacketBean;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -40,6 +41,11 @@ public class MoneyWaterAdapter extends BaseAdapter {
         return position;
     }
 
+    public void addAll(Collection<? extends MoneyWaterBean> listBean){
+        list.addAll(listBean);
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -48,21 +54,21 @@ public class MoneyWaterAdapter extends BaseAdapter {
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();
         MoneyWaterBean bean = list.get(position);
-//        holder.tv_lotteryStatus.setText(redPacketBean.getLotteryStatus());
-//        holder.tv_lotteryValidTime.setText(redPacketBean.getLotteryValidTime());
-//        holder.tv_lotteryAmount.setText(redPacketBean.getLotteryAmount());
+        holder.tv_transDate.setText(bean.getTransDate());
+       holder.tv_transComent.setText(bean.getTransComent());
+        holder.tv_transAmount.setText(bean.getTransAmount());
         return convertView;
     }
 
     public static class ViewHolder {
-        private TextView tv_time;//红包金额
-        private TextView tv_type;//红包状态
-        private TextView tv_money;//有效期
+        private TextView tv_transDate;//红包金额
+        private TextView tv_transComent;//红包状态
+        private TextView tv_transAmount;//有效期
 
         public ViewHolder(View itemView) {
-            this.tv_time = (TextView) itemView.findViewById(R.id.tv_time);
-            this.tv_type = (TextView) itemView.findViewById(R.id.tv_type);
-            this.tv_money = (TextView) itemView.findViewById(R.id.tv_money);
+            this.tv_transDate = (TextView) itemView.findViewById(R.id.tv_transDate);
+            this.tv_transComent = (TextView) itemView.findViewById(R.id.tv_transComent);
+            this.tv_transAmount = (TextView) itemView.findViewById(R.id.tv_transAmount);
         }
     }
 }

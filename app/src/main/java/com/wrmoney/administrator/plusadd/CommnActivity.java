@@ -7,11 +7,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.wrmoney.administrator.plusadd.accountview.fragments.AccountFragment;
@@ -31,22 +35,26 @@ import java.io.IOException;
 /**
  * Created by Administrator on 2015/11/2.
  */
-public class CommnActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener,FragmentCallback {
+public class CommnActivity extends BaseActivity implements View.OnClickListener,FragmentCallback {
     private String userid;
-    private FragmentTransaction transaction;
+    private FragmentTransaction transaction2;
     private HomeFrament homeFragment;
     private AccountFragment accountFragment;
     private MoreFragment moreFragment;
-    private RadioButton radio_home;
-    private RadioButton radio_financing;
-    private RadioButton radio_account;
-    private RadioButton radio_more;
+
     private FinancingFragment finacingFragment;
     private android.support.v7.app.ActionBar actionBar;
     private ImageView iv_photo;
     private Bitmap head;//头像Bitmap
     private static String path = "/sdcard/myHead/";//sd路径
-
+    private int checkId;
+    private RadioGroup rg_menu;
+    private RadioButton radio_home;
+    private RadioButton radio_financing;
+    private RadioButton radio_account;
+    private RadioButton radio_more;
+    private RadioButton radiotype;
+    private Fragment mContent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,84 +67,108 @@ public class CommnActivity extends BaseActivity implements CompoundButton.OnChec
         userid = SingleUserIdTool.newInstance().getUserid();
         radio_home = ((RadioButton) findViewById(R.id.radio_home));
         //radio_home.setCompoundDrawables(10,10,10,10);
+        radiotype=radio_home;
         radio_financing = ((RadioButton) findViewById(R.id.radio_financing));
         radio_account = ((RadioButton) findViewById(R.id.radio_account));
         radio_more = ((RadioButton) findViewById(R.id.radio_more));
-        radio_home.setOnCheckedChangeListener(this);
-        radio_financing.setOnCheckedChangeListener(this);
-        radio_account.setOnCheckedChangeListener(this);
-        radio_more.setOnCheckedChangeListener(this);
-        transaction = getSupportFragmentManager().beginTransaction();
+        radio_home.setOnClickListener(this);
+        radio_financing.setOnClickListener(this);
+        radio_account.setOnClickListener(this);
+        radio_more.setOnClickListener(this);
+
 
         homeFragment=(HomeFrament)HomeFrament.newInstance();
         finacingFragment =  (FinancingFragment) FinancingFragment.newInstance();
         accountFragment =  (AccountFragment) AccountFragment.newInstance();
         moreFragment =  (MoreFragment) MoreFragment.newInstance();
+//        if(radio_home.isChecked()){
 
-        transaction.add(R.id.frag_container,homeFragment);
-        //ybottomButton0.setChecked(true);
-        transaction.commit();
+        if(savedInstanceState==null){
+            transaction2 = getSupportFragmentManager().beginTransaction();
+            transaction2.add(R.id.frag_container,homeFragment);
+            mContent=homeFragment;
+            transaction2.commit();
+        }else{
+//            homeFragment=getFragmentManager().findFragmentById(R.id.)
+//            getSupportFragmentManager().beginTransaction().show()
+
+        }
+
     }
 
-
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-        FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
-        switch (buttonView.getId()){
+    public void onClick(View v) {
+       // FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+        switch (v.getId()){
             case R.id.radio_home:
-                if(!homeFragment.isAdded()){
-                    transaction2.replace(R.id.frag_container,homeFragment);}
-                else {
-                    transaction2.show(homeFragment);
-                }
-
-                transaction2.commit();
+                radiotype=radio_home;
+//                if(!homeFragment.isAdded()){
+//                    transaction2.add(R.id.frag_container, homeFragment);}
+//                else {
+//                    transaction2.show(homeFragment);
+//                    transaction2.hide(finacingFragment);
+//                    transaction2.hide(accountFragment);
+//                    transaction2.hide(moreFragment);
+//                }
+                switchContent(mContent,homeFragment);
+                //transaction2.commit();
                 break;
             case R.id.radio_financing:
-                if (userid == null) {
-                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
-                    Intent intent00 = new Intent(this, PhoneActivity.class);
-                    startActivity(intent00);
-                } else {
-                    if (!finacingFragment.isAdded()){
-                        transaction2.replace(R.id.frag_container, finacingFragment);
-                    }
-                    else {
-                        transaction2.show(finacingFragment);
-                    }
-                    transaction2.commit();
-                }
+                radiotype=radio_financing;
+                switchContent(mContent,finacingFragment);
+//                if (!finacingFragment.isAdded()){
+//                    transaction2.add(R.id.frag_container, finacingFragment);
+//                }
+//                else {
+//                    transaction2.show(finacingFragment);
+//                    transaction2.hide(homeFragment);
+//                    transaction2.hide(accountFragment);
+//                    transaction2.hide(moreFragment);
+//                }
+                //transaction2.commit();
                 break;
             case R.id.radio_account:
-
                 if (userid == null) {
-                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
+                    radiotype.setChecked(true);
+                    radio_account.setChecked(false);
                     Intent intent00 = new Intent(this, PhoneActivity.class);
-                    startActivity(intent00);
+                    startActivityForResult(intent00,100);
+                   // startActivity(intent00);
                 } else {
-                    if (!accountFragment.isAdded()){
-                        transaction2.replace(R.id.frag_container, accountFragment);
-                    }
-                    else {
-                        transaction2.show(accountFragment);
-                    }
-                    transaction2.commit();
+                    radiotype=radio_account;
+                    switchContent(mContent,accountFragment);
+//                    if (!accountFragment.isAdded()){
+//                        transaction2.add(R.id.frag_container, accountFragment);
+//                    }
+//                    else {
+//                        transaction2.show(accountFragment);
+//                        transaction2.hide(finacingFragment);
+//                        transaction2.hide(homeFragment);
+//                        transaction2.hide(moreFragment);
+//                    }
+                  //  transaction2.commit();
                 }
                 break;
             case R.id.radio_more:
                 if (userid == null) {
-                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
+                    radiotype.setChecked(true);
+                    radio_more.setChecked(false);
                     Intent intent00 = new Intent(this, PhoneActivity.class);
-                    startActivity(intent00);
+                    startActivityForResult(intent00,200);
+                    //startActivity(intent00);
                 } else {
-                    if (!moreFragment.isAdded()){
-                        transaction2.replace(R.id.frag_container, moreFragment);
-                    }
-                    else {
-                        transaction2.show(moreFragment);
-                    }
-                    transaction2.commit();
+                    radiotype=radio_more;
+                    switchContent(mContent,moreFragment);
+//                    if (!moreFragment.isAdded()){
+//                        transaction2.add(R.id.frag_container, moreFragment);
+//                    }
+//                    else {
+//                        transaction2.show(moreFragment);
+//                        transaction2.hide(finacingFragment);
+//                        transaction2.hide(homeFragment);
+//                        transaction2.hide(accountFragment);
+//                    }
+                   // transaction2.commit();
                 }
                 break;
             default:
@@ -144,12 +176,29 @@ public class CommnActivity extends BaseActivity implements CompoundButton.OnChec
         }
     }
 
+    public void switchContent(Fragment from,Fragment to){
+         if(mContent!=to){
+             mContent=to;
+             FragmentTransaction transaction3=getSupportFragmentManager().beginTransaction();
+             if(!to.isAdded()){
+                 transaction3.hide(from).add(R.id.frag_container,to).commit();
+             }else{
+                 transaction3.hide(from).show(to).commit();
+             }
+         }
+    }
+//    @Override
+//    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//    }
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
+    }
+
     @Override
     public void setActionBar(int i) {
-        // getActionBar().hide();
-//        actionBar = this.getSupportActionBar();
-//        // actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.hide();
     }
 
 
@@ -235,6 +284,7 @@ public class CommnActivity extends BaseActivity implements CompoundButton.OnChec
             }
         }
     }
+
 
 
 }

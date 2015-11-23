@@ -1,6 +1,7 @@
 package com.wrmoney.administrator.plusadd;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +30,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         ActivityCollectorTool.removeActivity(this);
     }
-
     public void click(View view){
         switch (view.getId()){
             case R.id.iv_return:
@@ -40,8 +40,13 @@ public class BaseActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
+
 
 
     }
-
 }

@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
+import com.wrmoney.administrator.plusadd.view.CheckVersionDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,10 +65,12 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
     private ImageView iv_photo;
     private Button btn_finish;
     private TextView tv_help;
+    private TextView tv_update;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.i("=======","MoreCreateView");
         view=inflater.inflate(R.layout.fragment_more,container,false);
         return view;
     }
@@ -82,6 +86,8 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
         activity=getActivity();
         btn_alterpass=(ImageView)view.findViewById(R.id.btn_alterpass);//修改密码
         btn_alterpass.setOnClickListener(this);
+        tv_update=(TextView)view.findViewById(R.id.tv_update);
+        tv_update.setOnClickListener(this);
         btn_finish=(Button)view.findViewById(R.id.btn_finish);//退出
         btn_finish.setOnClickListener(this);
         iv_photo = (ImageView)view.findViewById(R.id.iv_photo);//更换头像
@@ -186,6 +192,11 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
                 Intent intent2 = new Intent(activity, AlterPassActivity.class);
                 startActivity(intent2);
                 break;
+            case R.id.tv_update:
+                CheckVersionDialog dialog=new CheckVersionDialog(activity,R.style.dialog);
+                dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
+                dialog.show();
+                break;
             case R.id.btn_finish://退出程序
                 SingleUserIdTool.newInstance().setUserid(null);
                 Intent intent = new Intent(activity, CommnActivity.class);
@@ -201,6 +212,7 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
                 Intent intent1=new Intent(activity, HelpCenterActivity.class);
                 startActivity(intent1);
                 break;
+
             default:
                 break;
 

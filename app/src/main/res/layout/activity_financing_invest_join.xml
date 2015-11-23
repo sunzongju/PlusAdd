@@ -26,7 +26,7 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_alignParentRight="true"
-         android:textColor="#ff0000"
+         android:textColor="@color/red"
          android:text="0.0元"/>
     <TextView
         android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
     android:layout_weight="1"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:background="#ffffff">
+    android:background="@color/white">
     <TextView
         android:layout_marginLeft="13dp"
         android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ff0000"
+        android:textColor="@color/red"
         android:text="0.00元"/>
 </LinearLayout>
  <TextView

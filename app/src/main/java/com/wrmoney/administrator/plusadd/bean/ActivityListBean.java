@@ -5,31 +5,40 @@ package com.wrmoney.administrator.plusadd.bean;
  * Created by Administrator on 2015/11/3.
  */
 public class ActivityListBean  {
-    private String title;
-    private String time;
-    private int pic;
+    private String activityId;//活动ID
+    private String activityStatus;//活动状态
+    private String activityTime;//活动时间
+    private String activityImgUrl;//活动图片地址
 
-    public String getTitle() {
-        return title;
+    public String getActivityId() {
+        return activityId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setActivityId(String activityId) {
+        this.activityId = activityId;
     }
 
-    public String getTime() {
-        return time;
+    public String getActivityStatus() {
+        return activityStatus;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setActivityStatus(String activityStatus) {
+        this.activityStatus = activityStatus;
     }
 
-    public int getPic() {
-        return pic;
+    public String getActivityTime() {
+        return activityTime;
     }
 
-    public void setPic(int pic) {
-        this.pic = pic;
+    public void setActivityTime(String activityTime) {
+        this.activityTime = activityTime;
+    }
+
+    public String getActivityImgUrl() {
+        return activityImgUrl;
+    }
+
+    public void setActivityImgUrl(String activityImgUrl) {
+        this.activityImgUrl = activityImgUrl;
     }
 }

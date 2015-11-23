@@ -93,8 +93,10 @@ public class LoginActivity extends Activity {
                         Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         SingleUserIdTool.newInstance().setUserid(userID);
                         Intent intent = new Intent(LoginActivity.this, CommnActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         //intent.putExtra("ID",userID);
                         startActivity(intent);
+                       // LoginActivity.this.finish();
                         finish();
                     } else if ("0001".equals(rescode)) {
                         DiaLog.showDialog(LoginActivity.this, "您输入的密码有误请重新输入");

@@ -13,8 +13,8 @@ public class FinancingParams {
      *
      * @return
      */
-    public static RequestParams getPlanListCode(){
-        String json="{ iface:'WRMI100022'}";
+    public static RequestParams getPlanListCode(String pageIndexc, String pageSizec){
+        String json="{ iface:'WRMI100022',pageIndex:'" + pageIndexc + "',pageSize:'" + pageSizec + "'}";
         RequestParams params=new RequestParams();
         String str;
         try {
@@ -26,7 +26,24 @@ public class FinancingParams {
         }
         return null;
     }
-
+    /**
+     * 首页
+     *
+     * @return
+     */
+    public static RequestParams homeListCode(){
+        String json="{ iface:'WRMI100034'}";
+        RequestParams params=new RequestParams();
+        String str;
+        try {
+            str = DES3Util.encode(json);
+            params.addQueryStringParameter("argEncPara", str);
+            return params;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     /**
      * 理财计划--投资详情
      *
@@ -34,7 +51,7 @@ public class FinancingParams {
      * @return
      */
     public static RequestParams getPlanDetailsCode(String planIdc) {
-        String json = "{ iface:'WRMI1000023',planId:" + planIdc + "}";
+        String json = "{ iface:'WRMI100023',planId:'" + planIdc + "'}";
         RequestParams params = new RequestParams();
         String str;
         try {

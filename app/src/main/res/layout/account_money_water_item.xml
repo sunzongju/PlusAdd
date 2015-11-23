@@ -18,7 +18,7 @@
         android:gravity="center_vertical"
         android:layout_weight="1">
         <TextView
-            android:id="@+id/tv_time"
+            android:id="@+id/tv_transDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -26,7 +26,7 @@
             android:textColor="@color/gray3"
             android:text="2015-08-06"/>
         <TextView
-            android:id="@+id/tv_type"
+            android:id="@+id/tv_transComent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -34,7 +34,7 @@
             android:textColor="@color/gray3"
             android:text="用户充值"/>
         <TextView
-            android:id="@+id/tv_money"
+            android:id="@+id/tv_transAmount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -28,6 +28,7 @@
                 android:text="项目金额（元）" />
 
             <TextView
+                android:id="@+id/tv_maxFinancing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_sum"
@@ -54,6 +55,7 @@
                 android:text="预期年化收益率" />
 
             <TextView
+                android:id="@+id/tv_expectedRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_rate"
@@ -80,6 +82,7 @@
                 android:text="锁定期（天）" />
 
             <TextView
+                android:id="@+id/tv_lockTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_days"
@@ -131,6 +134,7 @@
                 android:text="加入条件" />
 
             <TextView
+                android:id="@+id/tv_joinCondition"
                 android:layout_marginRight="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -153,6 +157,7 @@
                 android:text="计息方式" />
 
             <TextView
+                android:id="@+id/tv_interestDate"
                 android:layout_marginRight="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -175,6 +180,7 @@
                 android:text="还款方式" />
 
             <TextView
+                android:id="@+id/tv_repayType"
                 android:layout_marginRight="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -197,6 +203,7 @@
                 android:text="安全保障" />
 
             <TextView
+                android:id="@+id/tv_safeguardMode"
                 android:layout_marginRight="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

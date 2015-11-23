@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:background="@color/white"
-    android:orientation="horizontal">
-
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -13,7 +12,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_type"
+            android:id="@+id/tv_name"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,13 +39,13 @@
                 android:textColor="@color/orange"
                 android:textSize="13sp"
                 android:text="%"/>
-        <TextView
-            android:id="@+id/tv_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/gray"
-            android:textSize="12sp"
-            android:text="预期年化收益率" />
+            <TextView
+                android:id="@+id/tv_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                android:text="预期年化收益率" />
         </LinearLayout>
 
         <ProgressBar
@@ -101,6 +100,4 @@
             android:text="投资"
             android:textColor="@color/orange" />
     </RelativeLayout>
-
-
 </LinearLayout>

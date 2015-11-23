@@ -41,11 +41,11 @@ public class WaterAllFragment extends BaseFragment {
     }
 
     public void init(){
-        for (int i=0;i<20;i++){
-            MoneyWaterBean bean=new MoneyWaterBean();
-            bean.setMoney("");
-            list.add(bean);
-        }
+//        for (int i=0;i<20;i++){
+//            MoneyWaterBean bean=new MoneyWaterBean();
+//            bean.setMoney("");
+//            list.add(bean);
+//        }
         lv_water=(ListView)view.findViewById(R.id.lv_water);
         adapter=new MoneyWaterAdapter(list,getActivity());
         lv_water.setAdapter(adapter);

@@ -5,13 +5,12 @@
     android:layout_height="match_parent"
    >
 
-    <LinearLayout
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/frag_container">
-    </LinearLayout>
+    </FrameLayout>
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -21,56 +20,55 @@
         <RadioButton
             android:gravity="center"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/radio_home"
             android:button="@null"
-            android:checked="true"
             android:textSize="11sp"
             android:textColor="@color/gray3"
+            android:checked="true"
             android:text="首页"
-            android:drawablePadding="-5dp"
-
+            android:drawablePadding="0dp"
             android:drawableTop="@drawable/menu_select_01" />
         <RadioButton
             android:gravity="center"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/radio_financing"
             android:button="@null"
             android:textSize="11sp"
             android:textColor="@color/gray3"
             android:text="理财"
-            android:drawablePadding="-5dp"
+            android:drawablePadding="0dp"
             android:drawableTop="@drawable/menu_select_02" />
         <RadioButton
             android:gravity="center"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/radio_account"
             android:button="@null"
             android:text="账户"
             android:textSize="11sp"
             android:textColor="@color/gray3"
-            android:drawablePadding="-5dp"
+            android:drawablePadding="0dp"
             android:drawableTop="@drawable/menu_select_03"
             />
         <RadioButton
             android:gravity="center"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/radio_more"
             android:button="@null"
             android:textSize="11sp"
             android:textColor="@color/gray3"
             android:text="更多"
-            android:drawablePadding="-5dp"
+            android:drawablePadding="0dp"
             android:drawableTop="@drawable/menu_select_04"
             />
-        />
     </RadioGroup>
+
 
 </LinearLayout>

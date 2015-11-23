@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.bean.ActivityListBean;
+import com.wrmoney.administrator.plusadd.tools.BitmapHelper;
 
 import java.util.Collection;
 import java.util.List;
@@ -56,21 +57,22 @@ public class ActivityCenterAdapter extends BaseAdapter {
 
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();
-        ActivityListBean news = list.get(position);
-        holder.iv_imag.setImageResource(news.getPic());
-//        holder.tv_title.setText(news.getTitle());
-//        holder.tv_time.setText(news.getTime());
-//        holder.tv_content.setText(news.getContent());
+        ActivityListBean bean= list.get(position);
+        holder.tv_activitystatus.setText(bean.getActivityId());
+        holder.tv_activitytime.setText(bean.getActivityTime());
+        BitmapHelper.getUtils().display(holder.iv_imag,bean.getActivityImgUrl());
         return convertView;
     }
 
     public static class ViewHolder {
         private ImageView iv_imag;
-
+        private TextView  tv_activitystatus;
+        private TextView  tv_activitytime;
 
         public ViewHolder(View itemView) {
            this.iv_imag = (ImageView) itemView.findViewById(R.id.iv_image);
-//            this.tv_time = (TextView) itemView.findViewById(R.id.tv_time);
+            this.tv_activitytime = (TextView) itemView.findViewById(R.id.tv_activitytime);
+            this.tv_activitystatus=(TextView)itemView.findViewById(R.id.tv_activitystatus);
 //            this.tv_content = (TextView) itemView.findViewById(R.id.tv_content);
 //            this.tv_btn = (TextView) itemView.findViewById(R.id.tv_btn);
         }

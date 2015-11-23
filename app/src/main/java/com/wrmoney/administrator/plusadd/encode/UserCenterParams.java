@@ -124,7 +124,7 @@ public class UserCenterParams {
      * @return
      */
     public static RequestParams getOrderBondsManagerCode(String userIdc, String orderIdc, String currentc, String pageSizec) {
-        String json = "{ inface:'WRMI100015',userId:" + userIdc + ",orderId:" + orderIdc + ",current:" + currentc + ",pageSize:" + pageSizec + "}";
+        String json = "{ iface:'WRMI100015',userId:'" + userIdc + "',orderId:'" + orderIdc + "',current:'" + currentc + "',pageSize:'" + pageSizec + "'}";
         RequestParams params = new RequestParams();
         String str;
         try {
@@ -145,7 +145,7 @@ public class UserCenterParams {
      * @return
      */
     public static RequestParams getInvestManagerDetailCode(String userIdc, String creditIdc) {
-        String json = "{ inface:'WRMI100016',userId:" + userIdc + ",creditId:" + creditIdc + "}";
+        String json = "{ iface:'WRMI100016',userId:'" + userIdc + "',creditId:'" + creditIdc + "'}";
         RequestParams params = new RequestParams();
         String str;
         try {

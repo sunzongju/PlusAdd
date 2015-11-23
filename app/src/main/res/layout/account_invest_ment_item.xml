@@ -34,6 +34,7 @@
             android:layout_weight="1"
             android:background="@color/white">
             <TextView
+                android:id="@+id/tv_investDate"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
@@ -42,6 +43,7 @@
                 android:textSize="8sp"
                 android:text="2015-08-06"/>
             <TextView
+                android:id="@+id/tv_planName"
                 android:layout_marginTop="10dp"
                 android:paddingRight="10dp"
                 android:layout_width="wrap_content"
@@ -51,6 +53,7 @@
                 android:textSize="10sp"
                 android:text="财富A计划"/>
             <TextView
+                android:id="@+id/tv_expectedRate"
                 android:layout_marginBottom="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,6 +81,7 @@
              android:textSize="11sp"
              android:text="买入金额（元）"/>
             <TextView
+                android:id="@+id/tv_investAmount"
                 android:paddingLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,6 +99,7 @@
                android:textSize="11sp"
                android:text="锁定期"/>
             <TextView
+                android:id="@+id/tv_lockTime"
                 android:paddingRight="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_width="wrap_content"
