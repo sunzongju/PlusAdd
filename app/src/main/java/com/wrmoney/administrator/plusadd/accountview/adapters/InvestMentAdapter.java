@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wrmoney.administrator.plusadd.R;
@@ -56,7 +57,13 @@ public class InvestMentAdapter extends BaseAdapter{
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();
         InvestMentBean bean = list.get(position);
-        holder.status.setText(bean.getStatus());
+        String status=bean.getStatus();
+        holder.status.setText(status);
+        if("已锁定".equals(status)){
+            holder.lockPic.setImageResource(R.drawable.locked);
+        }else{
+            holder.lockPic.setImageResource(R.drawable.unlocked);
+        }
         holder.planName.setText(bean.getPlanName());
         holder.investDate.setText(bean.getInvestDate());
         holder.expectedRate.setText("预期收益率"+bean.getExpectedRate());
@@ -73,6 +80,7 @@ public class InvestMentAdapter extends BaseAdapter{
         private TextView expectedRate;//预期收益率
         private TextView investAmount;//买入金额
         private TextView lockTime;//锁定期
+        private ImageView lockPic;//小锁图标
         public ViewHolder(View itemView) {
             this.planName = (TextView) itemView.findViewById(R.id.tv_planName);
             this.investDate=(TextView)itemView.findViewById(R.id.tv_investDate);
@@ -80,6 +88,7 @@ public class InvestMentAdapter extends BaseAdapter{
             this.investAmount=(TextView)itemView.findViewById(R.id.tv_investAmount);
             this.lockTime=(TextView)itemView.findViewById(R.id.tv_lockTime);
             this.status=(TextView)itemView.findViewById(R.id.tv_status);
+            this.lockPic=(ImageView)itemView.findViewById(R.id.iv_lock);
         }
     }
 }

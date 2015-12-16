@@ -83,6 +83,9 @@ public class UsableVouAdapter extends BaseAdapter {
             states.put(String.valueOf(position), false);
         } else {
             res = true;
+            if(tagGet==position){
+                tagGet=-1;
+            }
         }
         holder.cb_check.setChecked(res);
         return convertView;

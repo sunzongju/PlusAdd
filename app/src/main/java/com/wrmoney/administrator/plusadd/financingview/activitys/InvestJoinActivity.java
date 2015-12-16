@@ -140,7 +140,7 @@ public class InvestJoinActivity extends BaseActivity {
                 dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
                 dialog.show();
                 beanList.clear();
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < 8; i++) {
                     VoucherBean bean = new VoucherBean();
                     bean.setLotteryTitle("抵用券名称"+i);
                     beanList.add(bean);

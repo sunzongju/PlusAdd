@@ -65,6 +65,12 @@ public class FinancingFragment extends BaseFragment{
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+       // Log.i("========FinmentonResume","11111111111");
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         init();
     }

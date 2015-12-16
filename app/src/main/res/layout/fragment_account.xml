@@ -48,18 +48,18 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_alignParentBottom="true"
-            android:background="@color/white">
+            android:background="@color/backgro">
 
            <com.wrmoney.administrator.plusadd.view.AutoScrollTextView
                android:id="@+id/TextViewNotice"
                android:layout_height="wrap_content"
                android:layout_width="0dp"
                android:layout_weight="1"
+               android:textSize="13sp"
                android:text="最新的活动"
                android:textColor="@color/black"
-               android:background="@color/white"
                android:inputType="text"
-               android:textSize="22px"/>
+               />
             <ImageView
                 android:id="@+id/iv_activity"
                 android:layout_marginRight="10dp"
@@ -68,11 +68,11 @@
                 android:src="@drawable/close_pic"/>
         </LinearLayout>
     </RelativeLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:background="#e8e9ff"
-        />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="6dp"-->
+        <!--android:background="#e8e9ff"-->
+        <!--/>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -183,8 +183,8 @@
         android:layout_height="230dp"
         android:numColumns="3"
         android:gravity="center"
-        android:horizontalSpacing="0dp"
-        android:verticalSpacing="0dp"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="1dp"
         android:background="@color/backgro"
         />
 

@@ -24,6 +24,7 @@ import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.encode.IdentifyParams;
 import com.wrmoney.administrator.plusadd.encode.LoginParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
+import com.wrmoney.administrator.plusadd.tools.ChangeString;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
@@ -48,6 +49,7 @@ public class RegisterActivity extends BaseActivity {
     private TimeCount time;
     private TextView tv_phone;
     private RequestParams params2;
+    private String invitCode2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +121,11 @@ public class RegisterActivity extends BaseActivity {
       String password=et_password.getText().toString();//密码????
       final String repassword=et_repassword.getText().toString();//确认密码?
       String invitCode=et_invitCode.getText().toString();//邀请码 ??????
+        if(!"".equals(invitCode)&&invitCode!=null){
+       invitCode2=ChangeString.exChange(invitCode);
+        }else{
+            invitCode2="";
+        }
       String sure=cb_sure.getText().toString();//同意协议、//
       if("".equals(captcha)){
        //Toast.makeText(this,"验证码不能为空",Toast.LENGTH_SHORT).show();
@@ -129,7 +136,7 @@ public class RegisterActivity extends BaseActivity {
           }else{
               if(cb_sure.isChecked()){
                   if(password.equals(repassword)){
-                      RequestParams params= LoginParams.getRegisCode(str_phone, password, captcha, invitCode);
+                      RequestParams params= LoginParams.getRegisCode(str_phone, password, captcha, invitCode2);
                       utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
                           @Override
                           public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -139,7 +146,7 @@ public class RegisterActivity extends BaseActivity {
                                   obj = new JSONObject(result);
                                   String strResponse = obj.getString("argEncPara");
                                   String strDe = DES3Util.decode(strResponse);
-                                  Log.i("=======注册成功",strDe);
+                                  //Log.i("=======注册成功",strDe);
                                   JSONObject object=new JSONObject(strDe);
                                   String str=object.getString("rescode");
                                   if("0000".equals(str)){

@@ -82,7 +82,6 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-
             mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
                     0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
                     Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 1.0f);
@@ -96,6 +95,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private ImageView iv_activity;
     private LinearLayout layout_activity;
     private AutoScrollTextView autoScrollTextView;
+    private Thread thread;
 
     @Nullable
     @Override
@@ -121,6 +121,31 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         autoScrollTextView = (com.wrmoney.administrator.plusadd.view.AutoScrollTextView)view.findViewById(R.id.TextViewNotice);
         autoScrollTextView.init(activity.getWindowManager());
         autoScrollTextView.startScroll();
+        if (thread!=null){
+            thread.interrupt();
+        }
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+                    Message msg = new Message();
+                    handler.sendMessage(msg);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        //throw new NumberFormatException();
+        thread.start();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //thread.isDaemon();
     }
 
     private void init() {
@@ -135,19 +160,6 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         iv_activity=(ImageView)view.findViewById(R.id.iv_activity);
         iv_activity.setOnClickListener(this);
         layout_activity=(LinearLayout)view.findViewById(R.id.layout_activity);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(5000);
-                    Message msg=new Message();
-                    handler.sendMessage(msg);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
         utils= HttpXutilTool.getUtils();
         userid = SingleUserIdTool.newInstance().getUserid();
         int len=pic.length;

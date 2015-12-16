@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.actionsheet.ActionSheet;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -23,6 +25,7 @@ import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
+import com.wrmoney.administrator.plusadd.view.InviteFriendsDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +46,8 @@ public class    InvitationActivity extends BaseActivity {
     private TextView tv_inviteCount;
     private TextView tv_backedCommsAmount;
     private TextView tv_unbackCommsAmount;
+    private EditText et_invitationCode;
+    private InvitationBean bean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,8 @@ public class    InvitationActivity extends BaseActivity {
         tv_inviteCount=(TextView)this.findViewById(R.id.tv_inviteCount);//邀请人数
         tv_backedCommsAmount=(TextView)this.findViewById(R.id.tv_backedCommsAmount);//已返金额
         tv_unbackCommsAmount=(TextView)this.findViewById(R.id.tv_unbackCommsAmount);//待返金额；
+        et_invitationCode=(EditText)this.findViewById(R.id.et_invitationCode);//我的邀请码
+
 
         userid = SingleUserIdTool.newInstance().getUserid();
         utils = HttpXutilTool.getUtils();
@@ -83,24 +90,25 @@ public class    InvitationActivity extends BaseActivity {
                     object = new JSONObject(result);
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
-                  //  Log.i("========邀请好友1", strDe);
+                    Log.i("========邀请好友1", strDe);
 //                    Toast.makeText(ActivityCenterActivity.this, strDe, Toast.LENGTH_SHORT).show();
-                    JSONObject object1=new JSONObject(strDe);
-                    String str=object1.getString("intiteCodeRecord");
-                    JSONObject object2=new JSONObject(str);
-                    if("0000".equals(object1.getString("rescode"))){
-                        InvitationBean bean=new InvitationBean();
+                    JSONObject object1 = new JSONObject(strDe);
+                    String str = object1.getString("intiteCodeRecord");
+                    JSONObject object2 = new JSONObject(str);
+                    if ("0000".equals(object1.getString("rescode"))) {
+                        bean = new InvitationBean();
                         bean.setInviteCount(object2.getString("inviteCount"));
                         bean.setBackedCommsAmount(object2.getString("backedCommsAmount"));
                         bean.setUnbackCommsAmount(object2.getString("unbackCommsAmount"));
                         bean.setInvitationCode(object2.getString("invitationCode"));
                         bean.setBindInviteCode(object2.getString("bindInviteCode"));
-                       // Log.i("========邀请好友", "人数" + bean.getInviteCount() + "已返金额" + bean.getBackedCommsAmount());
+                        // Log.i("========邀请好友", "人数" + bean.getInviteCount() + "已返金额" + bean.getBackedCommsAmount());
                         tv_inviteCount.setText(bean.getInviteCount());
                         tv_backedCommsAmount.setText(bean.getBackedCommsAmount());
                         tv_unbackCommsAmount.setText(bean.getUnbackCommsAmount());
-                    }else{
-                       // Toast.makeText(InvitationActivity.this,"请求失败",Toast.LENGTH_SHORT).show();
+                        et_invitationCode.setText(bean.getInvitationCode());
+                    } else {
+                        // Toast.makeText(InvitationActivity.this,"请求失败",Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -121,12 +129,21 @@ public class    InvitationActivity extends BaseActivity {
     public void click(View view){
         switch (view.getId()){
             case R.id.tv_invitation:
-                Intent intent0=new Intent(this,InvitationFriendActivity.class);
-                startActivity(intent0);
+                if(bean!=null){
+                    InviteFriendsDialog dialog=new InviteFriendsDialog(this,R.style.dialog);
+                    dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
+                    dialog.show();
+//                    Intent intent0=new Intent(this,InvitationFriendActivity.class);
+//                    startActivity(intent0);
+                    //this.setTheme(R.style.ActionSheetStyleiOS7);
+                    //showActionSheet();
+                }
                 break;
             case R.id.tv_indetail:
-                Intent intent=new Intent(this,InvitationDetailActivity.class);
-                startActivity(intent);
+                if(bean!=null){
+                    Intent intent=new Intent(this,InvitationDetailActivity.class);
+                    startActivity(intent);
+                }
                 break;
             default:
                 break;
@@ -134,4 +151,5 @@ public class    InvitationActivity extends BaseActivity {
         }
 
     }
+
 }

@@ -105,6 +105,7 @@
         android:layout_height="43dp"
         android:background="@color/white">
         <EditText
+            android:id="@+id/et_invitationCode"
             android:layout_width="0dp"
             android:layout_weight="1"
             style="@style/edit_style"

@@ -59,14 +59,14 @@ public class VouchersAdapter extends BaseAdapter {
         holder.tv_lotteryComent.setText(bean.getLotteryComent());
         //holder.tv_lotteryStatus.setText(bean.getLotteryStatus());
         holder.tv_lotteryValidTime.setText(bean.getLotteryValidTime());
-        if("1".equals(bean.getLotteryStatus())){
+        if("1".equals(bean.getLotteryStatus())){ //可用
             holder.tv_name.setTextColor(context.getResources().getColor(R.color.red));
             holder.tv_lotteryTitle.setTextColor(context.getResources().getColor(R.color.gray3));
             holder.tv_lotteryComent.setTextColor(context.getResources().getColor(R.color.gray3));
             holder.tv_lotteryValidTime.setTextColor(context.getResources().getColor(R.color.gray3));
             holder.iv_voucher.setVisibility(View.INVISIBLE);
             holder.lay_01.setBackgroundColor(context.getResources().getColor(R.color.red));
-        }else if("2".equals(bean.getLotteryStatus())){
+        }else if("2".equals(bean.getLotteryStatus())){ //已用
             holder.tv_timeTitle.setTextColor(context.getResources().getColor(R.color.gray0));
             holder.tv_name.setTextColor(context.getResources().getColor(R.color.gray0));
             holder.tv_lotteryTitle.setTextColor(context.getResources().getColor(R.color.gray0));
@@ -75,7 +75,7 @@ public class VouchersAdapter extends BaseAdapter {
             holder.iv_voucher.setVisibility(View.VISIBLE);
             holder.iv_voucher.setImageResource(R.drawable.isuse_pic);
             holder.lay_01.setBackgroundColor(context.getResources().getColor(R.color.gray0));
-        }else if("3".equals(bean.getLotteryStatus())){
+        }else if("3".equals(bean.getLotteryStatus())){ //已过期
             holder.tv_timeTitle.setTextColor(context.getResources().getColor(R.color.gray0));
             holder.tv_name.setTextColor(context.getResources().getColor(R.color.gray0));
             holder.tv_lotteryTitle.setTextColor(context.getResources().getColor(R.color.gray0));
