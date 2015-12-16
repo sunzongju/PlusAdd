@@ -8,7 +8,24 @@ public class ActivityListBean  {
     private String activityId;//活动ID
     private String activityStatus;//活动状态
     private String activityTime;//活动时间
+    private String beginTimeStr;//开始时间
+    private String endTimeStr;//结束时间
     private String activityImgUrl;//活动图片地址
+    public String getBeginTimeStr() {
+        return beginTimeStr;
+    }
+
+    public void setBeginTimeStr(String beginTimeStr) {
+        this.beginTimeStr = beginTimeStr;
+    }
+
+    public String getEndTimeStr() {
+        return endTimeStr;
+    }
+
+    public void setEndTimeStr(String endTimeStr) {
+        this.endTimeStr = endTimeStr;
+    }
 
     public String getActivityId() {
         return activityId;

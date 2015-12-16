@@ -56,6 +56,7 @@ public class InvestMentAdapter extends BaseAdapter{
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();
         InvestMentBean bean = list.get(position);
+        holder.status.setText(bean.getStatus());
         holder.planName.setText(bean.getPlanName());
         holder.investDate.setText(bean.getInvestDate());
         holder.expectedRate.setText("预期收益率"+bean.getExpectedRate());
@@ -66,6 +67,7 @@ public class InvestMentAdapter extends BaseAdapter{
 
     public static class ViewHolder {
         private String orderId;//计划ID
+        private TextView status;//订单状态
         private TextView planName;//投资类型
         private TextView investDate;//日期
         private TextView expectedRate;//预期收益率
@@ -77,6 +79,7 @@ public class InvestMentAdapter extends BaseAdapter{
             this.expectedRate=(TextView)itemView.findViewById(R.id.tv_expectedRate);
             this.investAmount=(TextView)itemView.findViewById(R.id.tv_investAmount);
             this.lockTime=(TextView)itemView.findViewById(R.id.tv_lockTime);
+            this.status=(TextView)itemView.findViewById(R.id.tv_status);
         }
     }
 }

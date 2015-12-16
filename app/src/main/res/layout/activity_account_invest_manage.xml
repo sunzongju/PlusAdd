@@ -19,16 +19,28 @@
             android:layout_centerHorizontal="true"
             android:textSize="15sp"
             android:textColor="#ff0000"
-            android:text="账号资产（元）"/>
+            android:text="账户资产（元）"/>
         <TextView
+            android:id="@+id/tv_allAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_nul"
             android:layout_centerHorizontal="true"
             android:textSize="21sp"
             android:textColor="#ff0000"
-            android:text="2.000.00"/>
+            android:text=""/>
 
+        <TextView
+            android:id="@+id/tv_lookwater"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textSize="11sp"
+            android:textColor="@color/orange"
+            android:text="查看资金流水"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,9 +58,10 @@
             android:layout_height="wrap_content"
             android:text="可用余额（元）"/>
             <TextView
+                android:id="@+id/tv_acctBalance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1000.00"/>
+                android:text=""/>
         </LinearLayout>
         <TextView
             android:layout_width="1dp"
@@ -65,9 +78,10 @@
                 android:layout_height="wrap_content"
                 android:text="累计收益（元）"/>
             <TextView
+                android:id="@+id/tv_incomeAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="13.00"/>
+                android:text=""/>
 
         </LinearLayout>
     </LinearLayout>
@@ -86,37 +100,60 @@
             style="@style/radio_style2"
             android:checked="true"
             android:text="全部"/>
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray2"/>
         <RadioButton
             android:layout_marginLeft="1dp"
             android:id="@+id/btn_locked"
             style="@style/radio_style2"
             android:text="已锁定"
             />
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray2"/>
         <RadioButton
             android:layout_marginLeft="1dp"
             android:id="@+id/btn_unlock"
             style="@style/radio_style2"
             android:text="已解锁"/>
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray2"/>
         <RadioButton
             android:layout_marginLeft="1dp"
             android:id="@+id/btn_quit"
             style="@style/radio_style2"
             android:text="退出中"/>
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray2"/>
         <RadioButton
             android:layout_marginLeft="1dp"
             android:id="@+id/btn_quited"
             style="@style/radio_style2"
             android:text="已退出"/>
     </RadioGroup>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/gray1"/>
-    <ListView
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="10dp"-->
+        <!--android:background="@color/gray1"/>-->
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/lv_invest"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@color/backgro"
         android:dividerHeight="10dp"
-        android:divider="@color/backgro"/>
+        ptr:ptrMode="both"/>
 
 </LinearLayout>

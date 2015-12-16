@@ -3,6 +3,8 @@ package com.wrmoney.administrator.plusadd.accountview.activitys;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lidroid.xutils.HttpUtils;
@@ -14,6 +16,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.wrmoney.administrator.plusadd.BaseActivity;
 import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.encode.RechargeParams;
+import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
@@ -36,6 +39,9 @@ public class EssayActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_essay);
+        ActionBarSet.setActionBar(this);
+        TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
+        tv_banner.setText("取现");
         userid= SingleUserIdTool.newInstance().getUserid();
         et_essay=(EditText)this.findViewById(R.id.et_essay);
         et_captcha=(EditText)this.findViewById(R.id.et_captcha);
@@ -57,7 +63,7 @@ public class EssayActivity extends BaseActivity{
                             object = new JSONObject(result);
                             String strResponse = object.getString("argEncPara");
                             String strDe = DES3Util.decode(strResponse);
-                            Toast.makeText(EssayActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(EssayActivity.this, strDe, Toast.LENGTH_SHORT).show();
                             // JSONObject obj2 = new JSONObject(strDe);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -67,7 +73,7 @@ public class EssayActivity extends BaseActivity{
                     }
                     @Override
                     public void onFailure(HttpException e, String s) {
-                        Toast.makeText(EssayActivity.this,"取现失败",Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(EssayActivity.this,"取现失败",Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
                 });

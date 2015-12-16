@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.wrmoney.administrator.plusadd.BaseActivity;
 import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.moreview.adapters.HelpCenterAdapter;
+import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +30,9 @@ public class HelpCenterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_help_center);
-
+        ActionBarSet.setActionBar(this);
+        TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
+        tv_banner.setText("帮助中心");
         init();
     }
 

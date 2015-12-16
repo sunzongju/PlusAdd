@@ -58,8 +58,9 @@ public class ActivityCenterAdapter extends BaseAdapter {
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();
         ActivityListBean bean= list.get(position);
-        holder.tv_activitystatus.setText(bean.getActivityId());
-        holder.tv_activitytime.setText(bean.getActivityTime());
+        //holder.tv_activitystatus.setText(bean.getActivityId());
+        String time=bean.getBeginTimeStr()+"～"+bean.getEndTimeStr();
+        holder.tv_activitytime.setText(time);
         BitmapHelper.getUtils().display(holder.iv_imag,bean.getActivityImgUrl());
         return convertView;
     }

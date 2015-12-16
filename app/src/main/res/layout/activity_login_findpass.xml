@@ -12,13 +12,26 @@
         android:background="@drawable/border"
         android:orientation="horizontal">
 
-        <EditText
+        <!--<EditText-->
+            <!--android:id="@+id/et_pass1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--style="@style/edit_style"-->
+            <!--android:maxLength="16"-->
+            <!--android:inputType="textPassword"-->
+            <!--android:hint="设置密码" />-->
+
+        <com.wrmoney.administrator.plusadd.view.ClearEditText
             android:id="@+id/et_pass"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_gravity="center_vertical"
             style="@style/edit_style"
+            android:drawableRight="@drawable/clear_pic"
+            android:maxLength="16"
             android:inputType="textPassword"
-            android:hint="设置密码" />
+            android:hint="设置密码"
+             />
     </LinearLayout>
 
     <LinearLayout
@@ -27,13 +40,26 @@
         android:background="@drawable/border"
         android:orientation="horizontal">
 
-        <EditText
+        <!--<EditText-->
+            <!--android:id="@+id/et_repass1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--style="@style/edit_style"-->
+            <!--android:maxLength="16"-->
+            <!--android:inputType="textPassword"-->
+            <!--android:hint="重复密码" />-->
+
+        <com.wrmoney.administrator.plusadd.view.ClearEditText
             android:id="@+id/et_repass"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_gravity="center_vertical"
             style="@style/edit_style"
+            android:drawableRight="@drawable/clear_pic"
+            android:maxLength="16"
             android:inputType="textPassword"
-            android:hint="重复密码" />
+            android:hint="重复密码"
+            />
 
     </LinearLayout>
 

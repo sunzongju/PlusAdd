@@ -21,7 +21,7 @@
         android:textSize="13sp"
         android:text="买入新手财富"/>
      <TextView
-         android:id="@+id/tv_cast"
+         android:id="@+id/tv_surplusAmount"
          android:layout_marginRight="13dp"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/tv_cast"
+        android:layout_toLeftOf="@id/tv_surplusAmount"
         android:textColor="@color/black2"
         android:textSize="13sp"
         android:text="剩余可投金额"/>
@@ -51,9 +51,11 @@
         android:textSize="13sp"
         android:text="金额（元）"/>
     <EditText
+        android:id="@+id/et_sum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
+        android:numeric="integer"
         android:textSize="13sp"
         android:textColor="@color/gray5"
         android:hint="最低100元起"/>
@@ -70,8 +72,9 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black2"
         android:textSize="13sp"
-        android:text="*锁定期内，预计收益"/>
+        android:text="预计收益"/>
     <TextView
+        android:id="@+id/tv_income"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/red"
@@ -101,12 +104,14 @@
          android:textSize="13sp"
          android:text="可用金额："/>
      <TextView
+         android:id="@+id/tv_acct_balance"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_toRightOf="@id/tv_use"
          android:textColor="@color/red"
          android:text="0.00元"/>
     <CheckBox
+        android:layout_marginRight="13dp"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:button="@null"

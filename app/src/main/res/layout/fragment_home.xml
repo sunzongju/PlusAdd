@@ -4,32 +4,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgro">
-
-    <include layout="@layout/tab_view"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp">
         <android.support.v4.view.ViewPager
             android:id="@+id/pager_index"
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:layout_below="@id/rg_group" />
-        <RadioGroup
-            android:id="@+id/rg_index"
+        <LinearLayout
+            android:id="@+id/ll_points"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_alignBottom="@id/pager_index"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            />
+        </RelativeLayout>
+        <!--<RadioGroup-->
+            <!--android:id="@+id/rg_index"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:orientation="horizontal">-->
 
-            <RadioButton style="@style/radio_cycle" />
+            <!--<RadioButton style="@style/radio_cycle" />-->
 
-            <RadioButton style="@style/radio_cycle" />
+            <!--<RadioButton style="@style/radio_cycle" />-->
 
-            <RadioButton style="@style/radio_cycle" />
-        </RadioGroup>
+            <!--<RadioButton style="@style/radio_cycle" />-->
+
+            <!--<RadioButton style="@style/radio_cycle" />-->
+        <!--</RadioGroup>-->
 
        <LinearLayout
            android:layout_width="match_parent"
@@ -54,11 +61,10 @@
 
        </LinearLayout>
 
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_height="0dp"
         android:orientation="vertical">
 
         <ListView

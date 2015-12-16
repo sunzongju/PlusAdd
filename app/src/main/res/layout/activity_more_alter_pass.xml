@@ -21,9 +21,11 @@
 </FrameLayout>
 
     <TextView
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray"/>
+        android:background="@color/gray1"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -35,13 +37,15 @@
             android:layout_gravity="center_vertical"
             style="@style/edit_style"
             android:inputType="textPassword"
-            android:hint="设置取现密码" />
+            android:hint="设置密码" />
     </FrameLayout>
 
     <TextView
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray"/>
+        android:background="@color/gray2"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="43dp"
@@ -52,7 +56,7 @@
             android:layout_gravity="center_vertical"
             style="@style/edit_style"
             android:inputType="textPassword"
-            android:hint="重复取现密码" />
+            android:hint="重复密码" />
     </FrameLayout>
     <Button
         android:id="@+id/btn_finish"

@@ -6,15 +6,25 @@ package com.wrmoney.administrator.plusadd.tools;
 public class SingleUserIdTool {
 
     private static SingleUserIdTool instance = null;
-    private String userid = null;
+    private  String userid = null;
+    private String phoneNum=null;
 
-    public String getUserid() {
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public  String getUserid() {
         return userid;
     }
 
     public void setUserid(String userid) {
         this.userid = userid;
     }
+
 
     private SingleUserIdTool() {
     }

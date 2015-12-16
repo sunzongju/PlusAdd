@@ -3,6 +3,7 @@ package com.wrmoney.administrator.plusadd.view;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 
 import com.wrmoney.administrator.plusadd.R;
 
@@ -13,6 +14,7 @@ import com.wrmoney.administrator.plusadd.R;
 public class ClaculatorDialog extends Dialog {
     public ClaculatorDialog(Context context, int theme) {
         super(context, theme);
+
     }
 
     @Override

@@ -32,18 +32,6 @@ public class VoucherDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.custom_voucher_dialog);
-        btn_sure=(Button)findViewById(R.id.btn_sure);
-        lv_vou=(ListView)findViewById(R.id.lv_vou);
-                for (int i = 0; i <4; i++) {
-                    list.add("抵用券名称");
-                }
-//         lv_vou.setAdapter(adapter);
-        btn_sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Toast.makeText(context ,"哈哈", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

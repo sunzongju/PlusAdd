@@ -14,7 +14,7 @@
         <RadioButton
             android:id="@+id/btn_all"
             style="@style/radio_style2"
-            android:background="@null"
+            android:checked="true"
             android:text="全部"/>
         <RadioButton
             android:id="@+id/btn_reg"

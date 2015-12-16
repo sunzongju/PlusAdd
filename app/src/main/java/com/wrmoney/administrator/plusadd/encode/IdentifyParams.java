@@ -47,4 +47,23 @@ public class IdentifyParams {
         }
         return null;
     }
+
+    /**
+     * 修改绑定的邀请码
+     * @return
+     */
+    public static RequestParams getBindCode(String userId,String inviteCode,String bindedInvateCode,String bindInvateCode){
+        String json="{ iface:'WRMI100036',userId:'"+userId+"',inviteCode:'"+inviteCode+"',bindedInviteCode:'"+bindedInvateCode+"',bindInviteCode:'"+bindInvateCode+"'}";
+        RequestParams params=new RequestParams();
+        String str;
+        try {
+            str = DES3Util.encode(json);
+            params.addQueryStringParameter("argEncPara", str);
+            return params;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

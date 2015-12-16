@@ -72,7 +72,28 @@ public class FinancingParams {
      * @return
      */
     public static RequestParams getBuyGoodsCode(String userIdc, String planIdc) {
-        String json = "{ inface:'WRMI1000024',userId:" + userIdc + ",planId:" + planIdc + "}";
+        String json = "{ iface:'WRMI100024',userId:'" + userIdc + "',planId:'" + planIdc + "'}";
+        RequestParams params = new RequestParams();
+        String str;
+        try {
+            str = DES3Util.encode(json);
+            params.addQueryStringParameter("argEncPara", str);
+            return params;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 理财计划--购买产品2
+     *
+     * @param userIdc
+     * @param planIdc
+     * @return
+     */
+    public static RequestParams getBuyGoodsCode2(String userIdc, String planIdc) {
+        String json = "{ iface:'WRMI100048',userId:'" + userIdc + "',financeId:'" + planIdc + "'}";
         RequestParams params = new RequestParams();
         String str;
         try {
@@ -93,7 +114,7 @@ public class FinancingParams {
      * @return
      */
     public static RequestParams getSureBuyCode(String userIdc, String planIdc) {
-        String json = "{ inface:'WRMI1000025',userId:" + userIdc + ",planId:" + planIdc + "}";
+        String json = "{ iface:'WRMI100025',userId:'" + userIdc + "',planId:'" + planIdc + "'}";
         RequestParams params = new RequestParams();
         String str;
         try {

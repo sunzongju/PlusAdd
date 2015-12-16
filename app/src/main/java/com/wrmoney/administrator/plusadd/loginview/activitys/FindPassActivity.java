@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lidroid.xutils.HttpUtils;
@@ -14,9 +15,11 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.wrmoney.administrator.plusadd.BaseActivity;
 import com.wrmoney.administrator.plusadd.CommnActivity;
 import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.encode.LoginParams;
+import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
@@ -29,7 +32,7 @@ import org.json.JSONObject;
  *
  * Created by Administrator on 2015/9/21.
  */
-public class FindPassActivity extends Activity {
+public class FindPassActivity extends BaseActivity {
     private EditText et_pass;
     private EditText et_repass;
     private HttpUtils utils;
@@ -40,6 +43,10 @@ public class FindPassActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_findpass);
+        ActionBarSet.setActionBar(this);
+        TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
+        tv_banner.setText("找回密码");
+        //ActionBarSet.setActionBar(this);
         utils = HttpXutilTool.getUtils();
          mobile=getIntent().getStringExtra("MOBILE");
         et_pass=(EditText)this.findViewById(R.id.et_pass);
@@ -59,7 +66,7 @@ public class FindPassActivity extends Activity {
                         obj = new JSONObject(result);
                         String strResponse=obj.getString("argEncPara");
                         String strDe= DES3Util.decode(strResponse);
-                        Toast.makeText(FindPassActivity.this,strDe,Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(FindPassActivity.this,strDe,Toast.LENGTH_SHORT).show();
                         JSONObject obj2 = new JSONObject(strDe);
                         String rescode = obj2.getString("rescode");
                         //Toast.makeText(FindwordActivity.this,rescode , Toast.LENGTH_SHORT).show();
@@ -78,7 +85,10 @@ public class FindPassActivity extends Activity {
                                 @Override
                                 public void onClick(View v) {
                                     dialog.dismiss();
-                                    Intent intent = new Intent(FindPassActivity.this, CommnActivity.class);
+                                   // Intent intent = new Intent(FindPassActivity.this, CommnActivity.class);
+                                    Intent intent = new Intent(FindPassActivity.this, LoginActivity.class);
+                                    intent.putExtra("PHONE", mobile);
+                                    intent.putExtra("TAG","tag");
                                     FindPassActivity.this.startActivity(intent);
                                 }
                             });
@@ -98,7 +108,7 @@ public class FindPassActivity extends Activity {
                 }
             });
         }else {
-            Toast.makeText(this,"失败",Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this,"失败",Toast.LENGTH_SHORT).show();
         }
 
     }

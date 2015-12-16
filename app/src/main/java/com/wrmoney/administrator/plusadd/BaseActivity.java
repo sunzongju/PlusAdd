@@ -2,9 +2,12 @@ package com.wrmoney.administrator.plusadd;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -24,7 +27,14 @@ public class BaseActivity extends AppCompatActivity {
 
 
     }
-
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+        Configuration config=new Configuration();
+        config.setToDefaults();
+        res.updateConfiguration(config, res.getDisplayMetrics());
+        return res;
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -33,13 +43,19 @@ public class BaseActivity extends AppCompatActivity {
     public void click(View view){
         switch (view.getId()){
             case R.id.iv_return:
-                finish();
+               // finish();
+               // onKeyDown()
                 break;
             default:
                 break;
 
 
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

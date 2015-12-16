@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.wrmoney.administrator.plusadd.BaseActivity;
 import com.wrmoney.administrator.plusadd.R;
+import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 
 /**
  * Created by Administrator on 2015/11/14.
@@ -13,6 +14,7 @@ public class InvitationFriendActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation_friend);
+       // ActionBarSet.setActionBar(this);
 
     }
 }

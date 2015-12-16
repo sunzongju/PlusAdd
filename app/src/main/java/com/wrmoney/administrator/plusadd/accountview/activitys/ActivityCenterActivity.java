@@ -1,9 +1,15 @@
 package com.wrmoney.administrator.plusadd.accountview.activitys;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.extras.PullToRefreshWebView2;
 import com.lidroid.xutils.BitmapUtils;
@@ -18,6 +24,7 @@ import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.accountview.adapters.ActivityCenterAdapter;
 import com.wrmoney.administrator.plusadd.bean.ActivityListBean;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
+import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.BitmapHelper;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
@@ -45,12 +52,16 @@ public class ActivityCenterActivity extends BaseActivity {
     private Integer currentPage=0;
     private Integer pageSize=10;
     private PullToRefreshListView lv_activity;
-
+    private int current=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_activity);
+        ActionBarSet.setActionBar(this);
+        TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
+        tv_banner.setText("活动专区");
+
         init();
     }
 
@@ -61,28 +72,53 @@ public class ActivityCenterActivity extends BaseActivity {
 
     private void init() {
         BitmapHelper.init(this);
+        utils = HttpXutilTool.getUtils();
         userid=getIntent().getStringExtra("USERID");
+        dataRequest(current);
         lv_activity = (PullToRefreshListView) this.findViewById(R.id.lv_activity);
+        View v= LayoutInflater.from(this).inflate(R.layout.empty_view,null);
+        lv_activity.setEmptyView(v);
         adapter = new ActivityCenterAdapter(list, this);
         lv_activity.setAdapter(adapter);
+        lv_activity.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                current=1;
+                list.clear();
+                dataRequest(current);
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                current++;
+                dataRequest(current);
+            }
+        });
         userid = SingleUserIdTool.newInstance().getUserid();
-        utils = HttpXutilTool.getUtils();
-        RequestParams params = UserCenterParams.getActivityListCode(currentPage+"",pageSize+"");
+
+
+    }
+
+    /**
+     * 数据请求
+     */
+    public void dataRequest(int current){
+        RequestParams params = UserCenterParams.getActivityListCode(current+"",pageSize+"");
         utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 String result = responseInfo.result;
                 JSONObject object = null;
                 try {
+                    List<ActivityListBean> list2 = new ArrayList<ActivityListBean>();
                     object = new JSONObject(result);
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
-                    Toast.makeText(ActivityCenterActivity.this, strDe, Toast.LENGTH_SHORT).show();
-
+//                    Toast.makeText(ActivityCenterActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                     Log.i("========图片",strDe);
                     JSONObject object1=new JSONObject(strDe);
                     JSONArray array=object1.getJSONArray("msgList");
                     int len=array.length();
-                    List<ActivityListBean> list = new ArrayList<ActivityListBean>();
                     for(int i=0;i<len;i++){
                         JSONObject object2=array.getJSONObject(i);
                         ActivityListBean bean=new ActivityListBean();
@@ -90,23 +126,16 @@ public class ActivityCenterActivity extends BaseActivity {
                         String activityImgUrl=object2.getString("activityImgUrl");
                         String activityStatus=object2.getString("activityStatus");
                         String activityTime=object2.getString("activityTime");
-                       bean.setActivityId(activityId);
+                        bean.setBeginTimeStr(object2.getString("beginTimeStr"));
+                        bean.setEndTimeStr(object2.getString("endTimeStr"));
+                        bean.setActivityId(activityId);
                         bean.setActivityImgUrl(activityImgUrl);
                         bean.setActivityStatus(activityStatus);
                         bean.setActivityTime(activityTime);
-                        list.add(bean);
+                        list2.add(bean);
                     }
-                    adapter.addAll(list);
-//                    for (int i = 0; i < 10; i++) {
-//                        ActivityListBean bean = new ActivityListBean();
-//                        bean.setTitle("活动");
-//                        bean.setTime("2015-08-16 14:30");
-//                       // bean.setContent("����������������������������������������");
-//                        //list.add(bean);
-//                    }
-                   // adapter.addAll(list);
-                    //JSONObject obj2=new JSONObject(strDe);
-                    // String rescode=obj2.getString("rescode");
+                    adapter.addAll(list2);
+                    lv_activity.onRefreshComplete();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (Exception e) {

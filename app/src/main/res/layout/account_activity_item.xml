@@ -23,14 +23,14 @@
             android:layout_height="wrap_content"
             android:textColor="@color/gray3"
             android:textSize="10sp"
-            android:text="" />
+            android:text="时间：" />
         <TextView
             android:id="@+id/tv_activitytime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray3"
             android:textSize="10sp"
-            android:text="2015-09-01"/>
+            android:text=""/>
 
     </LinearLayout>
 </LinearLayout>

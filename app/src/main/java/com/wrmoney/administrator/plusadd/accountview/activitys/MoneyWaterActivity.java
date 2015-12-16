@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.LinearLayout;
@@ -14,6 +16,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -36,8 +40,10 @@ import com.wrmoney.administrator.plusadd.bean.FinancingPlanBean;
 import com.wrmoney.administrator.plusadd.bean.MoneyWaterBean;
 import com.wrmoney.administrator.plusadd.encode.FinancingParams;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
+import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
+import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
 
 import org.json.JSONArray;
@@ -56,9 +62,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 public class MoneyWaterActivity extends BaseActivity {
     private String userid;
     private HttpUtils utils;
-    private ListView lv_water;
     private List<MoneyWaterBean> list=new ArrayList<MoneyWaterBean>();
-    private MoneyWaterAdapter adapter;
     private LinearLayout prg1;
 
     private RadioGroup rg_water;
@@ -69,50 +73,96 @@ public class MoneyWaterActivity extends BaseActivity {
     private WaterRechargeFragment waterRechargeFragment;
     private WaterInvestFragment waterInvestFragment;
     private HttpUtils httpUtils;
+    private MoneyWaterAdapter adapter;
+    private PullToRefreshListView lv_water;
+    private int current=1;
+    private int checked=R.id.btn_all;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_water);
+        ActionBarSet.setActionBar(this);
+        TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
+        tv_banner.setText("资金流水");
         init();
     }
 
     private void init() {
-        userid=getIntent().getStringExtra("USERID");
+        TextView tv_allAmount=(TextView)this.findViewById(R.id.tv_allAmount);
+        Bundle bundle = getIntent().getExtras();
+        tv_allAmount.setText(bundle.getString("allAmount"));//总额
+        userid= SingleUserIdTool.newInstance().getUserid();
         httpUtils = new HttpUtils(10000);
-        dataRequest("0");
+        dataRequest("0",current);
         rg_water = (RadioGroup) this.findViewById(R.id.rg_water);
-        lv_water=(ListView)this.findViewById(R.id.lv_water);
-       MoneyWaterAdapter adapter=new MoneyWaterAdapter(list,this);
+        lv_water=(PullToRefreshListView)this.findViewById(R.id.lv_water);
+        View v= LayoutInflater.from(this).inflate(R.layout.empty_view,null);
+        lv_water.setEmptyView(v);
+       adapter=new MoneyWaterAdapter(list,this);
        lv_water.setAdapter(adapter);
+        lv_water.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                current=1;
+                list.clear();
+                switch (checked) {
+                    case R.id.btn_all:
+                        dataRequest("0",current);
+                        break;
+                    case R.id.btn_add:
+                        dataRequest("1",current);
+                        break;
+                    case R.id.btn_cut:
+                        dataRequest("2",current);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                current++;
+                switch (checked) {
+                    case R.id.btn_all:
+                        dataRequest("0",current);
+                        break;
+                    case R.id.btn_add:
+                        dataRequest("1",current);
+                        break;
+                    case R.id.btn_cut:
+                        dataRequest("2",current);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
         rg_water.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-
+               current=1;
                 //选中的RadioButton播放动画
                 ScaleAnimation sAnim = new ScaleAnimation(1, 1.1f, 1, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 sAnim.setDuration(2000);
                 sAnim.setFillAfter(true);
                 switch (checkedId) {
                     case R.id.btn_all:
+                        checked=R.id.btn_all;
                         list.clear();
-                        dataRequest("0");
+                        dataRequest("0",current);
                         break;
                     case R.id.btn_add:
+                        checked=R.id.btn_add;
                         list.clear();
-                        dataRequest("1");
+                        dataRequest("1",current);
                         break;
                     case R.id.btn_cut:
+                        checked=R.id.btn_cut;
                         list.clear();
-                        dataRequest("2");
+                        dataRequest("2",current);
                         break;
-                    case R.id.btn_recharge:
-                        list.clear();
-                        dataRequest("3");
-                        break;
-                    case R.id.btn_invest:
-                        list.clear();
-                        dataRequest("4");
                     default:
                         break;
                 }
@@ -123,9 +173,9 @@ public class MoneyWaterActivity extends BaseActivity {
     /**
      * 数据请求
      */
-    public void dataRequest(String type){
+    public void dataRequest(String type,int current){
 
-        RequestParams params = UserCenterParams.getFundRunningCode(userid,type,"1","10");
+        RequestParams params = UserCenterParams.getFundRunningCode(userid,type,current+"","10");
         httpUtils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -133,11 +183,11 @@ public class MoneyWaterActivity extends BaseActivity {
                 String result = responseInfo.result;
                 JSONObject object = null;
                 try {
-                    List<MoneyWaterBean> list = new ArrayList<MoneyWaterBean>();
+                    List<MoneyWaterBean> list2=new ArrayList<MoneyWaterBean>();
                     object = new JSONObject(result);
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
-                    Log.i("=======资金流水", strDe);
+                    //Log.i("=======资金流水", strDe);
                     JSONObject object1=new JSONObject(strDe);
                     JSONArray array=object1.getJSONArray("flowList");
                     int len=array.length();
@@ -147,9 +197,10 @@ public class MoneyWaterActivity extends BaseActivity {
                         bean.setTransDate(object2.getString("transDate"));
                         bean.setTransComent(object2.getString("transComent"));
                         bean.setTransAmount(object2.getString("transAmount"));
-                      list.add(bean);
+                      list2.add(bean);
                     }
-                    adapter.addAll(list);
+                    adapter.addAll(list2);
+                    lv_water.onRefreshComplete();
                    // JSONObject object1 = new JSONObject(strDe);
 
                 } catch (JSONException e) {
@@ -163,7 +214,7 @@ public class MoneyWaterActivity extends BaseActivity {
             @Override
             public void onFailure(HttpException e, String s) {
                 e.printStackTrace();
-                Toast.makeText(MoneyWaterActivity.this, "失败", LENGTH_SHORT).show();
+                //Toast.makeText(MoneyWaterActivity.this, "失败", LENGTH_SHORT).show();
             }
         });
 

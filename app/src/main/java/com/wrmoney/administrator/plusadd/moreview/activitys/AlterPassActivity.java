@@ -15,9 +15,11 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.wrmoney.administrator.plusadd.BaseActivity;
 import com.wrmoney.administrator.plusadd.CommnActivity;
 import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.encode.SetUpParams;
+import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
@@ -30,7 +32,7 @@ import org.json.JSONObject;
 /**
  * Created by Administrator on 2015/10/10.
  */
-public class AlterPassActivity extends Activity {
+public class AlterPassActivity extends BaseActivity {
     private RequestParams params;
     private HttpUtils utils;
     private EditText old_pwd;
@@ -44,6 +46,9 @@ public class AlterPassActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_alter_pass);
+        ActionBarSet.setActionBar(this);
+        TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
+        tv_banner.setText("修改登录密码");
         utils = HttpXutilTool.getUtils();
         params = new RequestParams();
         old_pwd = (EditText) this.findViewById(R.id.et_oldpwd);
@@ -69,7 +74,7 @@ public class AlterPassActivity extends Activity {
                         JSONObject obj = new JSONObject(result);
                         String strResponse = obj.getString("argEncPara");
                         String strDe = DES3Util.decode(strResponse);
-                        Toast.makeText(AlterPassActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(AlterPassActivity.this, strDe, Toast.LENGTH_SHORT).show();
                         JSONObject obj2=new JSONObject(strDe);
                         String rescode = obj2.getString("rescode");
                         if ("0000".equals(rescode)) {
@@ -105,7 +110,7 @@ public class AlterPassActivity extends Activity {
                 public void onFailure(HttpException e, String s) {
                     //e.getExceptionCode();
                     e.printStackTrace();
-                    Toast.makeText(AlterPassActivity.this, "����ɹ�", Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(AlterPassActivity.this, "����ɹ�", Toast.LENGTH_SHORT).show();
                 }
             });
 

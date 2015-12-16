@@ -24,17 +24,29 @@
                 style="@style/radio_style2"
                 android:checked="true"
                 android:text="全部" />
-
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray2"/>
             <RadioButton
                 android:id="@+id/btn2"
                 style="@style/radio_style2"
                 android:text="可用" />
-
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray2"/>
             <RadioButton
                 android:id="@+id/btn3"
                 style="@style/radio_style2"
                 android:text="已用" />
-
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray2"/>
             <RadioButton
                 android:id="@+id/btn4"
                 style="@style/radio_style2"
@@ -55,11 +67,13 @@
         android:layout_width="match_parent"
         android:layout_height="9dp"
         android:background="@color/backgro"/>
-   <ListView
-       android:id="@+id/lv_voucher"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:dividerHeight="10dp"
-       android:divider="@color/backgro"
-       />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lv_voucher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/backgro"
+        android:dividerHeight="10dp"
+        ptr:ptrMode="both"/>
 </LinearLayout>

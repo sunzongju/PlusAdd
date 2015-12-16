@@ -3,6 +3,7 @@ package com.wrmoney.administrator.plusadd.loginview.activitys;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -15,10 +16,13 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.wrmoney.administrator.plusadd.BaseActivity;
 import com.wrmoney.administrator.plusadd.CommnActivity;
 import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.encode.IdentifyParams;
 import com.wrmoney.administrator.plusadd.encode.LoginParams;
+import com.wrmoney.administrator.plusadd.financingview.activitys.InvestActivity;
+import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
@@ -31,51 +35,56 @@ import org.json.JSONObject;
 /**
  * Created by Administrator on 2015/9/21.
  */
-public class LoginActivity extends Activity {
+public class LoginActivity extends BaseActivity {
     private String phone;
     private EditText et_password;
     private HttpUtils utils;
     private TextView tv_findword;
     private ProgressBar pro_bar;
+    private String planId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_login);
+        ActionBarSet.setActionBar(this);
+        TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
+        tv_banner.setText("输入登录密码");
         pro_bar=(ProgressBar)this.findViewById(R.id.pro_bar);
-        init();
+        //init();
     }
 
     private void init() {
-        pro_bar.setVisibility(View.VISIBLE);
         utils = HttpXutilTool.getUtils();
         phone = getIntent().getStringExtra("PHONE");
+        planId=getIntent().getStringExtra("PLANID");
         et_password = (EditText) this.findViewById(R.id.et_password);
         tv_findword = (TextView) this.findViewById(R.id.tv_findword);
+        String tag=getIntent().getStringExtra("TAG");
+        if("tag".equals(tag)){
+            tv_findword.setVisibility(View.INVISIBLE);
+        }
         tv_findword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RequestParams params = IdentifyParams.getSendIdentifyCode(phone, "2");
-                utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-                    @Override
-                    public void onSuccess(ResponseInfo<String> responseInfo) {
-                        Intent intent = new Intent(LoginActivity.this, FindwordActivity.class);
-                        intent.putExtra("MOBILE", phone);
-                        startActivity(intent);
-                        tv_findword.setClickable(false);
-                    }
-
-                    @Override
-                    public void onFailure(HttpException e, String s) {
-                        e.printStackTrace();
-                    }
-                });
+                Intent intent = new Intent(LoginActivity.this, FindwordActivity.class);
+                intent.putExtra("MOBILE", phone);
+                startActivity(intent);
+                tv_findword.setClickable(false);
             }
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        init();
+    }
+
     public void click(View view) {
+        pro_bar.setVisibility(View.VISIBLE);
         String password = et_password.getText().toString();
+       // password="123456";
         RequestParams params = LoginParams.getLoginCode(phone, password);
         utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
             @Override
@@ -90,12 +99,19 @@ public class LoginActivity extends Activity {
                     String rescode = obj2.getString("rescode");
                     if ("0000".equals(rescode)) {
                         String userID = obj2.getString("ID");
-                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                        SingleUserIdTool.newInstance().setUserid(userID);
-                        Intent intent = new Intent(LoginActivity.this, CommnActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        //intent.putExtra("ID",userID);
-                        startActivity(intent);
+                        SingleUserIdTool tool=SingleUserIdTool.newInstance();
+                        tool.setUserid(userID);
+                        tool.setPhoneNum(phone);
+                        if(planId==null){
+                            Intent intent = new Intent(LoginActivity.this, CommnActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }else{
+                            Intent intent1=new Intent(LoginActivity.this, InvestActivity.class);
+                            intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent1.putExtra("PLANID",planId);
+                            startActivity(intent1);
+                        }
                        // LoginActivity.this.finish();
                         finish();
                     } else if ("0001".equals(rescode)) {

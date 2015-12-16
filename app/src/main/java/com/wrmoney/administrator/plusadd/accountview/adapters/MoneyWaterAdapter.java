@@ -1,6 +1,7 @@
 package com.wrmoney.administrator.plusadd.accountview.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,12 @@ public class MoneyWaterAdapter extends BaseAdapter {
         holder.tv_transDate.setText(bean.getTransDate());
        holder.tv_transComent.setText(bean.getTransComent());
         holder.tv_transAmount.setText(bean.getTransAmount());
+        int index=bean.getTransAmount().indexOf("+");
+       if(index!=-1){
+           holder.tv_transAmount.setTextColor(Color.RED);
+       }else {
+           holder.tv_transAmount.setTextColor(Color.GREEN);
+       }
         return convertView;
     }
 

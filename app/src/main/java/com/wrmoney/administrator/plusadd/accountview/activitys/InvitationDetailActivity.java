@@ -13,6 +13,7 @@ import com.wrmoney.administrator.plusadd.BaseActivity;
 import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.accountview.adapters.InvitationDetailAdapter;
 import com.wrmoney.administrator.plusadd.bean.InvitationBean;
+import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class InvitationDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation_detail);
+        ActionBarSet.setActionBar(this);
         init();
     }
 
@@ -38,12 +40,12 @@ public class InvitationDetailActivity extends BaseActivity {
        lv_invitation= (ListView)this.findViewById(R.id.lv_invitation);
         for(int i=0;i<3;i++){
             InvitationBean bean=new InvitationBean();
-            bean.setName("");
+            //bean.setName("");
             list.add(bean);
         }
-        RadioButton radioBtn = (RadioButton) rg_invitation.getChildAt(0);
-        radioBtn.setBackgroundColor(0xffff6600);
-        radioBtn.setTextColor(Color.WHITE);
+//        RadioButton radioBtn = (RadioButton) rg_invitation.getChildAt(0);
+//        radioBtn.setBackgroundColor(0xffff6600);
+//        radioBtn.setTextColor(Color.WHITE);
         InvitationDetailAdapter adapter=new InvitationDetailAdapter(this,list);
         lv_invitation.setAdapter(adapter);
 
@@ -54,25 +56,6 @@ public class InvitationDetailActivity extends BaseActivity {
                 ScaleAnimation sAnim = new ScaleAnimation(1, 1.1f, 1, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 sAnim.setDuration(2000);
                 sAnim.setFillAfter(true);
-                //遍历所有的RadioButton
-//                for (int i = 0; i < group.getChildCount(); i++) {
-//                    RadioButton radioBtn = (RadioButton) group.getChildAt(i);
-//                    if (radioBtn.isChecked()) {
-//                        //radioBtn.startAnimation(sAnim);
-//                        //radioBtn.setBackgroundColor(0xff660000);
-//                        radioBtn.setBackgroundColor(0xffff6600);
-//                        radioBtn.setTextColor(Color.WHITE);
-//                    } else {
-//                        //radioBtn.clearAnimation();
-//                        //radioBtn.setBackground(border2);
-//                        //radioBtn.setBackground(border2);
-//                        //radioBtn.setBackgroundResource(0xffff6600);
-//                        radioBtn.setBackgroundColor(0xffffffff);
-//                        radioBtn.setTextColor(Color.GRAY);
-//                    }
-//                }
-//                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) indicator
-//                        .getLayoutParams();
                 FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
                 switch (checkedId) {
                     case R.id.btn_all://全部

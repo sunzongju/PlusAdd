@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:layout_height="44dp">
+
+    <TextView
+        android:id="@+id/tv_vname"
+        android:layout_marginLeft="13dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="抵用券名称"/>
+
+    <CheckBox
+        android:id="@+id/cb_check"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="13dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:button="@null"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/check_select"/>
+</RelativeLayout>

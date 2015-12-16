@@ -1,15 +1,20 @@
 package com.wrmoney.administrator.plusadd.financingview.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +24,10 @@ import com.wrmoney.administrator.plusadd.bean.FinancingPlanBean;
 import com.wrmoney.administrator.plusadd.bean.RedPacketBean;
 import com.wrmoney.administrator.plusadd.financingview.activitys.InvestActivity;
 import com.wrmoney.administrator.plusadd.financingview.activitys.InvestDetailActivity;
+import com.wrmoney.administrator.plusadd.financingview.activitys.InvestJoinActivity;
+import com.wrmoney.administrator.plusadd.loginview.activitys.PhoneActivity;
+import com.wrmoney.administrator.plusadd.tools.DisplayUtil;
+import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -30,9 +39,9 @@ import java.util.List;
  */
 public class FinancingPlanAdapter extends BaseAdapter {
    private List<FinancingPlanBean> list;
-    private Context context;
+   private static Context context;
     private FinancingPlanBean planBean;
-
+   private String userid= SingleUserIdTool.newInstance().getUserid();
     public FinancingPlanAdapter(List<FinancingPlanBean> list, Context context) {
         this.list = list;
         this.context = context;
@@ -55,7 +64,9 @@ public class FinancingPlanAdapter extends BaseAdapter {
 
     public void addAll(Collection<? extends FinancingPlanBean> collection) {
        // list.clear();
+       // Log.i("========2",list.size()+"");//获得数据数位10；（此处首次应该为0）
         list.addAll(collection);
+        //Log.i("========3", list.size()+"");//获得数据数位20  （此处首次应该为10）
         notifyDataSetChanged();
     }
 
@@ -67,69 +78,94 @@ public class FinancingPlanAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.financing_plan_item,parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.financing_plan_item,null);
             convertView.setTag(new ViewHolder(convertView));
         }
         final ViewHolder holder = (ViewHolder) convertView.getTag();
 
         planBean = list.get(position);
        // Log.i("=======", planBean.getId() + "展示的ID");
-        switch (planBean.getType()){
-            case 1:
-                holder.tv_type.setText("新手");
-                break;
-            case 2:
-                holder.tv_type.setText("90天");
-                break;
-            case 3:
-                holder.tv_type.setText("180天");
-                break;
-            case 4:
-                holder.tv_type.setText("360天");
-                break;
-            default:
-                break;
-
-        }
+        holder.tv_type.setText(planBean.getName());
+//        switch (planBean.getType()){
+//            case 1:
+//                holder.tv_type.setText("新手");
+//                break;
+//            case 2:
+//                holder.tv_type.setText("90天");
+//                break;
+//            case 3:
+//                holder.tv_type.setText("180天");
+//                break;
+//            case 4:
+//                holder.tv_type.setText("360天");
+//                break;
+//            default:
+//                break;
+//
+//        }
         holder.tv_rate.setText(planBean.getExpectedRate());
         holder.pro_rate.setProgress(planBean.getProgress());
-        holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + "天 项目规模" + planBean.getMinBuyerAmount());
+        //holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + " 项目规模" + planBean.getMaxFinancing());
+        float account=(Float.parseFloat(planBean.getMaxFinancing()))/10000;
+        int account1=(int)account;
+        holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + "天，项目规模" +account1+"万");
         holder.tv_repaytype.setText(planBean.getRepayType());
         holder.btn_invest.setTag(planBean.getId());
         if("Y".equals(planBean.getEnableBuy())){
             holder.btn_invest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Log.i("========", holder.btn_invest.getTag() + "adapter里的id");
-                    Intent intent=new Intent(context, InvestActivity.class);
-                    intent.putExtra("PLANID",holder.btn_invest.getTag().toString());
-                    context.startActivity(intent);
+                    if (userid == null) {
+                            Intent intent11 = new Intent(context, PhoneActivity.class);
+                            intent11.putExtra("PLANID",planBean.getId());
+                            context.startActivity(intent11);
+                            //startActivity(intent11);
+                            // finish();
+                        } else {
+                           // Log.i("=======InvestUserid", SingleUserIdTool.newInstance().getUserid());
+                            SingleUserIdTool.newInstance().setUserid(SingleUserIdTool.newInstance().getUserid());
+                            Intent intent1=new Intent(context,InvestJoinActivity.class);
+                            Bundle bundle2=new Bundle();
+                            //bundle2.putParcelable("BEAN",planBean);
+                            bundle2.putString("PLANID",planBean.getId()+"");
+                            intent1.putExtras(bundle2);
+                            context.startActivity(intent1);
+                        }
 
                 }
             });
         }else {
-           holder.btn_invest.setText("售罄");
+          // holder.btn_invest.setText("售罄");
         }
-
-
         return convertView;
     }
 
     public static class ViewHolder {
+        private LinearLayout ll_layout;
         private  int id;//计划ID
         private TextView tv_type;//标题
         private TextView tv_rate;//预期收益率
          private ProgressBar pro_rate;//进度条
         private TextView tv_content;//投资内容
         private TextView tv_repaytype;//
-        private Button btn_invest;//投资按钮
+        private TextView btn_invest;//投资按钮
         public ViewHolder(View itemView) {
             this.tv_type = (TextView) itemView.findViewById(R.id.tv_type);
             this.tv_rate = (TextView) itemView.findViewById(R.id.tv_expectedRate);
             this.pro_rate=(ProgressBar)itemView.findViewById(R.id.pro_rate);
             this.tv_content = (TextView) itemView.findViewById(R.id.tv_content);
             this.tv_repaytype=(TextView)itemView.findViewById(R.id.tv_repaytype);
-            this.btn_invest=(Button)itemView.findViewById(R.id.btn_invest);
+            this.btn_invest=(TextView)itemView.findViewById(R.id.btn_invest);
+            this.ll_layout=(LinearLayout)itemView.findViewById(R.id.ll_layout);
+            LinearLayout.LayoutParams layoutParams=(LinearLayout.LayoutParams)this.ll_layout.getLayoutParams();
+            DisplayMetrics dm = new DisplayMetrics();
+            dm=((Activity)context).getResources().getDisplayMetrics();
+            ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(dm);
+            int  height1=DisplayUtil.dip2px(context,54);
+            layoutParams.height=(dm.heightPixels-(DisplayUtil.dip2px(context,174)))/4;
+//            int height2 =dm.heightPixels-height1;  //得到高度
+//            layoutParams.height=height2/4;
+            this.ll_layout.setLayoutParams(layoutParams);
         }
     }
 }

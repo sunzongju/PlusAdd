@@ -2,10 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     android:background="@color/white">
 
     <LinearLayout
+        android:id="@+id/ll_layout"
+        android:layout_marginTop="10dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
@@ -14,6 +17,7 @@
         <TextView
             android:id="@+id/tv_name"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="13dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
@@ -22,6 +26,7 @@
             android:textSize="15sp" />
         <LinearLayout
             android:layout_marginTop="8dp"
+            android:layout_marginLeft="13dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -51,6 +56,7 @@
         <ProgressBar
             android:id="@+id/pro_rate"
             android:layout_marginTop="8dp"
+            android:layout_marginLeft="13dp"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,6 +68,7 @@
         <TextView
             android:id="@+id/tv_content"
             android:layout_marginTop="8dp"
+            android:layout_marginLeft="13dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
@@ -72,6 +79,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:layout_marginTop="10dp"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -80,21 +88,22 @@
         <TextView
             android:id="@+id/tv_repaytype"
             android:layout_marginTop="11dp"
+            android:layout_marginRight="13dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
             android:textSize="11sp"
             android:text="按月付息" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_invest"
             android:layout_width="52dp"
             android:layout_height="28dp"
             android:layout_below="@id/tv_repaytype"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="28dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="13dp"
+            android:gravity="center"
             android:background="@drawable/dialog_btn"
             android:textSize="14sp"
             android:text="投资"

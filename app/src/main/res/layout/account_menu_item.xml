@@ -4,9 +4,11 @@
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="76dp"
-    android:background="@color/backgro">
+    android:background="@drawable/border2"
+    >
 
     <!--<Button-->
+
     <!--android:id="@+id/btn_investment"-->
     <!--android:layout_width="0dp"-->
     <!--android:layout_height="wrap_content"-->

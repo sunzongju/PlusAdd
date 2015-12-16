@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -18,6 +19,8 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
@@ -90,7 +93,9 @@ public class BadgeView extends TextView {
     public BadgeView(Context context, TabWidget target, int index) {
         this(context, null, android.R.attr.textViewStyle, target, index);
     }
-
+    public BadgeView(Context context, RadioGroup target, int index) {
+        this(context, null, android.R.attr.textViewStyle, target, index);
+    }
     public BadgeView(Context context, AttributeSet attrs, int defStyle) {
         this(context, attrs, defStyle, null, 0);
     }
@@ -149,29 +154,35 @@ public class BadgeView extends TextView {
 // set target to the relevant tab child container
             target = ((TabWidget) target).getChildTabViewAt(targetTabIndex);
             this.target = target;
-
+            //Log.i("======BADGE1", "adfad");
             ((ViewGroup) target).addView(container,
                     new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
-
             this.setVisibility(View.GONE);
             container.addView(this);
 
-        } else {
-
+        }else if(target instanceof RadioButton){
+          //  Log.i("======BADGE2","adfad");
+// TODO verify that parent is indeed a ViewGroup
+            RadioGroup group = (RadioGroup) parent;
+            int index = group.indexOfChild(target);
+            group.removeView(target);
+            group.addView(container, index, lp);
+            container.addView(target);
+            this.setVisibility(View.GONE);
+            container.addView(this);
+            group.invalidate();
+        }
+        else {
+           // Log.i("======BADGE2","adfad");
 // TODO verify that parent is indeed a ViewGroup
             ViewGroup group = (ViewGroup) parent;
             int index = group.indexOfChild(target);
-
             group.removeView(target);
             group.addView(container, index, lp);
-
             container.addView(target);
-
             this.setVisibility(View.GONE);
             container.addView(this);
-
             group.invalidate();
-
         }
 
     }
@@ -344,7 +355,7 @@ public class BadgeView extends TextView {
                 break;
             case POSITION_TOP_RIGHT:
                 lp.gravity = Gravity.RIGHT | Gravity.TOP;
-                lp.setMargins(0, badgeMarginV, badgeMarginH, 0);
+                lp.setMargins(40, badgeMarginV, badgeMarginH, 0);
                 break;
             case POSITION_BOTTOM_LEFT:
                 lp.gravity = Gravity.LEFT | Gravity.BOTTOM;

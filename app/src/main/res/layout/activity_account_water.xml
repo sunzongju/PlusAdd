@@ -22,13 +22,14 @@
             android:textColor="@color/red5"
             android:text="账号资产（元）"/>
         <TextView
+            android:id="@+id/tv_allAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_nul"
             android:layout_centerHorizontal="true"
             android:textSize="21sp"
             android:textColor="@color/red5"
-            android:text="2.000.00"/>
+            android:text=""/>
 
     </RelativeLayout>
     <RadioGroup
@@ -41,35 +42,48 @@
             style="@style/radio_style2"
             android:checked="true"
             android:text="全部"/>
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray2"/>
         <RadioButton
             android:id="@+id/btn_add"
             style="@style/radio_style2"
             android:text="收入"
             />
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray2"/>
         <RadioButton
             android:id="@+id/btn_cut"
             style="@style/radio_style2"
             android:text="支出"/>
-        <RadioButton
-            android:id="@+id/btn_recharge"
-            style="@style/radio_style2"
-            android:text="充值"/>
-        <RadioButton
-            android:id="@+id/btn_invest"
-            style="@style/radio_style2"
-            android:text="提现"/>
+        <!--<RadioButton-->
+            <!--android:id="@+id/btn_recharge"-->
+            <!--style="@style/radio_style2"-->
+            <!--android:text="充值"/>-->
+        <!--<RadioButton-->
+            <!--android:id="@+id/btn_invest"-->
+            <!--style="@style/radio_style2"-->
+            <!--android:text="提现"/>-->
     </RadioGroup>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="10dp" />-->
     <!--<FrameLayout-->
         <!--android:id="@+id/container"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent" />-->
-   <ListView
-       android:id="@+id/lv_water"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:divider="@color/backgro"
-       android:dividerHeight="10dp"/>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lv_water"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/backgro"
+        android:dividerHeight="10dp"
+        ptr:ptrMode="both"/>
 </LinearLayout>

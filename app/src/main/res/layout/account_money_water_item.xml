@@ -8,9 +8,9 @@
     >
     <ImageView
         android:layout_marginLeft="15dp"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@drawable/account_01"/>
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/water_lab"/>
     <LinearLayout
         android:layout_marginLeft="15dp"
         android:layout_width="0dp"
@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:textSize="13sp"
             android:textColor="@color/gray3"
-            android:text="2015-08-06"/>
+            android:text="yyyy-mm-dd"/>
         <TextView
             android:id="@+id/tv_transComent"
             android:layout_width="0dp"
@@ -40,6 +40,6 @@
             android:layout_weight="1"
             android:textColor="@color/red"
             android:textSize="13sp"
-            android:text="+1,000,0"/>
+            android:text=""/>
     </LinearLayout>
 </LinearLayout>

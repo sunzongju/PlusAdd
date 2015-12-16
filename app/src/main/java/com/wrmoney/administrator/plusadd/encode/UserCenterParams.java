@@ -78,7 +78,7 @@ public class UserCenterParams {
      * @return
      */
     public static RequestParams getMessageDetailCode(String userIdc, String msgIdc) {
-        String json = "{ inface:'WRMI100013',userId:" + userIdc + ",msgId:" + msgIdc + "}";
+        String json = "{ iface:'WRMI100013',userId:'" + userIdc + "',msgId:'" + msgIdc + "'}";
         RequestParams params = new RequestParams();
         String str;
         try {
@@ -166,7 +166,7 @@ public class UserCenterParams {
      * @return
      */
     public static RequestParams getMessageQuitCode(String userIdc, String orderIdc) {
-        String json = "{ inface:'WRMI100017',userId:" + userIdc + ",orderId:" + orderIdc + "}";
+        String json = "{ iface:'WRMI100017',userId:'" + userIdc + "',orderId:'" + orderIdc + "'}";
         RequestParams params = new RequestParams();
         String str;
         try {
@@ -266,4 +266,20 @@ public class UserCenterParams {
         }
         return null;
     }
+
+
+    public static RequestParams getInviteCode(String userId) {
+        String json = "{ iface:'WRMI100037',userId:'" + userId + "'}";
+        RequestParams params = new RequestParams();
+        String str;
+        try {
+            str = DES3Util.encode(json);
+            params.addQueryStringParameter("argEncPara", str);
+            return params;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgro">
-
-    <include layout="@layout/tab_view"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="148dp"
-        android:background="#ff6600">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/account_back">
 
         <!--<ImageView-->
             <!--android:layout_width="wrap_content"-->
@@ -18,10 +17,12 @@
 
         <ImageView
             android:id="@+id/iv_news"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/information_pic" />
 
 
         <TextView
@@ -29,35 +30,49 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textColor="@color/white"
             android:textSize="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@id/tv_money"
-            android:layout_toLeftOf="@id/tv_money"
-            android:text="账户资产" />
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:text="账户资产(元)" />
 
+        <LinearLayout
+            android:id="@+id/layout_activity"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
 
+           <com.wrmoney.administrator.plusadd.view.AutoScrollTextView
+               android:id="@+id/TextViewNotice"
+               android:layout_height="wrap_content"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:text="最新的活动"
+               android:textColor="@color/black"
+               android:background="@color/white"
+               android:inputType="text"
+               android:textSize="22px"/>
+            <ImageView
+                android:id="@+id/iv_activity"
+                android:layout_marginRight="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/close_pic"/>
+        </LinearLayout>
     </RelativeLayout>
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="11sp"
-            android:text="活动标题" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
+        android:layout_height="6dp"
+        android:background="#e8e9ff"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,6 +92,7 @@
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 android:textSize="11sp"
+                android:textColor="@color/gray3"
                 android:text="累计收益（元）" />
 
             <TextView
@@ -86,9 +102,15 @@
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 android:textSize="11sp"
-                android:text="10.00"/>
+                android:textColor="@color/black3"
+                android:text=""/>
         </LinearLayout>
-
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:background="@color/gray0"
+            android:layout_gravity="center_vertical"
+            />
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="55dp"
@@ -102,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 android:textSize="11sp"
+                android:textColor="@color/gray3"
                 android:text="可用余额（元）" />
 
             <TextView
@@ -111,8 +134,16 @@
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 android:textSize="11sp"
-                android:text="9.00"/>
+                android:textColor="@color/black3"
+                android:text=""/>
         </LinearLayout>
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:background="@color/gray0"
+            android:layout_gravity="center_vertical"
+            />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -127,9 +158,9 @@
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 android:textSize="11sp"
+                android:textColor="@color/gray3"
                 android:text="投资总额（元）"
                 />
-
             <TextView
                 android:id="@+id/tv_count"
                 android:layout_marginTop="10dp"
@@ -137,7 +168,8 @@
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 android:textSize="11sp"
-                android:text="1,000.00"/>
+                android:textColor="@color/black3"
+                android:text=""/>
         </LinearLayout>
     </LinearLayout>
    <TextView
@@ -146,166 +178,14 @@
        android:background="#e8e9ff"
        />
     <GridView
-
         android:id="@+id/gv_menu"
         android:layout_width="match_parent"
-        android:layout_height="222dp"
+        android:layout_height="230dp"
         android:numColumns="3"
         android:gravity="center"
-        android:horizontalSpacing="1dp"
-        android:verticalSpacing="1dp"
-        android:background="@color/selectGray"
-
+        android:horizontalSpacing="0dp"
+        android:verticalSpacing="0dp"
+        android:background="@color/backgro"
         />
-
-        <!--<LinearLayout-->
-            <!--android:id="@+id/layout_01"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:orientation="horizontal">-->
-
-            <!--<Button-->
-                <!--android:id="@+id/btn_investment"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:drawableTop="@drawable/account_01"-->
-                <!--android:background="@null"-->
-                <!--android:onClick="click"-->
-                <!--android:textColor="@color/black3"-->
-                <!--android:textSize="11sp"-->
-                <!--android:text="投资管理" />-->
-
-            <!--<Button-->
-                <!--android:id="@+id/btn_moneywater"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:drawableTop="@drawable/account_02"-->
-                <!--android:background="@null"-->
-                <!--android:onClick="click"-->
-                <!--android:textColor="@color/black3"-->
-                <!--android:textSize="11sp"-->
-                <!--android:text="资金流水" />-->
-
-            <!--<Button-->
-                <!--android:id="@+id/btn_activitycenter"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:drawableTop="@drawable/account_03"-->
-                <!--android:background="@null"-->
-                <!--android:onClick="click"-->
-                <!--android:textColor="@color/black3"-->
-                <!--android:textSize="11sp"-->
-                <!--android:text="活动专区" />-->
-
-
-
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-            <!--android:id="@+id/layout_02"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_below="@id/layout_01"-->
-            <!--android:orientation="horizontal">-->
-
-            <!--<Button-->
-                <!--android:id="@+id/btn_invitation"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:drawableTop="@drawable/account_04"-->
-                <!--android:background="@null"-->
-                <!--android:onClick="click"-->
-                <!--android:textColor="@color/black3"-->
-                <!--android:textSize="11sp"-->
-                <!--android:text="邀请机制" />-->
-
-            <!--<Button-->
-                <!--android:id="@+id/btn_red"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:drawableTop="@drawable/account_05"-->
-                <!--android:background="@null"-->
-                <!--android:onClick="click"-->
-                <!--android:textColor="@color/black3"-->
-                <!--android:textSize="11sp"-->
-                <!--android:text="红包" />-->
-
-            <!--<Button-->
-                <!--android:id="@+id/btn_voucher"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:drawableTop="@drawable/account_06"-->
-                <!--android:background="@null"-->
-                <!--android:onClick="click"-->
-                <!--android:textColor="@color/black3"-->
-                <!--android:textSize="11sp"-->
-                <!--android:text="抵用券" />-->
-
-
-        <!--</LinearLayout>-->
-
-
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_below="@id/layout_02"-->
-            <!--android:orientation="horizontal">-->
-
-            <!--<Button-->
-                <!--android:id="@+id/btn_recharge"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:drawableTop="@drawable/account_07"-->
-                <!--android:background="@null"-->
-                <!--android:onClick="click"-->
-                <!--android:textColor="@color/black3"-->
-                <!--android:textSize="11sp"-->
-                <!--android:text="充值" />-->
-
-            <!--<Button-->
-                <!--android:id="@+id/btn_essay"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:drawableTop="@drawable/account_08"-->
-                <!--android:background="@null"-->
-                <!--android:onClick="click"-->
-                <!--android:textColor="@color/black3"-->
-                <!--android:textSize="11sp"-->
-                <!--android:text="取现" />-->
-            <!--<Button-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="@null"-->
-                <!--android:onClick="click"-->
-                 <!--/>-->
-        <!--</LinearLayout>-->
-
-
-        <!--<GridView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:numColumns="3"-->
-            <!--></GridView>-->
-
-        <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:src="@mipmap/ic_launcher" />-->
-
 
 </LinearLayout>

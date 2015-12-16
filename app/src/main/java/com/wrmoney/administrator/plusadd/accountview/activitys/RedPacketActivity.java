@@ -29,6 +29,7 @@ import com.wrmoney.administrator.plusadd.accountview.fragments.RedUsedFragment;
 import com.wrmoney.administrator.plusadd.bean.RedPacketBean;
 import com.wrmoney.administrator.plusadd.bean.VoucherBean;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
+import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
@@ -63,15 +64,20 @@ public class RedPacketActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_red);
+        setContentView(R.layout.activity_account_voucher);
+        ActionBarSet.setActionBar(this);
 
-        init();
-        // lv_redpacket= (ListView)this.findViewById(R.id.lv_redpacket);
+        //init();
         getIntent().getStringExtra("USERID");
-        userid = SingleUserIdTool.newInstance().getUserid();
-        utils = HttpXutilTool.getUtils();
-//        adapter = new RedPacketAdapter(list, this);
-        // lv_redpacket.setAdapter(adapter);
+
+    }
+
+
+
+    /**
+     * 数据请求
+     */
+    public void dataRequest(String type) {
         RequestParams params = UserCenterParams.getBonusCode(userid, "0", "1", "10");
         utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
             @Override
@@ -82,28 +88,12 @@ public class RedPacketActivity extends BaseActivity {
                     object = new JSONObject(result);
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
-                    Toast.makeText(RedPacketActivity.this, strDe, Toast.LENGTH_SHORT).show();
-                    Log.v("======", strDe);
-                    JSONObject obj2 = new JSONObject(strDe);
-                    JSONArray array = obj2.getJSONArray("lotteryList");
-                    int size = array.length();
-//                    for (int i = 0; i < size; i++) {
-//                        RedPacketBean bean = new RedPacketBean();
-//                        JSONObject obj3 = array.getJSONObject(i);
-//                        bean.setLotteryAmount(obj3.getString("lotteryAmount"));
-//                        bean.setLotteryStatus(obj3.getString("lotteryStatus"));
-//                        bean.setLotteryValidTime(obj3.getString("lotteryValidTime"));
-//                        list.add(bean);
-//                    }
-//                    adapter.addAll(list);
-
-                    // String rescode=obj2.getString("rescode");
+                   // Log.v("======红包", strDe);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -111,80 +101,5 @@ public class RedPacketActivity extends BaseActivity {
                 e.printStackTrace();
             }
         });
-    }
-
-    /**
-     * 初始化界面
-     */
-    public void init() {
-        rg_group = (RadioGroup) this.findViewById(R.id.rg);
-        lv_voucher=(ListView)this.findViewById(R.id.lv_voucher);
-        for (int i=0;i<3;i++){
-            VoucherBean bean=new VoucherBean();
-            list.add(bean);
-        }
-        VouchersAdapter adapter=new VouchersAdapter(list,this);
-        lv_voucher.setAdapter(adapter);
-        //indicator = (TextView)this.findViewById(R.id.indicator);
-        transaction1 = getSupportFragmentManager().beginTransaction();
-        redAllFragment = new RedAllFragment();
-        redAvailable = new RedAvailableFragment();
-        redUsedFragment = new RedUsedFragment();
-        redExpiredFragment = new RedExpiredFragment();
-//        RadioButton radioBtn = (RadioButton) rg_group.getChildAt(0);
-//        radioBtn.setBackgroundColor(0xffff6600);
-//        radioBtn.setTextColor(Color.WHITE);
-        rg_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-                //选中的RadioButton播放动画
-                ScaleAnimation sAnim = new ScaleAnimation(1, 1.1f, 1, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                sAnim.setDuration(2000);
-                sAnim.setFillAfter(true);
-
-                //遍历所有的RadioButton
-//                for (int i = 0; i < group.getChildCount(); i++) {
-//                    RadioButton radioBtn = (RadioButton) group.getChildAt(i);
-//                    if (radioBtn.isChecked()) {
-//                        //radioBtn.startAnimation(sAnim);
-//                        //radioBtn.setBackgroundColor(0xff660000);
-//                        radioBtn.setBackgroundColor(0xffff6600);
-//                        radioBtn.setTextColor(Color.WHITE);
-//                    } else {
-//                        //radioBtn.clearAnimation();
-//                        //radioBtn.setBackground(border2);
-//                        //radioBtn.setBackground(border2);
-//                        radioBtn.setBackgroundResource(R.drawable.border2);
-//                        radioBtn.setTextColor(Color.GRAY);
-//                    }
-//                }
-//                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) indicator
-//                        .getLayoutParams();
-                FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
-                switch (checkedId) {
-                    case R.id.btn1:
-//                        params.leftMargin = (int) ((0.5) * params.width);
-//                        indicator.setLayoutParams(params);
-                        transaction2.commit();
-                        break;
-                    case R.id.btn2:
-//                        params.leftMargin = (int) ((2.5) * params.width);
-//                        indicator.setLayoutParams(params);
-                        break;
-                    case R.id.btn3:
-//                        params.leftMargin = (int) ((4) * params.width);
-//                        indicator.setLayoutParams(params);
-                        break;
-                    case R.id.btn4:
-//                        params.leftMargin = (int) ((5.5) * params.width);
-//                        indicator.setLayoutParams(params);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-
     }
 }

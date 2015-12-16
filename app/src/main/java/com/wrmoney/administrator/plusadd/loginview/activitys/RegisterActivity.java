@@ -1,11 +1,14 @@
 package com.wrmoney.administrator.plusadd.loginview.activitys;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,11 +19,14 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.wrmoney.administrator.plusadd.BaseActivity;
 import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.encode.IdentifyParams;
 import com.wrmoney.administrator.plusadd.encode.LoginParams;
+import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
+import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
 
 import org.json.JSONException;
@@ -29,7 +35,7 @@ import org.json.JSONObject;
 /**
  * Created by Administrator on 2015/9/7.
  */
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends BaseActivity {
     private EditText et_captcha;
     private EditText et_password;
     private EditText et_repassword;
@@ -38,47 +44,74 @@ public class RegisterActivity extends Activity {
     private String str_phone;
     private HttpUtils utils;
     private EditText et_invitCode;
-    private Button bt_timer;
+    private TextView bt_timer;
     private TimeCount time;
     private TextView tv_phone;
+    private RequestParams params2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_register);
+        ActionBarSet.setActionBar(this);
+        TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
+        tv_banner.setText("注册");
         init();
     }
 
     private void init() {
         utils = HttpXutilTool.getUtils();
-        str_phone=getIntent().getStringExtra("PHONE");//????
+        str_phone=getIntent().getStringExtra("PHONE");//
+        params2 = IdentifyParams.getSendIdentifyCode(str_phone, "1");
         et_captcha = (EditText)this.findViewById(R.id.et_captcha);
         et_password = (EditText)this.findViewById(R.id.et_password);
         et_repassword = (EditText)this.findViewById(R.id.et_repassword);
         et_invitCode=(EditText)this.findViewById(R.id.et_invitCode);
         tv_phone=(TextView)this.findViewById(R.id.tv_phone);
-        tv_phone.setText("我们已经发送短信验证码至"+str_phone+"，请在输入框内填写验证码，若未收到请耐心等待");
         cb_sure = (CheckBox)this.findViewById(R.id.cb_sure);
-        // bt_ok = (Button)this.findViewById(R.id.bt_ok);
-        bt_timer=(Button)this.findViewById(R.id.bt_timer);
+        bt_timer=(TextView)this.findViewById(R.id.bt_timer);
         time = new TimeCount(60000, 1000);//构造CountDownTimer对象���
         bt_timer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RequestParams params2= IdentifyParams.getSendIdentifyCode(str_phone, "1");
-                utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params2, new RequestCallBack<String>() {
-                    @Override
-                    public void onSuccess(ResponseInfo<String> responseInfo) {
-                        time.start();  //计时开始
-                    }
-                    @Override
-                    public void onFailure(HttpException e, String s) {
-                        e.printStackTrace();
-                    }
-                });
-
+                tv_phone.setText("我们已经发送短信验证码至" + str_phone + "，请在输入框内填写验证码，若未收到请耐心等待");
+                time.start();
+                sendCode();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cb_sure.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(cb_sure.isChecked()){
+                    Button bt_ok=(Button)RegisterActivity.this.findViewById(R.id.bt_ok);
+                    bt_ok.setBackgroundResource(R.drawable.button_press);
+                    bt_ok.setClickable(true);
+                }else {
+                    Button bt_ok=(Button)RegisterActivity.this.findViewById(R.id.bt_ok);
+                    bt_ok.setBackgroundResource(R.color.gray);
+                    bt_ok.setClickable(false);
+                }
+            }
+        });
+    }
+
+    public void sendCode(){
+        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params2, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                 //计时开始
+            }
+            @Override
+            public void onFailure(HttpException e, String s) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     public void click(View view){
@@ -88,11 +121,11 @@ public class RegisterActivity extends Activity {
       String invitCode=et_invitCode.getText().toString();//邀请码 ??????
       String sure=cb_sure.getText().toString();//同意协议、//
       if("".equals(captcha)){
-       Toast.makeText(this,"验证码不能为空",Toast.LENGTH_SHORT).show();
-      // ?????
+       //Toast.makeText(this,"验证码不能为空",Toast.LENGTH_SHORT).show();
+      //
       }else{
           if("".equals(password)||"".equals(repassword)){
-              Toast.makeText(this,"密码不能为空",Toast.LENGTH_SHORT).show();
+             // Toast.makeText(this,"密码不能为空",Toast.LENGTH_SHORT).show();
           }else{
               if(cb_sure.isChecked()){
                   if(password.equals(repassword)){
@@ -106,10 +139,18 @@ public class RegisterActivity extends Activity {
                                   obj = new JSONObject(result);
                                   String strResponse = obj.getString("argEncPara");
                                   String strDe = DES3Util.decode(strResponse);
-                                  Toast.makeText(RegisterActivity.this, strDe + "成功", Toast.LENGTH_SHORT).show();
-//                      Intent intent=new Intent(PhoneActivity.this, RegisterActivity.class);
-//                      intent.putExtra("PHONE",strPhone);
-                                  //   startActivity(intent);
+                                  Log.i("=======注册成功",strDe);
+                                  JSONObject object=new JSONObject(strDe);
+                                  String str=object.getString("rescode");
+                                  if("0000".equals(str)){
+                                      String userId=object.getString("userId");
+                                      SingleUserIdTool.newInstance().setUserid(userId);
+                                      Intent intent=new Intent(RegisterActivity.this,LoginSuccessActivity.class);
+                                      startActivity(intent);
+                                      finish();
+                                  }
+
+                               //   Toast.makeText(RegisterActivity.this, strDe + "成功", Toast.LENGTH_SHORT).show();
                               } catch (JSONException e) {
                                   e.printStackTrace();
                               } catch (Exception e) {
@@ -120,11 +161,11 @@ public class RegisterActivity extends Activity {
                           @Override
                           public void onFailure(HttpException e, String s) {
                               e.printStackTrace();
-                              Toast.makeText(RegisterActivity.this, "ע注册失败", Toast.LENGTH_SHORT).show();
+                           //   Toast.makeText(RegisterActivity.this, "ע注册失败", Toast.LENGTH_SHORT).show();
                           }
                       });
                   }else {
-                      Toast.makeText(this,"密码不一致",Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(this,"密码不一致",Toast.LENGTH_SHORT).show();
                   }
               }else {
                   finish();
@@ -141,7 +182,7 @@ public class RegisterActivity extends Activity {
         }
         @Override
         public void onFinish() {//计时完毕时触发
-            bt_timer.setText("重新验证֤");
+            bt_timer.setText("点击发送验证码֤");
             bt_timer.setClickable(true);
         }
         @Override

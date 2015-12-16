@@ -9,11 +9,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".wecomeview.WelcomeActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,30 +22,73 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CommnActivity" />
-        <activity android:name=".accountview.activitys.EssayActivity" />
-        <activity android:name=".accountview.activitys.InvitationActivity"/>
-        <activity android:name=".accountview.activitys.RedPacketActivity"/>
-        <activity android:name=".accountview.activitys.InvestMentActivity"/>
-        <activity android:name=".accountview.activitys.ActivityCenterActivity"/>
-        <activity android:name=".accountview.activitys.MoneyWaterActivity"/>
-        <activity android:name=".accountview.activitys.RechargeActivity"/>
-        <activity android:name=".accountview.activitys.VoucherActivity"/>
-        <activity android:name=".moreview.activitys.AlterPassActivity"/>
-        <activity android:name=".loginview.activitys.FindPassActivity"/>
-        <activity android:name=".loginview.activitys.FindwordActivity"/>
-        <activity android:name=".loginview.activitys.LoginActivity"/>
-        <activity android:name=".loginview.activitys.PhoneActivity"/>
-        <activity android:name=".loginview.activitys.RegisterActivity"/>
-        <activity android:name=".financingview.activitys.InvestDetailActivity"/>
-        <activity android:name=".financingview.activitys.InvestActivity"/>
-        <activity android:name=".financingview.activitys.InvestJoinActivity"/>
-        <activity android:name=".accountview.activitys.InvestDetailActivity"/>
-        <activity android:name=".accountview.activitys.InvitationDetailActivity"/>
-        <activity android:name=".accountview.activitys.InvitationFriendActivity"/>
-        <activity android:name=".moreview.activitys.HelpCenterActivity"/>
-        <activity android:name=".accountview.activitys.MessageActivity"/>
-        <activity android:name=".moreview.activitys.HelpDetailActivity"/>
+        <activity android:name=".CommnActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.EssayActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.InvitationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.RedPacketActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.InvestMentActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.ActivityCenterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.MoneyWaterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.RechargeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.VoucherActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".moreview.activitys.AlterPassActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".loginview.activitys.FindPassActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".loginview.activitys.FindwordActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".loginview.activitys.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".loginview.activitys.LoginActivity2"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".loginview.activitys.PhoneActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".loginview.activitys.PhoneActivity2"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".loginview.activitys.RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".financingview.activitys.InvestDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".financingview.activitys.InvestActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".financingview.activitys.InvestJoinActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.InvestDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.InvitationDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.InvitationFriendActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".moreview.activitys.HelpCenterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.MessageActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".moreview.activitys.HelpDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".homeview.activitys.ActivityDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.MessageDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.AgreeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".loginview.activitys.LoginSuccessActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".moreview.activitys.ConnectOurActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".moreview.activitys.BindCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".moreview.activitys.AlterBindActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

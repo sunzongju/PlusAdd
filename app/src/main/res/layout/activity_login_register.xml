@@ -8,7 +8,7 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/app_lable" />
 
@@ -16,17 +16,23 @@
         android:layout_width="match_parent"
         android:layout_height="43dp"
         android:orientation="horizontal"
-        android:background="#ffffff">
+        android:background="@color/white">
         <EditText
             android:id="@+id/et_captcha"
             android:layout_width="0dp"
             android:layout_weight="1"
             style="@style/edit_style"
+            android:maxLength="6"
             android:hint="请输入验证码" />
-        <Button
+        <TextView
             android:id="@+id/bt_timer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/gray6"
+            android:textColor="@color/white"
+            android:text="点击发送验证码"
+            />
     </LinearLayout>
 
     <TextView
@@ -36,7 +42,7 @@
         android:lines="2"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="我们已经发送短信验证码至150，请在输入框内填写验证码，若未收到请耐心等待" />
+        android:text="" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,41 +52,101 @@
         android:orientation="vertical"
         >
 
-        <EditText
+        <!--<EditText-->
+            <!--android:id="@+id/et_password"-->
+            <!--android:layout_width="match_parent"-->
+            <!--style="@style/edit_style"-->
+            <!--android:inputType="textPassword"-->
+            <!--android:maxLength="16"-->
+            <!--android:hint="请设置密码" />-->
+
+        <com.wrmoney.administrator.plusadd.view.ClearEditText
             android:id="@+id/et_password"
+            android:singleLine="true"
             android:layout_width="match_parent"
-           style="@style/edit_style"
+            style="@style/edit_style"
+            android:drawableRight="@drawable/clear_pic"
+            android:maxLength="16"
             android:inputType="textPassword"
-            android:hint="请设置密码" />
+            android:hint="请设置密码"
+            />
 
-        <EditText
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray2"/>
+
+        <!--<EditText-->
+            <!--android:id="@+id/et_repassword"-->
+            <!--android:layout_width="match_parent"-->
+            <!--style="@style/edit_style"-->
+            <!--android:maxLength="16"-->
+            <!--android:inputType="textPassword"-->
+            <!--android:hint="请重复密码" />-->
+
+        <com.wrmoney.administrator.plusadd.view.ClearEditText
             android:id="@+id/et_repassword"
+            android:singleLine="true"
             android:layout_width="match_parent"
-           style="@style/edit_style"
+            style="@style/edit_style"
+            android:drawableRight="@drawable/clear_pic"
+            android:maxLength="16"
             android:inputType="textPassword"
-            android:hint="请重复密码" />
-    </LinearLayout>
+            android:hint="请重复密码"
+            />
 
-    <EditText
-        android:id="@+id/et_invitCode"
+    </LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@color/white"
+       android:orientation="vertical">
+
+       <!--<EditText-->
+           <!--android:id="@+id/et_invitCode"-->
+           <!--android:layout_width="match_parent"-->
+           <!--style="@style/edit_style"-->
+           <!--android:hint="请输入邀请码(可为空)"-->
+           <!--/>-->
+       <com.wrmoney.administrator.plusadd.view.ClearEditText
+           android:id="@+id/et_invitCode"
+           android:singleLine="true"
+           android:layout_width="match_parent"
+           style="@style/edit_style"
+           android:drawableRight="@drawable/clear_pic"
+           android:maxLength="16"
+           android:hint="请输入邀请码(可为空)"
+           />
+   </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入邀请码"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="20dp" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical|right">
 
     <CheckBox
         android:id="@+id/cb_sure"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ff0000"
-        android:text="我同意《用户协议》" />
-
+        android:layout_alignParentRight="true"
+        android:checked="true"
+        />
+        <TextView
+            android:id="@+id/tv_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="#ff0000"
+            android:text="我同意《用户协议》" />
+    </LinearLayout>
     <Button
         android:id="@+id/bt_ok"
         style="@style/button_style"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:onClick="click"
         android:text="点我注册送35元" />

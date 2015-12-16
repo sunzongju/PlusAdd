@@ -11,6 +11,16 @@ public class HomeContentBean {
     private String baseLockPeriod;//期限
     private String maxFinaning; //项目规模
     private String repayType;//还款方式
+    private Integer id;//计划ID
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getRepayType() {
         return repayType;

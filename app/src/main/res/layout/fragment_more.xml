@@ -4,24 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgro">
-
-
-    <include layout="@layout/tab_view"/>
     
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical">
 
     <ImageView
         android:layout_marginTop="14dp"
         android:id="@+id/iv_photo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/image_corner"
         android:onClick="click"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@drawable/logo" />
     <TextView
         android:id="@+id/tv_mobile"
         android:layout_width="wrap_content"
@@ -29,11 +28,11 @@
         android:layout_gravity="center_horizontal"
         android:textColor="@color/black2"
         android:textSize="13sp"
-        android:text="15610341303" />
+        android:text="" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="40dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -50,17 +49,25 @@
 
         <TextView
             android:id="@+id/tv_idCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:text="" />
+        <TextView
+            android:id="@+id/tv_Certificate"
             android:layout_marginRight="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
-            android:text="未认证" />
+            android:textColor="@color/red5"
+            android:textSize="13sp"
+            android:text="(已认证)"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_marginTop="1dp"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="40dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -88,7 +95,7 @@
     <LinearLayout
         android:layout_marginTop="1dp"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="40dp"
        android:background="@color/white"
         android:orientation="horizontal">
 
@@ -114,9 +121,44 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="1dp"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:textColor="@color/black2"
+            android:textSize="13sp"
+            android:text="我绑定的邀请码" />
+
+        <TextView
+            android:id="@+id/tv_bind"
+            android:layout_marginRight="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:onClick="click"
+            android:text="" />
+        <ImageView
+            android:id="@+id/iv_bind"
+            android:layout_marginRight="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/index1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:orientation="horizontal">
         <!--android:drawableLeft="@mipmap/ic_launcher"-->
@@ -132,19 +174,22 @@
             android:textSize="13sp"
             android:text="帮助中心" />
 
-        <TextView
+        <ImageView
+            android:layout_marginRight="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical" />
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/index1" />
     </LinearLayout>
     <LinearLayout
         android:layout_marginTop="1dp"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="40dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_connect"
             android:layout_marginLeft="15dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -154,19 +199,18 @@
             android:textColor="@color/black2"
             android:textSize="13sp"
             android:text="联系我们" />
-
-        <TextView
-            android:id="@+id/btn_red"
+        <ImageView
+            android:layout_marginRight="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
-            android:onClick="click" />
+            android:src="@drawable/index1" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:orientation="horizontal">
         <!--android:drawableLeft="@mipmap/ic_launcher"-->
@@ -191,6 +235,7 @@
         android:id="@+id/btn_finish"
         style="@style/button_style"
         android:layout_marginTop="18dp"
+        android:layout_marginBottom="10dp"
         android:layout_gravity="center_horizontal"
         android:onClick="click"
         android:text="退出登录"

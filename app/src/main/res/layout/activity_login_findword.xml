@@ -13,27 +13,32 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="14dp"
-        android:text="我们已经发送短信验证码至150****9818，请在输入框内填写
-验证码，若未收到请耐心等候" />
+        android:text="" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="43dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/border"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/white">
 
         <EditText
             android:id="@+id/et_captcha"
             android:layout_width="0dp"
             android:layout_weight="1"
             style="@style/edit_style"
+            android:maxLength="6"
             android:hint="请输入验证码" />
 
-        <Button
+        <TextView
             android:id="@+id/bt_timer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/gray6"
+            android:textColor="@color/white"
+            android:text="点击发送验证码"
+            />
     </LinearLayout>
 
     <Button

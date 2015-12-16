@@ -23,7 +23,7 @@
                 android:layout_weight="1"
                 android:textSize="13sp"
                 android:textColor="@color/gray3"
-                android:text="2015-08-06"/>
+                android:text="yyyy-mm-dd"/>
             <TextView
                 android:id="@+id/tv_type"
                 android:layout_width="0dp"
@@ -39,6 +39,6 @@
                 android:layout_weight="1"
                 android:textSize="13sp"
                 android:textColor="@color/red2"
-                android:text="+1,000,0"/>
+                android:text=""/>
         </LinearLayout>
 </LinearLayout>

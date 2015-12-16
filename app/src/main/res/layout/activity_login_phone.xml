@@ -18,16 +18,39 @@
             android:layout_width="60dp"
             android:layout_height="43dp"
             android:gravity="center"
+            android:background="@color/gray6"
+            android:textColor="@color/white"
+            android:textSize="15sp"
             android:text="+86"
-            android:textSize="15sp" />
+            />
 
-        <EditText
+        <!--<EditText-->
+            <!--android:id="@+id/et_phone1"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--style="@style/edit_style"-->
+            <!--android:maxLength="11"-->
+            <!--android:hint="请输入手机号码"-->
+            <!--android:numeric="integer" />-->
+
+
+        <!--<com.example.administrator.he.ClearEditText-->
+            <!--android:id="@+id/username"-->
+            <!--android:layout_marginRight="10dip"-->
+            <!--android:singleLine="true"-->
+            <!--/>-->
+        <!-- -->
+        <com.wrmoney.administrator.plusadd.view.ClearEditText
             android:id="@+id/et_phone"
+            android:singleLine="true"
             android:layout_width="0dp"
             android:layout_weight="1"
             style="@style/edit_style"
-            android:hint="清输入手机号"
+            android:drawableRight="@drawable/clear_pic"
+            android:maxLength="11"
+            android:hint="请输入手机号码"
             android:numeric="integer" />
+
     </LinearLayout>
 
     <TextView
@@ -58,5 +81,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone"/>
+
 
 </LinearLayout>

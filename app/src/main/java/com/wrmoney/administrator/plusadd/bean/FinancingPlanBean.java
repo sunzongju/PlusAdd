@@ -13,8 +13,27 @@ public class FinancingPlanBean  {
     private String expectedRate;//预期收益率
     private Integer progress;//进度条
     private String  minBuyerAmount;//购买最小金额
+    private String maxFinancing;//筹措资金上限/计划筹集金额
+
+    public String getMaxFinancing() {
+        return maxFinancing;
+    }
+
+    public void setMaxFinancing(String maxFinancing) {
+        this.maxFinancing = maxFinancing;
+    }
+
     private String repayType;//还款方式
     private String enableBuy;
+    private String name;//理财计划名称
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getEnableBuy() {
         return enableBuy;
