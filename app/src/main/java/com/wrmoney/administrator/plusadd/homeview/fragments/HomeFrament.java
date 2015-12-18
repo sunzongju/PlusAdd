@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -29,7 +32,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.db.sqlite.Selector;
+import com.lidroid.xutils.exception.DbException;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -50,7 +56,9 @@ import com.wrmoney.administrator.plusadd.loginview.activitys.PhoneActivity;
 import com.wrmoney.administrator.plusadd.moreview.activitys.AlterPassActivity;
 import com.wrmoney.administrator.plusadd.tools.BitmapHelper;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
+import com.wrmoney.administrator.plusadd.tools.DbHelper;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
+import com.wrmoney.administrator.plusadd.tools.NetworkAvailable;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
 import com.wrmoney.administrator.plusadd.view.AlterPassFinishDialog;
 import com.wrmoney.administrator.plusadd.view.CheckVersionDialog;
@@ -117,6 +125,7 @@ public class HomeFrament extends BaseFragment {
         };
     };
     private Thread thread;
+    private DbUtils dbUtils;
 
 
 //    private AlterPassFinishDialog dialog;
@@ -164,12 +173,15 @@ public class HomeFrament extends BaseFragment {
     }
     public void init(){
         BitmapHelper.init(activity);
+        DbHelper.init(activity);
         httpUtils = new HttpUtils(10000);
+        dbUtils = DbHelper.getUtils();
         lv_plan=(ListView)view.findViewById(R.id.lv_plan);
         ll_points=(LinearLayout)view.findViewById(R.id.ll_points);
         adapter1=new HomeContentAdapter(listBean,activity);
         lv_plan.setAdapter(adapter1);
-        dataRequest();
+        checkNetWorkInfo();
+
         lv_plan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -200,6 +212,50 @@ public class HomeFrament extends BaseFragment {
 
     }
 
+
+    private void checkNetWorkInfo() {
+        if (!NetworkAvailable.isNetworkAvailable(activity)) {
+            try {
+                List<HomeContentBean> all = dbUtils.findAll(HomeContentBean.class);
+             //   Log.i("========all",all.size()+"");
+                if(all!=null){
+                    adapter1.addAll(all);
+                }
+                new AlertDialog.Builder(activity)
+                        .setTitle("提示!")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setMessage("检测到你还没开启网络，请开启")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // finish();
+                            }
+                        })
+                        .setPositiveButton("开启",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which) {
+                                        startActivity(new Intent(
+                                                Settings.ACTION_WIRELESS_SETTINGS));// 进入无线网络配置界面
+
+
+
+//                                    startActivity(new Intent(
+//                                            Settings.ACTION_WIFI_SETTINGS)); // 进入手机中的wifi网络设置界面
+                                        // finish();
+                                    }
+                                }).show();
+
+            } catch (DbException e) {
+                e.printStackTrace();
+            }
+        }else{
+            dataRequest();
+        }
+    }
+
     /**
      * 数据请求
      */
@@ -215,7 +271,7 @@ public class HomeFrament extends BaseFragment {
                     object = new JSONObject(result);
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
-                    //Log.i("====主页", strDe);
+                 //   Log.i("====主页", strDe);
                     JSONObject object1 = new JSONObject(strDe);
                     JSONArray array = object1.getJSONArray("bannerList");
                     int len = array.length();
@@ -237,7 +293,10 @@ public class HomeFrament extends BaseFragment {
                     contentSet(str2,listBean);
                     //listBean.add();
                     // Log.i("==========", listBean.size()+"");
+                    dbUtils.deleteAll(listBean);
+                    dbUtils.saveOrUpdateAll(listBean);
                     adapter1.addAll(listBean);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (Exception e) {
@@ -322,7 +381,7 @@ public class HomeFrament extends BaseFragment {
             boolean has = object2.has("repayType");
             if(has){
                 String repayType= object2.getString("repayType");//还款方式
-               bean.setRepayType(repayType);
+                bean.setRepayType(repayType);
             }
             bean.setName(name);
             bean.setExpectedRate(expectedRate);
@@ -336,7 +395,6 @@ public class HomeFrament extends BaseFragment {
             e.printStackTrace();
         }
     }
-
 
     int imag[]={R.drawable.wallpaper_1,R.drawable.wallpaper_2,R.drawable.wallpaper_3};
     //设置数据源

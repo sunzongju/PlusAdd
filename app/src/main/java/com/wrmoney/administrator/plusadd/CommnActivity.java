@@ -1,5 +1,6 @@
 package com.wrmoney.administrator.plusadd;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -8,9 +9,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +42,7 @@ import com.wrmoney.administrator.plusadd.moreview.fragments.MoreFragment;
 import com.wrmoney.administrator.plusadd.tools.CutBitmap;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
+import com.wrmoney.administrator.plusadd.tools.NetworkAvailable;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
 import com.wrmoney.administrator.plusadd.view.BadgeView;
@@ -90,6 +94,9 @@ public class CommnActivity extends BaseActivity implements View.OnClickListener,
         setContentView(R.layout.activity_commn);
         tv_banner=(TextView)this.findViewById(R.id.tv_banner);
         tv_banner.setText("Plus0乘10理财");
+
+        //checkNetWorkInfo();
+
         ImageView iv_return=(ImageView)this.findViewById(R.id.iv_return);
         iv_return.setVisibility(View.GONE);
         rg_menu=(RadioGroup)findViewById(R.id.rg_menu);
@@ -122,6 +129,37 @@ public class CommnActivity extends BaseActivity implements View.OnClickListener,
 //            getSupportFragmentManager().beginTransaction().show()
         }
         init();
+    }
+
+    /**
+     *
+     */
+    private void checkNetWorkInfo() {
+        if (!NetworkAvailable.isNetworkAvailable(this)) {
+            new AlertDialog.Builder(this)
+                    .setTitle("提示!")
+                    .setIcon(android.R.drawable.ic_dialog_info)
+                    .setMessage("检测到你还没开启网络，请开启")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setPositiveButton("开启",
+                            new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    startActivity(new Intent(
+                                            Settings.ACTION_WIRELESS_SETTINGS));// 进入无线网络配置界面
+//                                    startActivity(new Intent(
+//                                            Settings.ACTION_WIFI_SETTINGS)); // 进入手机中的wifi网络设置界面
+                                    finish();
+                                }
+                            }).show();
+        }
     }
 
     public void init(){

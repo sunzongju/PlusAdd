@@ -60,7 +60,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:text="温馨提示"/>
+        android:text="
+        1.充值产生的手续费全部由Plus0乘10理财平台承担；\n
+        2.充值金额应为大于或等于1的正整数；\n
+        3.平台支持网银充值，如有疑问请咨询平台客服或户银行客服。"/>
 
        </LinearLayout>
 

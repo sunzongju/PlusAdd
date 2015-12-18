@@ -140,7 +140,7 @@ public class InvestDetailActivity extends BaseActivity implements View.OnClickLi
                     object = new JSONObject(result);
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
-                    Log.i("======债权明细列表", strDe);
+                   // Log.i("======债权明细列表", strDe);
                     JSONObject object1 = new JSONObject(strDe);
                     boolean agree = object1.has("agreementUrl");
                     if(agree){

@@ -193,7 +193,7 @@ public class InvestJoinActivity extends BaseActivity {
                     object = new JSONObject(result);
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
-                    Log.i("=======购买产品", strDe);
+                //    Log.i("=======购买产品", strDe);
                     JSONObject object1=new JSONObject(strDe);
                     tv_surplusAmount.setText(object1.getString("surplusAmount"));
                     tv_acct_balance.setText(object1.getString("acct_balance"));
@@ -237,7 +237,7 @@ public class InvestJoinActivity extends BaseActivity {
     }
 
     public void voucherRequest(){
-         Log.i("==========JOIN","用户ID："+userid+"计划ID"+planId);
+       //  Log.i("==========JOIN","用户ID："+userid+"计划ID"+planId);
         RequestParams params = FinancingParams.getSureBuyCode(userid,planId);
         httpUtils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
             @Override
@@ -250,7 +250,7 @@ public class InvestJoinActivity extends BaseActivity {
                     object = new JSONObject(result);
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
-                    Log.i("=======可用抵用券", strDe);
+                 //   Log.i("=======可用抵用券", strDe);
 //                    setBean(strDe);
 //                    setData();
                 } catch (JSONException e) {

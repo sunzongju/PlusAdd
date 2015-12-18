@@ -186,7 +186,7 @@ public class VoucherActivity extends BaseActivity {
      * 数据请求
      */
     public void dataRequest(String type,int current) {
-        Log.i("========类型",type);
+     //   Log.i("========类型",type);
         RequestParams params = UserCenterParams.getBonusCode(userid, type, current+"", "10");
         utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
             @Override
@@ -198,7 +198,7 @@ public class VoucherActivity extends BaseActivity {
                     object = new JSONObject(result);
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
-                    Log.v("======抵用券", strDe);
+                  //  Log.v("======抵用券", strDe);
                     JSONObject object1=new JSONObject(strDe);
                     JSONArray array=object1.getJSONArray("lotteryList");
                     int len=array.length();

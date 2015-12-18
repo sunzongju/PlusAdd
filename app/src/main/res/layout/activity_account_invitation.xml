@@ -95,7 +95,6 @@
         android:layout_width="match_parent"
         android:layout_height="33dp"
         android:gravity="right|center_vertical"
-        android:onClick="click"
         android:textColor="@color/red2"
         android:textSize="12sp"
         android:text="查看我的邀请详情"/>
@@ -116,7 +115,6 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:background="@color/gray6"
-            android:onClick="click"
             android:textColor="@color/white"
             android:text="邀请"
             />
@@ -148,8 +146,8 @@
             android:layout_marginBottom="33dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="提现规则提现规则提现规则提现规则提现规则提现规则提现规则
-提现规则提现规则提现规则提现规则提现规则提现规则提现规则
+            android:text="提现规则提现规则提现规\n则提现规则提现规则提现规则提现规则
+提现规则提现规则提现规\n则提现规则提现规则提现规则提现规则
 提现规则提现规则提现规则提现规则提现规则提现规则提现规则"
             />
 

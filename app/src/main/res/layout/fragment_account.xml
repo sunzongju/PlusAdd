@@ -56,7 +56,7 @@
                android:layout_width="0dp"
                android:layout_weight="1"
                android:textSize="13sp"
-               android:text="最新的活动"
+               android:text=""
                android:textColor="@color/black"
                android:inputType="text"
                />

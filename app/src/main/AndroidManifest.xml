@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wrmoney.administrator.plusadd" >
+    package="com.wrmoney.administrator.plusadd"
+    android:versionCode="1"
+    android:versionName="1.0">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -33,6 +35,8 @@
         <activity android:name=".accountview.activitys.InvestMentActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".accountview.activitys.ActivityCenterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".accountview.activitys.ActivityFDetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".accountview.activitys.MoneyWaterActivity"
             android:screenOrientation="portrait"/>
@@ -88,6 +92,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".moreview.activitys.AlterBindActivity"
             android:screenOrientation="portrait"/>
+
 
     </application>
 

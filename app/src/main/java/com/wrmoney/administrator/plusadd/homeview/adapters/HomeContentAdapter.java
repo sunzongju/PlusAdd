@@ -80,36 +80,39 @@ public class HomeContentAdapter extends BaseAdapter {
             holder.tv_name.setText(planBean.getName());
             holder.tv_rate.setText(planBean.getExpectedRate());
             holder.pro_rate.setProgress(planBean.getProgress());
-            float account=(Float.parseFloat(planBean.getMaxFinaning()))/10000;
-            int account1=(int)account;
-            holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + "天，项目规模" +account1+"万");
             holder.tv_repaytype.setText(planBean.getRepayType());
-            if("Y".equals(planBean.getEnablleBuy())){
-                holder.btn_invest.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (userid == null) {
-                            Intent intent11 = new Intent(context, PhoneActivity.class);
-                            intent11.putExtra("PLANID",planBean.getId()+"");
-                            context.startActivity(intent11);
-                            //startActivity(intent11);
-                            // finish();
-                        } else {
-                          //  Log.i("=======InvestUserid", SingleUserIdTool.newInstance().getUserid());
-                            SingleUserIdTool.newInstance().setUserid(SingleUserIdTool.newInstance().getUserid());
-                            Intent intent1=new Intent(context,InvestJoinActivity.class);
-                            Bundle bundle2=new Bundle();
-                            //bundle2.putParcelable("BEAN",planBean.getId()+"");
-                            bundle2.putString("PLANID",planBean.getId()+"");
-                            intent1.putExtras(bundle2);
-                            context.startActivity(intent1);
-                        }
+        if("Y".equals(planBean.getEnablleBuy())){
+            holder.btn_invest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (userid == null) {
+                        Intent intent11 = new Intent(context, PhoneActivity.class);
+                        intent11.putExtra("PLANID",planBean.getId()+"");
+                        context.startActivity(intent11);
+                        //startActivity(intent11);
+                        // finish();
+                    } else {
+                        //  Log.i("=======InvestUserid", SingleUserIdTool.newInstance().getUserid());
+                        SingleUserIdTool.newInstance().setUserid(SingleUserIdTool.newInstance().getUserid());
+                        Intent intent1=new Intent(context,InvestJoinActivity.class);
+                        Bundle bundle2=new Bundle();
+                        //bundle2.putParcelable("BEAN",planBean.getId()+"");
+                        bundle2.putString("PLANID",planBean.getId()+"");
+                        intent1.putExtras(bundle2);
+                        context.startActivity(intent1);
                     }
-                });
-            }else {
-                holder.btn_invest.setText("售罄");
+                }
+            });
+        }else {
+            holder.btn_invest.setText("售罄");
+        }
+            try {
+                float account=(Float.parseFloat(planBean.getMaxFinaning()))/10000;
+                int account1=(int)account;
+                holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + "天，项目规模" +account1+"万");
+            }catch (Exception e){
+                e.printStackTrace();
             }
-
         return convertView;
     }
 

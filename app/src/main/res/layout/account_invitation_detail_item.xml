@@ -12,19 +12,21 @@
         android:orientation="horizontal"
         android:background="@color/white">
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_invitedUser"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:text="张三"/>
         <TextView
+            android:id="@+id/tv_commissionAmountStr"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:text="待返0.02元"/>
         <TextView
+            android:id="@+id/tv_commissionTimeStr"
             android:layout_marginRight="10dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -44,19 +46,23 @@
         android:orientation="horizontal"
         android:background="@color/white">
         <Button
+            android:id="@+id/btn_type"
             android:layout_marginLeft="10dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:clickable="false"
             android:background="@drawable/dialog_btn"
             android:textColor="@color/orange"
             android:text="投"/>
         <TextView
+            android:id="@+id/tv_coment"
             android:layout_marginLeft="18dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="返佣完成"/>
         <TextView
+            android:id="@+id/tv_count"
             android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

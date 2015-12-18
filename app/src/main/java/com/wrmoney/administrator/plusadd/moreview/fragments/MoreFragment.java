@@ -2,6 +2,7 @@ package com.wrmoney.administrator.plusadd.moreview.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -222,6 +223,11 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
                 startActivity(intent2);
                 break;
             case R.id.tv_update:
+//                PackageManager pm = getS
+//                PackageInfo pi = pm.getPackageInfo(getPackageName(), 0);//getPackageName()是你当前类的包名，0代表是获取版本信息
+//                String name = pi.versionName;
+//                int code = pi.versionCode;
+
                 CheckVersionDialog dialog1=new CheckVersionDialog(activity,R.style.dialog);
                 dialog1.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
                 dialog1.show();

@@ -260,7 +260,7 @@ public class InvestActivity extends BaseActivity implements View.OnClickListener
         final String maxFinancing = bean.getMaxFinancing();
         final String lockTime = bean.getLockTime();
         final String expectedRate = bean.getExpectedRate();
-        Log.i("========比例",expectedRate);
+      //  Log.i("========比例",expectedRate);
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -115,7 +115,7 @@ public class ActivityCenterActivity extends BaseActivity {
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
 //                    Toast.makeText(ActivityCenterActivity.this, strDe, Toast.LENGTH_SHORT).show();
-                     Log.i("========图片",strDe);
+                    // Log.i("========图片",strDe);
                     JSONObject object1=new JSONObject(strDe);
                     JSONArray array=object1.getJSONArray("msgList");
                     int len=array.length();

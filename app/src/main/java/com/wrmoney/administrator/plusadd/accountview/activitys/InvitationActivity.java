@@ -38,7 +38,7 @@ import java.util.List;
  * 邀请机制���
  * Created by Administrator on 2015/11/2.
  */
-public class    InvitationActivity extends BaseActivity {
+public class    InvitationActivity extends BaseActivity implements View.OnClickListener{
     private TextView tv_invitation;
     private TextView tv_indetail;
     private String userid;
@@ -61,13 +61,14 @@ public class    InvitationActivity extends BaseActivity {
 
     public void init(){
         tv_invitation=(TextView)this.findViewById(R.id.tv_invitation);//邀请
+        tv_invitation.setOnClickListener(this);
         tv_indetail=(TextView)this.findViewById(R.id.tv_indetail);//邀请详情
+        tv_indetail.setOnClickListener(this);
 
         tv_inviteCount=(TextView)this.findViewById(R.id.tv_inviteCount);//邀请人数
         tv_backedCommsAmount=(TextView)this.findViewById(R.id.tv_backedCommsAmount);//已返金额
         tv_unbackCommsAmount=(TextView)this.findViewById(R.id.tv_unbackCommsAmount);//待返金额；
         et_invitationCode=(EditText)this.findViewById(R.id.et_invitationCode);//我的邀请码
-
 
         userid = SingleUserIdTool.newInstance().getUserid();
         utils = HttpXutilTool.getUtils();
@@ -90,7 +91,7 @@ public class    InvitationActivity extends BaseActivity {
                     object = new JSONObject(result);
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
-                    Log.i("========邀请好友1", strDe);
+                 //   Log.i("========邀请好友1", strDe);
 //                    Toast.makeText(ActivityCenterActivity.this, strDe, Toast.LENGTH_SHORT).show();
                     JSONObject object1 = new JSONObject(strDe);
                     String str = object1.getString("intiteCodeRecord");
@@ -126,11 +127,12 @@ public class    InvitationActivity extends BaseActivity {
     }
 
 
-    public void click(View view){
-        switch (view.getId()){
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.tv_invitation:
-                if(bean!=null){
-                    InviteFriendsDialog dialog=new InviteFriendsDialog(this,R.style.dialog);
+                if (bean != null) {
+                    InviteFriendsDialog dialog = new InviteFriendsDialog(this, R.style.dialog);
                     dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
                     dialog.show();
 //                    Intent intent0=new Intent(this,InvitationFriendActivity.class);
@@ -140,16 +142,14 @@ public class    InvitationActivity extends BaseActivity {
                 }
                 break;
             case R.id.tv_indetail:
-                if(bean!=null){
-                    Intent intent=new Intent(this,InvitationDetailActivity.class);
+                if (bean != null) {
+                    Intent intent = new Intent(this, InvitationDetailActivity.class);
+                    intent.putExtra("CODE",bean.getInvitationCode());
                     startActivity(intent);
                 }
                 break;
             default:
                 break;
-
         }
-
     }
-
 }

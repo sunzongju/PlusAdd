@@ -267,7 +267,11 @@ public class UserCenterParams {
         return null;
     }
 
-
+    /**
+     * WRMI100037邀请好友
+     * @param userId
+     * @return
+     */
     public static RequestParams getInviteCode(String userId) {
         String json = "{ iface:'WRMI100037',userId:'" + userId + "'}";
         RequestParams params = new RequestParams();
@@ -281,5 +285,23 @@ public class UserCenterParams {
         }
         return null;
     }
+
+    /**
+     * WRMI100038邀请好友详情
+     * @return
+     */
+  public static RequestParams getInviteDetailCode(String invitationCode, String typec, String currentc, String pageSizec){
+      String json = "{ iface:'WRMI100038',invitationCode:'" + invitationCode + "',type:'" + typec + "',current:'" + currentc + "',pageSize:'" + pageSizec + "'}";
+      RequestParams params = new RequestParams();
+      String str;
+      try {
+          str = DES3Util.encode(json);
+          params.addQueryStringParameter("argEncPara", str);
+          return params;
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+      return null;
+  }
 
 }

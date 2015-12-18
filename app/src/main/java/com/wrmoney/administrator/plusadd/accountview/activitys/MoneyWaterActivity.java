@@ -42,6 +42,7 @@ import com.wrmoney.administrator.plusadd.encode.FinancingParams;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
+import com.wrmoney.administrator.plusadd.tools.FormatTool;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
@@ -91,7 +92,7 @@ public class MoneyWaterActivity extends BaseActivity {
     private void init() {
         TextView tv_allAmount=(TextView)this.findViewById(R.id.tv_allAmount);
         Bundle bundle = getIntent().getExtras();
-        tv_allAmount.setText(bundle.getString("allAmount"));//总额
+        tv_allAmount.setText(FormatTool.amtFormat(bundle.getString("allAmount")));//总额
         userid= SingleUserIdTool.newInstance().getUserid();
         httpUtils = new HttpUtils(10000);
         dataRequest("0",current);

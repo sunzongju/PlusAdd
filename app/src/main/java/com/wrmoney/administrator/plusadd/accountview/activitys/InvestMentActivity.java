@@ -36,6 +36,7 @@ import com.wrmoney.administrator.plusadd.loginview.activitys.LoginActivity2;
 import com.wrmoney.administrator.plusadd.loginview.activitys.PhoneActivity2;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
+import com.wrmoney.administrator.plusadd.tools.FormatTool;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
@@ -114,9 +115,9 @@ public class InvestMentActivity extends BaseActivity{
             }
         });
         Bundle bundle = getIntent().getExtras();
-        tv_allAmount.setText(bundle.getString("allAmount"));//总额
-        tv_acctBalance.setText(bundle.getString("acctBalance"));//累计收益
-        tv_incomeAmount.setText(bundle.getString("incomeAmount"));//可用余额
+        tv_allAmount.setText(FormatTool.amtFormat(bundle.getString("allAmount")));//总额
+        tv_acctBalance.setText(FormatTool.amtFormat(bundle.getString("acctBalance")));//累计收益
+        tv_incomeAmount.setText(FormatTool.amtFormat(bundle.getString("incomeAmount")));//可用余额
         rg_invest=(RadioGroup) this.findViewById(R.id.rg_invest);
         lv_invest = (PullToRefreshListView) this.findViewById(R.id.lv_invest);
         View v=LayoutInflater.from(this).inflate(R.layout.empty_view,null);

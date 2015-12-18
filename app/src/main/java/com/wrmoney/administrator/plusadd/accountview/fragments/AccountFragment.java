@@ -30,6 +30,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.wrmoney.administrator.plusadd.BaseFragment;
 import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.accountview.activitys.ActivityCenterActivity;
+import com.wrmoney.administrator.plusadd.accountview.activitys.ActivityFDetailActivity;
 import com.wrmoney.administrator.plusadd.accountview.activitys.EssayActivity;
 import com.wrmoney.administrator.plusadd.accountview.activitys.InvestMentActivity;
 import com.wrmoney.administrator.plusadd.accountview.activitys.InvitationActivity;
@@ -42,7 +43,9 @@ import com.wrmoney.administrator.plusadd.accountview.adapters.AccountMenuAdapter
 import com.wrmoney.administrator.plusadd.bean.MessageBean;
 import com.wrmoney.administrator.plusadd.bean.PictureBean;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
+import com.wrmoney.administrator.plusadd.homeview.activitys.ActivityDetailActivity;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
+import com.wrmoney.administrator.plusadd.tools.FormatTool;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
@@ -79,6 +82,8 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private ImageView iv_news;
     private BadgeView badge1;
     private TranslateAnimation mHiddenAction;
+    private String activityTitle;
+    private AutoScrollTextView autoScrollTextView;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -88,14 +93,16 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
             mHiddenAction.setDuration(500);
             layout_activity.startAnimation(mHiddenAction);
             layout_activity.setVisibility(View.INVISIBLE);
+            autoScrollTextView.stopScroll();
 
         }
     };
     private Bundle bundleWhole=new Bundle();
     private ImageView iv_activity;
     private LinearLayout layout_activity;
-    private AutoScrollTextView autoScrollTextView;
     private Thread thread;
+    private String jumpUrl;
+
 
     @Nullable
     @Override
@@ -120,25 +127,16 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         super.onResume();
         autoScrollTextView = (com.wrmoney.administrator.plusadd.view.AutoScrollTextView)view.findViewById(R.id.TextViewNotice);
         autoScrollTextView.init(activity.getWindowManager());
-        autoScrollTextView.startScroll();
-        if (thread!=null){
-            thread.interrupt();
-        }
-        thread = new Thread(new Runnable() {
+        autoScrollTextView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                try {
-                    Thread.sleep(5000);
-                    Message msg = new Message();
-                    handler.sendMessage(msg);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            public void onClick(View v) {
+               if(!"".equals(jumpUrl)&&jumpUrl!=null){
+                   Intent intent = new Intent(activity, ActivityFDetailActivity.class);
+                   intent.putExtra("URL",jumpUrl);
+                   startActivity(intent);
+               }
             }
         });
-
-        //throw new NumberFormatException();
-        thread.start();
 
     }
 
@@ -291,19 +289,49 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                     object = new JSONObject(result);
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
-                    // Log.i("======个人中心", strDe);
+                  //   Log.i("======个人中心", strDe);
                     JSONObject obj2 = new JSONObject(strDe);
                     String allAmount = obj2.getString("allAmount");//总资产
-                    tv_money.setText(allAmount);
+                    tv_money.setText(FormatTool.amtFormat(allAmount));
                     String incomeAmount = obj2.getString("incomeAmount");//累计收益
-                    tv_addup.setText(incomeAmount);
+                    tv_addup.setText(FormatTool.amtFormat(incomeAmount));
                     String acctBalance=obj2.getString("acctBalance");//账号可用余额
-                    tv_balance.setText(acctBalance);
+                    tv_balance.setText(FormatTool.amtFormat(acctBalance));
                     String investAmount = obj2.getString("investAmount");//投资总额
-                    tv_count.setText(investAmount);
-                    bundleWhole.putString("allAmount",allAmount);//总额
+                    tv_count.setText(FormatTool.amtFormat(investAmount));
+                    bundleWhole.putString("allAmount", allAmount);//总额
                     bundleWhole.putString("incomeAmount",incomeAmount);//累计收益
                     bundleWhole.putString("acctBalance",acctBalance);
+                    JSONArray array=obj2.getJSONArray("listActive");
+                    if(array.length()>0){
+                        JSONObject object3=array.getJSONObject(0);
+                      activityTitle=object3.getString("title");
+                        jumpUrl=object3.getString("jumpUrl");
+
+                    }
+                    if(!"".equals(activityTitle)&&activityTitle!=null){
+                    //  Log.i("=====活动标题",activityTitle);
+                      //autoScrollTextView.setText(activityTitle);
+                        autoScrollTextView.setText2(activityTitle);
+                        autoScrollTextView.startScroll();
+                      if (thread!=null){
+                          thread.interrupt();
+                      }
+                      thread = new Thread(new Runnable() {
+                          @Override
+                          public void run() {
+                              try {
+                                  Thread.sleep(5000);
+                                  Message msg = new Message();
+                                  handler.sendMessage(msg);
+                              } catch (InterruptedException e) {
+                                  e.printStackTrace();
+                              }
+                          }
+                      });
+                      //throw new NumberFormatException();
+                      thread.start();
+                  }
                     // p.setInvestAmount(obj2.getString("investAmount"));
                     //String activityTitle=obj2.getString("activityTitle");//活动标题
                     // p.setActivityTitle(obj2.getString("activityTitle"));
