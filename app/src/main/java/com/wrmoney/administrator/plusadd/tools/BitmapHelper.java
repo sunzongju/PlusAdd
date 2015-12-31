@@ -1,9 +1,12 @@
 package com.wrmoney.administrator.plusadd.tools;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 
 import com.lidroid.xutils.BitmapUtils;
 import com.wrmoney.administrator.plusadd.R;
+
+import java.io.File;
 
 /**
  * Created by Administrator on 2015/11/21.

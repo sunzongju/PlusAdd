@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wrmoney.administrator.plusadd.BaseActivity;
@@ -61,9 +62,16 @@ public class CreditorAdapter  extends BaseAdapter{
             holder.tv_detail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CreditorDetailDialog dialog=new CreditorDetailDialog(context,R.style.dialog);
+                    final CreditorDetailDialog dialog=new CreditorDetailDialog(context,R.style.dialog);
                     dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
                     dialog.show();
+                    LinearLayout ll_dialog=(LinearLayout)dialog.findViewById(R.id.ll_dialog);
+                    ll_dialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                     dialog.dismiss();
+                    }
+                    });
                     TextView tv_offLineAgreementCd=(TextView)dialog.findViewById(R.id.tv_offLineAgreementCd);
                     TextView tv_borrowerName=(TextView)dialog.findViewById(R.id.tv_borrowerName);
                     TextView tv_borrowerIdCard=(TextView)dialog.findViewById(R.id.tv_borrowerIdCard);

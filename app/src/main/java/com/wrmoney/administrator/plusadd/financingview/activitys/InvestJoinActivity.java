@@ -37,6 +37,7 @@ import com.wrmoney.administrator.plusadd.bean.VoucherBean;
 import com.wrmoney.administrator.plusadd.encode.FinancingParams;
 import com.wrmoney.administrator.plusadd.financingview.adapters.UsableVouAdapter;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
@@ -181,35 +182,37 @@ public class InvestJoinActivity extends BaseActivity {
      */
     public void dataRequest(){
         //Log.i("==========JOIN","用户ID："+userid+"计划ID"+planId);
-        RequestParams params = FinancingParams.getBuyGoodsCode2(userid,planId);
-        httpUtils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                // Toast.makeText(activity,"成功", LENGTH_SHORT).show();
-                String result = responseInfo.result;
-                JSONObject object = null;
-                try {
-                    List<FinancingPlanBean> list = new ArrayList<FinancingPlanBean>();
-                    object = new JSONObject(result);
-                    String strResponse = object.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
-                //    Log.i("=======购买产品", strDe);
-                    JSONObject object1=new JSONObject(strDe);
-                    tv_surplusAmount.setText(object1.getString("surplusAmount"));
-                    tv_acct_balance.setText(object1.getString("acct_balance"));
-                    final String expectedRate=object1.getString("expectedRate");
-                    final String baseLockPeriod=object1.getString("baseLockPeriod");
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Message message = new Message();
-                            Bundle bundle = new Bundle();
-                            bundle.putString("MSA1", expectedRate);
-                            bundle.putString("MSA2", baseLockPeriod);
-                            message.setData(bundle);
-                            handler.sendMessage(message);
-                        }
-                    }).start();
+        Boolean b = CheckNetTool.checkNet(this);
+        if (b){
+            RequestParams params = FinancingParams.getBuyGoodsCode2(userid,planId);
+            httpUtils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    // Toast.makeText(activity,"成功", LENGTH_SHORT).show();
+                    String result = responseInfo.result;
+                    JSONObject object = null;
+                    try {
+                        List<FinancingPlanBean> list = new ArrayList<FinancingPlanBean>();
+                        object = new JSONObject(result);
+                        String strResponse = object.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
+                        //    Log.i("=======购买产品", strDe);
+                        JSONObject object1=new JSONObject(strDe);
+                        tv_surplusAmount.setText(object1.getString("surplusAmount"));
+                        tv_acct_balance.setText(object1.getString("acct_balance"));
+                        final String expectedRate=object1.getString("expectedRate");
+                        final String baseLockPeriod=object1.getString("baseLockPeriod");
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Message message = new Message();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("MSA1", expectedRate);
+                                bundle.putString("MSA2", baseLockPeriod);
+                                message.setData(bundle);
+                                handler.sendMessage(message);
+                            }
+                        }).start();
 //                    double expectedRate=Double.parseDouble();
 //                    double baseLockPeriod=Double.parseDouble(object1.getString("baseLockPeriod"));
 //                    double sum=Double.parseDouble(et_sum.getText().toString());
@@ -220,51 +223,55 @@ public class InvestJoinActivity extends BaseActivity {
 
 //                    setBean(strDe);
 //                    setData();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(HttpException e, String s) {
-                e.printStackTrace();
-                //Toast.makeText(InvestJoinActivity.this, "失败", LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(HttpException e, String s) {
+                    e.printStackTrace();
+                    //Toast.makeText(InvestJoinActivity.this, "失败", LENGTH_SHORT).show();
+                }
+            });
 
+        }
     }
 
     public void voucherRequest(){
        //  Log.i("==========JOIN","用户ID："+userid+"计划ID"+planId);
-        RequestParams params = FinancingParams.getSureBuyCode(userid,planId);
-        httpUtils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                // Toast.makeText(activity,"成功", LENGTH_SHORT).show();
-                String result = responseInfo.result;
-                JSONObject object = null;
-                try {
-                    List<UsableVoucherBean> list = new ArrayList<UsableVoucherBean>();
-                    object = new JSONObject(result);
-                    String strResponse = object.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
-                 //   Log.i("=======可用抵用券", strDe);
+        Boolean b = CheckNetTool.checkNet(this);
+        if(b){
+            RequestParams params = FinancingParams.getSureBuyCode(userid,planId);
+            httpUtils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    // Toast.makeText(activity,"成功", LENGTH_SHORT).show();
+                    String result = responseInfo.result;
+                    JSONObject object = null;
+                    try {
+                        List<UsableVoucherBean> list = new ArrayList<UsableVoucherBean>();
+                        object = new JSONObject(result);
+                        String strResponse = object.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
+                        //   Log.i("=======可用抵用券", strDe);
 //                    setBean(strDe);
 //                    setData();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-            @Override
-            public void onFailure(HttpException e, String s) {
-                e.printStackTrace();
-              //  Toast.makeText(InvestJoinActivity.this, "失败", LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(HttpException e, String s) {
+                    e.printStackTrace();
+                    //  Toast.makeText(InvestJoinActivity.this, "失败", LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void showPopupWindow(View view) {

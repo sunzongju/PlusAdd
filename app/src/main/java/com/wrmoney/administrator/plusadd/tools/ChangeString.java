@@ -11,12 +11,17 @@ public class ChangeString {
         if(str!=null){
             for(int i=0;i<str.length();i++){
                 char c = str.charAt(i);
-               if(Character.isLowerCase(c)){
-                    sb.append(Character.toUpperCase(c));
+                if(Character.isDigit(c)){
+                   sb.append(c);
+                }else {
+                    if(Character.isLowerCase(c)){
+                        sb.append(Character.toUpperCase(c));
+                    }else{
+                        sb.append(c);
+                    }
                 }
             }
         }
-
         return sb.toString();
     }
 }

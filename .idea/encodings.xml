@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/accountview/activitys/AgreeActivity.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/accountview/activitys/MessageActivity.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/accountview/activitys/MessageDetailActivity.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/accountview/adapters/ActivityCenterAdapter.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/bean/UserCenterBean.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/financingview/adapters/PlanDeatailAdapter.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/homeview/activitys/ActivityDetailActivity.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/homeview/adapters/AdapterCycle.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/homeview/adapters/HomePagerAdapter.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/loginview/activitys/LoginActivity2.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/moreview/activitys/AlterBindActivity.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/moreview/activitys/BindCodeActivity.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/moreview/activitys/ConnectOurActivity.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/moreview/activitys/HelpDetailActivity.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/SingleUserIdTool.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/UrlTool.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/view/AutoScrollTextView.java" charset="UTF-8" />
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/BaseActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/ActionBarSet.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/CheckNetTool.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/HttpXutilTool.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/view/BadgeView.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/view/ClearEditText.java" charset="UTF-8" />
-    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

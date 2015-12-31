@@ -31,7 +31,7 @@ public class DbHelper {
         utils.configDebug(true);//开启调试模式
         try {
             utils.createTableIfNotExist(HomeContentBean.class); //创建一个表User
-            utils.save(new HomeContentBean());//在表中保存一个user对象。最初执行保存动作时，也会创建User表
+            //utils.save(new HomeContentBean());//在表中保存一个user对象。最初执行保存动作时，也会创建User表
         } catch (DbException e) {
             e.printStackTrace();
         }

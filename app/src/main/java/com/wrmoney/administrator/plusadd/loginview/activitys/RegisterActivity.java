@@ -25,10 +25,12 @@ import com.wrmoney.administrator.plusadd.encode.IdentifyParams;
 import com.wrmoney.administrator.plusadd.encode.LoginParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.ChangeString;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
+import com.wrmoney.administrator.plusadd.view.DiaLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +52,8 @@ public class RegisterActivity extends BaseActivity {
     private TextView tv_phone;
     private RequestParams params2;
     private String invitCode2;
+    private String resultStart;
+    private String resultEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,8 @@ public class RegisterActivity extends BaseActivity {
     private void init() {
         utils = HttpXutilTool.getUtils();
         str_phone=getIntent().getStringExtra("PHONE");//
+        resultStart=str_phone.substring(0, 3);
+        resultEnd= str_phone.substring(7, 11);
         params2 = IdentifyParams.getSendIdentifyCode(str_phone, "1");
         et_captcha = (EditText)this.findViewById(R.id.et_captcha);
         et_password = (EditText)this.findViewById(R.id.et_password);
@@ -76,7 +82,7 @@ public class RegisterActivity extends BaseActivity {
         bt_timer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tv_phone.setText("我们已经发送短信验证码至" + str_phone + "，请在输入框内填写验证码，若未收到请耐心等待");
+                tv_phone.setText("我们已经发送短信验证码至" + resultStart + "****" + resultEnd + "，请在输入框内填写验证码，若未收到请耐心等待");
                 time.start();
                 sendCode();
             }
@@ -117,71 +123,78 @@ public class RegisterActivity extends BaseActivity {
     }
 
     public void click(View view){
-      String captcha=et_captcha.getText().toString();//验证码?????
-      String password=et_password.getText().toString();//密码????
-      final String repassword=et_repassword.getText().toString();//确认密码?
-      String invitCode=et_invitCode.getText().toString();//邀请码 ??????
-        if(!"".equals(invitCode)&&invitCode!=null){
-       invitCode2=ChangeString.exChange(invitCode);
-        }else{
-            invitCode2="";
+
+        Boolean b = CheckNetTool.checkNet(this);
+        if(b){
+
+            String captcha=et_captcha.getText().toString();//验证码
+            String password=et_password.getText().toString();//密码
+            final String repassword=et_repassword.getText().toString();//确认密码
+            String invitCode=et_invitCode.getText().toString();//邀请码
+            if(!"".equals(invitCode)&&invitCode!=null){
+                // invitCode2=ChangeString.exChange(invitCode);
+                invitCode2=invitCode;
+            }else{
+                invitCode2="";
+            }
+            //  Log.i("=======邀请码",invitCode2);
+            String sure=cb_sure.getText().toString();//同意协议、//
+            if("".equals(captcha)){
+                DiaLog.showDialog(RegisterActivity.this, "验证码不能为空");
+            }else{
+                if(password==null||"".equals(password)){
+                    DiaLog.showDialog(RegisterActivity.this, "密码不能为空");
+                }else {
+                    if(repassword==null||"".equals(repassword)){
+                        DiaLog.showDialog(RegisterActivity.this, "重复密码不能为空");
+                    }else {
+                        if(password.equals(repassword)){
+                            if(cb_sure.isChecked()){
+                                RequestParams params= LoginParams.getRegisCode(str_phone, password, captcha, invitCode2);
+                                utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                                    @Override
+                                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                                        String result = responseInfo.result;
+                                        JSONObject obj = null;
+                                        try {
+                                            obj = new JSONObject(result);
+                                            String strResponse = obj.getString("argEncPara");
+                                            String strDe = DES3Util.decode(strResponse);
+                                            //Log.i("=======注册成功",strDe);
+                                            JSONObject object=new JSONObject(strDe);
+                                            String str=object.getString("rescode");
+                                            if("0000".equals(str)){
+                                                String userId=object.getString("userId");
+                                                SingleUserIdTool.newInstance().setUserid(userId);
+                                                Intent intent=new Intent(RegisterActivity.this,LoginSuccessActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }else {
+                                                DiaLog.showDialog(RegisterActivity.this, object.getString("resmsg"));
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    @Override
+                                    public void onFailure(HttpException e, String s) {
+                                        e.printStackTrace();
+                                        DiaLog.showDialog(RegisterActivity.this, "注册失败");
+                                    }
+                                });
+                            }else {
+
+                            }
+                        }else {
+                            DiaLog.showDialog(RegisterActivity.this, "两次输入的密码不一致");
+                        }
+                    }
+                }
+            }
+
         }
-      String sure=cb_sure.getText().toString();//同意协议、//
-      if("".equals(captcha)){
-       //Toast.makeText(this,"验证码不能为空",Toast.LENGTH_SHORT).show();
-      //
-      }else{
-          if("".equals(password)||"".equals(repassword)){
-             // Toast.makeText(this,"密码不能为空",Toast.LENGTH_SHORT).show();
-          }else{
-              if(cb_sure.isChecked()){
-                  if(password.equals(repassword)){
-                      RequestParams params= LoginParams.getRegisCode(str_phone, password, captcha, invitCode2);
-                      utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-                          @Override
-                          public void onSuccess(ResponseInfo<String> responseInfo) {
-                              String result = responseInfo.result;
-                              JSONObject obj = null;
-                              try {
-                                  obj = new JSONObject(result);
-                                  String strResponse = obj.getString("argEncPara");
-                                  String strDe = DES3Util.decode(strResponse);
-                                  //Log.i("=======注册成功",strDe);
-                                  JSONObject object=new JSONObject(strDe);
-                                  String str=object.getString("rescode");
-                                  if("0000".equals(str)){
-                                      String userId=object.getString("userId");
-                                      SingleUserIdTool.newInstance().setUserid(userId);
-                                      Intent intent=new Intent(RegisterActivity.this,LoginSuccessActivity.class);
-                                      startActivity(intent);
-                                      finish();
-                                  }
-
-                               //   Toast.makeText(RegisterActivity.this, strDe + "成功", Toast.LENGTH_SHORT).show();
-                              } catch (JSONException e) {
-                                  e.printStackTrace();
-                              } catch (Exception e) {
-                                  e.printStackTrace();
-                              }
-                          }
-
-                          @Override
-                          public void onFailure(HttpException e, String s) {
-                              e.printStackTrace();
-                           //   Toast.makeText(RegisterActivity.this, "ע注册失败", Toast.LENGTH_SHORT).show();
-                          }
-                      });
-                  }else {
-                    //  Toast.makeText(this,"密码不一致",Toast.LENGTH_SHORT).show();
-                  }
-              }else {
-                  finish();
-              }
-
-          }
-
-      }
-
   }
     class TimeCount extends CountDownTimer {
         public TimeCount(long millisInFuture, long countDownInterval) {
@@ -189,11 +202,13 @@ public class RegisterActivity extends BaseActivity {
         }
         @Override
         public void onFinish() {//计时完毕时触发
+            bt_timer.setBackgroundColor(getResources().getColor(R.color.orange));
             bt_timer.setText("点击发送验证码֤");
             bt_timer.setClickable(true);
         }
         @Override
-        public void onTick(long millisUntilFinished){//计时过程显示����ʾ
+        public void onTick(long millisUntilFinished){//计时过程显示��
+            bt_timer.setBackgroundColor(getResources().getColor(R.color.gray));// ��ʾ
             bt_timer.setClickable(false);
             bt_timer.setText(millisUntilFinished /1000+"秒后重新发送");
         }

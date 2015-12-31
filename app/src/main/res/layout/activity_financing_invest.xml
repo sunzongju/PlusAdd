@@ -276,9 +276,10 @@
             android:layout_width="match_parent"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="13dp"
-            android:background="@drawable/button_press"
+            android:background="@drawable/button_no"
+            android:clickable="false"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:text="立即加入/立即投标" />
+            android:text="售罄" />
     </LinearLayout>
 </LinearLayout>

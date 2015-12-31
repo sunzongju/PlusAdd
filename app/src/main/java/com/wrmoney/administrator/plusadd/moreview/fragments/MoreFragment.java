@@ -38,12 +38,14 @@ import com.wrmoney.administrator.plusadd.moreview.activitys.AlterPassActivity;
 import com.wrmoney.administrator.plusadd.moreview.activitys.BindCodeActivity;
 import com.wrmoney.administrator.plusadd.moreview.activitys.ConnectOurActivity;
 import com.wrmoney.administrator.plusadd.moreview.activitys.HelpCenterActivity;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.CutBitmap;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
 import com.wrmoney.administrator.plusadd.view.CheckVersionDialog;
+import com.wrmoney.administrator.plusadd.view.DiaLog;
 import com.wrmoney.administrator.plusadd.view.QuitLoginDialog;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,6 +77,10 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
     private TextView tv_Certificate;
     private ImageView iv_bind;
     private TextView tv_bind;
+    private TextView tv_alterpass;
+    private TextView tv_bind2;
+    private ImageView iv_help;
+    private ImageView iv_connect;
 
     @Nullable
     @Override
@@ -95,23 +101,35 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
         activity=getActivity();
         btn_alterpass=(ImageView)view.findViewById(R.id.btn_alterpass);//修改密码
         btn_alterpass.setOnClickListener(this);
+        tv_alterpass=(TextView)view.findViewById(R.id.tv_alterpass);
+        tv_alterpass.setOnClickListener(this);
         tv_update=(TextView)view.findViewById(R.id.tv_update);
         tv_update.setOnClickListener(this);
         btn_finish=(Button)view.findViewById(R.id.btn_finish);//退出
         btn_finish.setOnClickListener(this);
-        iv_photo = (ImageView)view.findViewById(R.id.iv_photo);//更换头像
+       // iv_photo = (ImageView)view.findViewById(R.id.iv_photo);//更换头像
        // iv_photo.setOnClickListener(this);
-        Bitmap bt2 = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
-        Bitmap bitmap2 = CutBitmap.cutImage(bt2);
-        iv_photo.setImageBitmap(bitmap2);//用ImageView显示出来
+//        Bitmap bt2 = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
+//        Bitmap bitmap2 = CutBitmap.cutImage(bt2);
+//        iv_photo.setImageBitmap(bitmap2);//用ImageView显示出来
 
         tv_bind=(TextView)view.findViewById(R.id.tv_bind);//
+        tv_bind.setOnClickListener(this);
         iv_bind=(ImageView)view.findViewById(R.id.iv_bind);//修改绑定的邀请码
         iv_bind.setOnClickListener(this);
+        tv_bind2=(TextView)view.findViewById(R.id.tv_bind2);
+        tv_bind2.setOnClickListener(this);
+
         tv_help=(TextView)view.findViewById(R.id.tv_help);//帮助中心
         tv_help.setOnClickListener(this);
+        iv_help=(ImageView)view.findViewById(R.id.iv_help);
+        iv_help.setOnClickListener(this);
+
         tv_connect=(TextView)view.findViewById(R.id.tv_connect);//联系我们
         tv_connect.setOnClickListener(this);
+        iv_connect=(ImageView)view.findViewById(R.id.iv_connect);
+        iv_connect.setOnClickListener(this);
+
         tv_mobile = (TextView) view.findViewById(R.id.tv_mobile);
         tv_idCard = (TextView) view.findViewById(R.id.tv_idCard);
         tv_Certificate=(TextView)view.findViewById(R.id.tv_Certificate);
@@ -162,75 +180,77 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
     public void onResume() {
         super.onResume();
        // Log.i("onResume", "======111111");
-        RequestParams params= SetUpParams.getMysetCode(userid);
-        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                String result = responseInfo.result;
-                try {
-                    JSONObject obj = new JSONObject(result);
-                    String strResponse = obj.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
-                    //Toast.makeText(activity, strDe, Toast.LENGTH_SHORT).show();
-                    // Log.i("========更多",strDe);;
-                    JSONObject obj2 = new JSONObject(strDe);
+        Boolean b = CheckNetTool.checkNet(activity);
+        if(b){
+            RequestParams params= SetUpParams.getMysetCode(userid);
+            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    String result = responseInfo.result;
+                    try {
+                        JSONObject obj = new JSONObject(result);
+                        String strResponse = obj.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
+                        //Toast.makeText(activity, strDe, Toast.LENGTH_SHORT).show();
+                        // Log.i("========更多",strDe);;
+                        JSONObject obj2 = new JSONObject(strDe);
 
-                    String mobile = obj2.getString("mobile");//手机号
-                    String idcardValidate = obj2.getString("idcardValidate");//是否认证
-                    tv_mobile.setText(mobile);
-                    if ("Y".equals(idcardValidate)) {
-                        tv_Certificate.setText("(已认证)");
-                    } else {
-                        tv_Certificate.setText("(未认证)");
-                    }
-                    if (obj2.has("idCard")) {
-                        String idCard = obj2.optString("idCard");//身份证
-                        if (idCard.length() > 0) {
-                            tv_idCard.setText(idCard);
+                        String mobile = obj2.getString("mobile");//手机号
+                        String idcardValidate = obj2.getString("idcardValidate");//是否认证
+                        tv_mobile.setText(mobile);
+                        if ("Y".equals(idcardValidate)) {
+                            tv_Certificate.setText("(已认证)");
+                        } else {
+                            tv_Certificate.setText("(未认证)");
                         }
+                        if (obj2.has("idCard")) {
+                            String idCard = obj2.optString("idCard");//身份证
+                            if (idCard.length() > 0) {
+                                tv_idCard.setText(idCard);
+                            }
+                        }
+                        String invitCode = obj2.getString("invitCode");//邀请码
+                        if (invitCode != null && !invitCode.equals("")) {
+                            tv_invitCode.setText(invitCode);
+                        }
+                        String bindCode = obj2.getString("bindCode");//我绑定的邀请码
+                        if (bindCode != null && !bindCode.equals("")) {
+                            tv_bind.setText(bindCode);
+                            char c = bindCode.charAt(0);
+                            if (c == 'P') {
+                                iv_bind.setVisibility(View.GONE);
+                            }
+                        } else {
+                            tv_bind.setText("未绑定");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    String invitCode = obj2.getString("invitCode");//邀请码
-                    if (invitCode != null && !invitCode.equals("")) {
-                        tv_invitCode.setText(invitCode);
-                    }
-                    String bindCode = obj2.getString("bindCode");//我绑定的邀请码
-                    if (bindCode != null && !bindCode.equals("")) {
-                        tv_bind.setText(bindCode);
-                    }
-                    //obj2.getString("idCard");//身份证
-//                            Toast.makeText(AlterPassActivity.this,"请求失败",Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
 
-            @Override
-            public void onFailure(HttpException e, String s) {
-                //e.getExceptionCode();
-                e.printStackTrace();
-                //Toast.makeText(activity, "请求成功", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(HttpException e, String s) {
+                    //e.getExceptionCode();
+                    e.printStackTrace();
+                    //Toast.makeText(activity, "请求成功", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
         callback.setActionBar(3);
     }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_alterpass://修改登录密码
+            case R.id.tv_alterpass:
                 Intent intent2 = new Intent(activity, AlterPassActivity.class);
                 startActivity(intent2);
                 break;
             case R.id.tv_update:
-//                PackageManager pm = getS
-//                PackageInfo pi = pm.getPackageInfo(getPackageName(), 0);//getPackageName()是你当前类的包名，0代表是获取版本信息
-//                String name = pi.versionName;
-//                int code = pi.versionCode;
-
-                CheckVersionDialog dialog1=new CheckVersionDialog(activity,R.style.dialog);
-                dialog1.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
-                dialog1.show();
+                DiaLog.showDialog(activity, "暂无新版本");
                 break;
             case R.id.btn_finish://退出程序
 
@@ -260,19 +280,33 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
                 activity.setTheme(R.style.ActionSheetStyleiOS7);
                 showActionSheet();
                 break;
+            case R.id.tv_bind2:
+            case R.id.tv_bind:
             case R.id.iv_bind:
-                String str=tv_bind.getText().toString();
-                Intent intent4=new Intent(activity, AlterBindActivity.class);
-                if(!"".equals(str)&&str!=null){
-                    intent4.putExtra("CODE",str);
+                String str=tv_bind.getText().toString().trim();
+                if("".equals(str)||str==null||"未绑定".equals(str)){
+                    Intent intent4=new Intent(activity, AlterBindActivity.class);
+                    intent4.putExtra("CODE","");
+                    intent4.putExtra("INVIT",tv_invitCode.getText().toString());
+                    startActivity(intent4);
+                }else {
+                    char c = str.charAt(0);
+                    if(c=='P'){
+                        DiaLog.showDialog(activity, "您的邀请码不支持修改");
+                    }else {
+                        Intent intent4=new Intent(activity, AlterBindActivity.class);
+                        intent4.putExtra("CODE",str);
+                        intent4.putExtra("INVIT",tv_invitCode.getText().toString());
+                        startActivity(intent4);
+                    }
                 }
-                intent4.putExtra("INVIT",tv_invitCode.getText().toString());
-                startActivity(intent4);
                 break;
+            case R.id.iv_help:
             case R.id.tv_help://帮助中心
                 Intent intent1=new Intent(activity, HelpCenterActivity.class);
                 startActivity(intent1);
                 break;
+            case R.id.iv_connect:
             case R.id.tv_connect://联系我们
                Intent intent3=new Intent(activity, ConnectOurActivity.class);
                 startActivity(intent3);

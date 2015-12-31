@@ -9,21 +9,14 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@drawable/account_back">
-
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@mipmap/ic_launcher" />-->
-
         <ImageView
             android:id="@+id/iv_news"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/information_pic" />
-
 
         <TextView
             android:id="@+id/tv_money"
@@ -32,7 +25,6 @@
             android:layout_centerInParent="true"
             android:textColor="@color/white"
             android:textSize="20dp" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +36,7 @@
         <LinearLayout
             android:id="@+id/layout_activity"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="20dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_alignParentBottom="true"
@@ -108,7 +100,7 @@
         <TextView
             android:layout_width="1dp"
             android:layout_height="40dp"
-            android:background="@color/gray0"
+            android:background="@color/backgro"
             android:layout_gravity="center_vertical"
             />
         <LinearLayout
@@ -141,7 +133,7 @@
         <TextView
             android:layout_width="1dp"
             android:layout_height="40dp"
-            android:background="@color/gray0"
+            android:background="@color/backgro"
             android:layout_gravity="center_vertical"
             />
 
@@ -169,7 +161,7 @@
                 android:includeFontPadding="false"
                 android:textSize="11sp"
                 android:textColor="@color/black3"
-                android:text=""/>
+                android:text="0.00"/>
         </LinearLayout>
     </LinearLayout>
    <TextView
@@ -180,7 +172,7 @@
     <GridView
         android:id="@+id/gv_menu"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="wrap_content"
         android:numColumns="3"
         android:gravity="center"
         android:horizontalSpacing="1dp"

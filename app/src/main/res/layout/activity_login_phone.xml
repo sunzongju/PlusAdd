@@ -64,7 +64,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="40dp"
         android:text="未注册用户点击下一步进行注册。"
         android:textSize="10sp" />
 

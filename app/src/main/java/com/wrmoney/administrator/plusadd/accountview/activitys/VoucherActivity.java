@@ -29,6 +29,7 @@ import com.wrmoney.administrator.plusadd.bean.ActivityListBean;
 import com.wrmoney.administrator.plusadd.bean.VoucherBean;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
@@ -187,45 +188,48 @@ public class VoucherActivity extends BaseActivity {
      */
     public void dataRequest(String type,int current) {
      //   Log.i("========类型",type);
-        RequestParams params = UserCenterParams.getBonusCode(userid, type, current+"", "10");
-        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                String result = responseInfo.result;
-                JSONObject object = null;
-                try {
-                    List<VoucherBean> list2=new ArrayList<VoucherBean>();
-                    object = new JSONObject(result);
-                    String strResponse = object.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
-                  //  Log.v("======抵用券", strDe);
-                    JSONObject object1=new JSONObject(strDe);
-                    JSONArray array=object1.getJSONArray("lotteryList");
-                    int len=array.length();
-                    for(int i=0;i<len;i++){
-                        VoucherBean bean=new VoucherBean();
-                        JSONObject object2=array.getJSONObject(i);
-                        bean.setLotteryId(object2.getString("lotteryId"));
-                        bean.setLotteryAmount(object2.getString("lotteryAmount"));
-                        bean.setLotteryStatus(object2.getString("lotteryStatus"));
-                        bean.setLotteryValidTime(object2.getString("lotteryValidTime"));
-                        bean.setLotteryComent(object2.getString("lotteryComent"));
-                        bean.setLotteryTitle(object2.getString("lotteryTitle"));
-                        list2.add(bean);
+        Boolean b = CheckNetTool.checkNet(this);
+        if(b){
+            RequestParams params = UserCenterParams.getBonusCode(userid, type, current+"", "10");
+            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    String result = responseInfo.result;
+                    JSONObject object = null;
+                    try {
+                        List<VoucherBean> list2=new ArrayList<VoucherBean>();
+                        object = new JSONObject(result);
+                        String strResponse = object.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
+                        //  Log.v("======抵用券", strDe);
+                        JSONObject object1=new JSONObject(strDe);
+                        JSONArray array=object1.getJSONArray("lotteryList");
+                        int len=array.length();
+                        for(int i=0;i<len;i++){
+                            VoucherBean bean=new VoucherBean();
+                            JSONObject object2=array.getJSONObject(i);
+                            bean.setLotteryId(object2.getString("lotteryId"));
+                            bean.setLotteryAmount(object2.getString("lotteryAmount"));
+                            bean.setLotteryStatus(object2.getString("lotteryStatus"));
+                            bean.setLotteryValidTime(object2.getString("lotteryValidTime"));
+                            bean.setLotteryComent(object2.getString("lotteryComent"));
+                            bean.setLotteryTitle(object2.getString("lotteryTitle"));
+                            list2.add(bean);
+                        }
+                        adapter.addAll(list2);
+                        lv_voucher.onRefreshComplete();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    adapter.addAll(list2);
-                    lv_voucher.onRefreshComplete();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
+                }
+
+                @Override
+                public void onFailure(HttpException e, String s) {
                     e.printStackTrace();
                 }
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                e.printStackTrace();
-            }
-        });
+            });
+        }
     }
 }

@@ -41,6 +41,7 @@ import com.wrmoney.administrator.plusadd.bean.MoneyWaterBean;
 import com.wrmoney.administrator.plusadd.encode.FinancingParams;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.FormatTool;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
@@ -92,7 +93,12 @@ public class MoneyWaterActivity extends BaseActivity {
     private void init() {
         TextView tv_allAmount=(TextView)this.findViewById(R.id.tv_allAmount);
         Bundle bundle = getIntent().getExtras();
-        tv_allAmount.setText(FormatTool.amtFormat(bundle.getString("allAmount")));//总额
+        String allAmount=bundle.getString("allAmount");
+        if("".equals(allAmount)||allAmount==null||"0".equals(allAmount)){
+            tv_allAmount.setText("0.00");
+        }else {
+            tv_allAmount.setText(FormatTool.amtFormat(allAmount));//总额
+        }
         userid= SingleUserIdTool.newInstance().getUserid();
         httpUtils = new HttpUtils(10000);
         dataRequest("0",current);
@@ -175,49 +181,50 @@ public class MoneyWaterActivity extends BaseActivity {
      * 数据请求
      */
     public void dataRequest(String type,int current){
+        Boolean b = CheckNetTool.checkNet(this);
+        if(b){
+            RequestParams params = UserCenterParams.getFundRunningCode(userid,type,current+"","10");
+            httpUtils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    // Toast.makeText(activity,"成功", LENGTH_SHORT).show();
+                    String result = responseInfo.result;
+                    JSONObject object = null;
+                    try {
+                        List<MoneyWaterBean> list2=new ArrayList<MoneyWaterBean>();
+                        object = new JSONObject(result);
+                        String strResponse = object.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
+                        //Log.i("=======资金流水", strDe);
+                        JSONObject object1=new JSONObject(strDe);
+                        JSONArray array=object1.getJSONArray("flowList");
+                        int len=array.length();
+                        for(int i=0;i<len;i++){
+                            JSONObject object2=array.getJSONObject(i);
+                            MoneyWaterBean bean=new MoneyWaterBean();
+                            bean.setTransDate(object2.getString("transDate"));
+                            bean.setTransComent(object2.getString("transComent"));
+                            bean.setTransAmount(object2.getString("transAmount"));
+                            list2.add(bean);
+                        }
+                        adapter.addAll(list2);
+                        lv_water.onRefreshComplete();
+                        // JSONObject object1 = new JSONObject(strDe);
 
-        RequestParams params = UserCenterParams.getFundRunningCode(userid,type,current+"","10");
-        httpUtils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                // Toast.makeText(activity,"成功", LENGTH_SHORT).show();
-                String result = responseInfo.result;
-                JSONObject object = null;
-                try {
-                    List<MoneyWaterBean> list2=new ArrayList<MoneyWaterBean>();
-                    object = new JSONObject(result);
-                    String strResponse = object.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
-                    //Log.i("=======资金流水", strDe);
-                    JSONObject object1=new JSONObject(strDe);
-                    JSONArray array=object1.getJSONArray("flowList");
-                    int len=array.length();
-                    for(int i=0;i<len;i++){
-                    JSONObject object2=array.getJSONObject(i);
-                    MoneyWaterBean bean=new MoneyWaterBean();
-                        bean.setTransDate(object2.getString("transDate"));
-                        bean.setTransComent(object2.getString("transComent"));
-                        bean.setTransAmount(object2.getString("transAmount"));
-                      list2.add(bean);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    adapter.addAll(list2);
-                    lv_water.onRefreshComplete();
-                   // JSONObject object1 = new JSONObject(strDe);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
 
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                e.printStackTrace();
-                //Toast.makeText(MoneyWaterActivity.this, "失败", LENGTH_SHORT).show();
-            }
-        });
-
+                @Override
+                public void onFailure(HttpException e, String s) {
+                    e.printStackTrace();
+                    //Toast.makeText(MoneyWaterActivity.this, "失败", LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

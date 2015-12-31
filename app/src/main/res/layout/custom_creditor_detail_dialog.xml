@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="340dp"
+    android:orientation="vertical"
+    android:id="@+id/ll_dialog"
+    android:layout_width="340dp"
     android:layout_height="match_parent">
 
     <TextView
@@ -8,6 +10,7 @@
         android:layout_marginLeft="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/gray"
         android:text="原始借款合同编号"/>
 
     <TextView
@@ -31,6 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/gray"
             android:text="借款人姓名"/>
         <TextView
             android:id="@+id/tv_borrowerName"
@@ -51,6 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/gray"
             android:text="借款人身份证号"/>
         <TextView
             android:id="@+id/tv_borrowerIdCard"
@@ -71,6 +76,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/gray"
             android:text="出借金额"/>
         <TextView
             android:id="@+id/tv_creditAmount"
@@ -92,6 +98,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/gray"
             android:text="债权现金价值"/>
         <TextView
             android:id="@+id/tv_creditCashValue"

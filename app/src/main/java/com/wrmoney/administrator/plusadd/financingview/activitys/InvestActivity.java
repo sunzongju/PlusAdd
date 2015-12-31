@@ -28,6 +28,7 @@ import com.wrmoney.administrator.plusadd.encode.FinancingParams;
 import com.wrmoney.administrator.plusadd.financingview.adapters.FinancingPlanAdapter;
 import com.wrmoney.administrator.plusadd.loginview.activitys.PhoneActivity;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.FormatTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
@@ -65,6 +66,7 @@ public class InvestActivity extends BaseActivity implements View.OnClickListener
     private FinancingDetailBean bean;
     private String userid;
     private TextView tv_restAmount;
+    private String flag;
     private DecimalFormat df = new DecimalFormat("#.##");
    private  Handler handler=new Handler() {
        @Override
@@ -149,6 +151,7 @@ public class InvestActivity extends BaseActivity implements View.OnClickListener
    };
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,6 +167,14 @@ public class InvestActivity extends BaseActivity implements View.OnClickListener
         btn_join.setOnClickListener(this);
         intent=getIntent();
         planID=intent.getStringExtra("PLANID");
+        flag=intent.getStringExtra("FLAG");
+        if("Y".equals(flag)){
+            btn_join.setClickable(false);
+        }else {
+            btn_join.setText("立即加入");
+            btn_join.setClickable(true);
+            btn_join.setBackgroundResource(R.drawable.button_press);
+        }
         //Log.i("=========",planID+"用户ID");
         init();
     }
@@ -190,34 +201,36 @@ public class InvestActivity extends BaseActivity implements View.OnClickListener
      * 数据请求
      */
     public void dataRequest(){
-        RequestParams params = FinancingParams.getPlanDetailsCode(planID);
-        httpUtils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                // Toast.makeText(activity,"成功", LENGTH_SHORT).show();
-                String result = responseInfo.result;
-                JSONObject object = null;
-                try {
-                    List<FinancingPlanBean> list = new ArrayList<FinancingPlanBean>();
-                    object = new JSONObject(result);
-                    String strResponse = object.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
-                    //Log.i("=======详情", strDe);
-                    setBean(strDe);
-                    setData();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
+        Boolean b = CheckNetTool.checkNet(this);
+        if(b){
+            RequestParams params = FinancingParams.getPlanDetailsCode(planID);
+            httpUtils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    // Toast.makeText(activity,"成功", LENGTH_SHORT).show();
+                    String result = responseInfo.result;
+                    JSONObject object = null;
+                    try {
+                        List<FinancingPlanBean> list = new ArrayList<FinancingPlanBean>();
+                        object = new JSONObject(result);
+                        String strResponse = object.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
+                        //Log.i("=======详情", strDe);
+                        setBean(strDe);
+                        setData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-            @Override
-            public void onFailure(HttpException e, String s) {
-                e.printStackTrace();
-              //  Toast.makeText(InvestActivity.this, "失败", LENGTH_SHORT).show();
-            }
-        });
-
+                @Override
+                public void onFailure(HttpException e, String s) {
+                    e.printStackTrace();
+                    //  Toast.makeText(InvestActivity.this, "失败", LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     public void setBean(String str){
@@ -252,7 +265,11 @@ public class InvestActivity extends BaseActivity implements View.OnClickListener
         tv_expectedRate.setText(bean.getExpectedRate()+"%");
         tv_lockTime.setText(bean.getLockTime());
         String str2=FormatTool.amtFormat(bean.getRestAmount());
-        tv_restAmount.setText("剩余可投金额"+str2+"元");
+        if("Y".equals(flag)){
+            tv_restAmount.setText("剩余可投金额0.00元");
+        }else {
+            tv_restAmount.setText("剩余可投金额"+str2+"元");
+        }
         tv_joinCondition.setText(bean.getJoinCondition());
         tv_interestDate.setText(bean.getInterestDate());
         tv_repayType.setText(bean.getRepayType());

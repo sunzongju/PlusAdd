@@ -35,6 +35,7 @@ import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
 import com.wrmoney.administrator.plusadd.loginview.activitys.LoginActivity2;
 import com.wrmoney.administrator.plusadd.loginview.activitys.PhoneActivity2;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.FormatTool;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
@@ -115,9 +116,24 @@ public class InvestMentActivity extends BaseActivity{
             }
         });
         Bundle bundle = getIntent().getExtras();
-        tv_allAmount.setText(FormatTool.amtFormat(bundle.getString("allAmount")));//总额
-        tv_acctBalance.setText(FormatTool.amtFormat(bundle.getString("acctBalance")));//累计收益
-        tv_incomeAmount.setText(FormatTool.amtFormat(bundle.getString("incomeAmount")));//可用余额
+        String allAmount=bundle.getString("allAmount");
+        if("".equals(allAmount)||allAmount==null||"0".equals(allAmount)){
+            tv_allAmount.setText("0.00");
+        }else {
+            tv_allAmount.setText(FormatTool.amtFormat(allAmount));//总额
+        }
+        String acctBalance=bundle.getString("acctBalance");
+        if("".equals(acctBalance)||acctBalance==null||"0".equals(acctBalance)){
+            tv_acctBalance.setText("0.00");
+        }else {
+            tv_acctBalance.setText(FormatTool.amtFormat(acctBalance));//累计收益
+        }
+        String incomeAmount=bundle.getString("incomeAmount");
+        if("".equals(incomeAmount)||incomeAmount==null||"0".equals(incomeAmount)){
+            tv_incomeAmount.setText("0.00");
+        }else {
+            tv_incomeAmount.setText(FormatTool.amtFormat(bundle.getString("incomeAmount")));//可用余额
+        }
         rg_invest=(RadioGroup) this.findViewById(R.id.rg_invest);
         lv_invest = (PullToRefreshListView) this.findViewById(R.id.lv_invest);
         View v=LayoutInflater.from(this).inflate(R.layout.empty_view,null);
@@ -224,53 +240,56 @@ public class InvestMentActivity extends BaseActivity{
          * 数据请求
          */
     public void dataRequest(String type,int current) {
-        RequestParams params = UserCenterParams.getInvestManagerCode(userid, type, current+"", "10");
-        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                String result = responseInfo.result;
-                JSONObject object = null;
-                try {
-                    List<InvestMentBean> list2=new ArrayList<InvestMentBean>();
-                    object = new JSONObject(result);
-                    String strResponse = object.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
-                   //Log.i("======投资管理",strDe);
-                    JSONObject object1=new JSONObject(strDe);
-                    JSONArray array=object1.getJSONArray("investList");
-                    int len=array.length();
-                    for(int i=0;i<len;i++){
-                        InvestMentBean bean=new InvestMentBean();
-                        JSONObject object2=array.getJSONObject(i);
-                        bean.setOrderId(object2.getString("orderId"));
-                        bean.setStatus(object2.getString("status"));
-                        bean.setInvestDate(object2.getString("investDate"));
-                        bean.setPlanName(object2.getString("planName"));
-                        bean.setExpectedRate(object2.getString("expectedRate"));
-                        bean.setInvestAmount(object2.getString("investAmount"));
-                        bean.setLockTime(object2.getString("lockTime"));
-                        bean.setExitFlag(object2.getString("exitFlag"));
-                        list2.add(bean);
+        Boolean b = CheckNetTool.checkNet(this);
+        if(b){
+            RequestParams params = UserCenterParams.getInvestManagerCode(userid, type, current+"", "10");
+            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    String result = responseInfo.result;
+                    JSONObject object = null;
+                    try {
+                        List<InvestMentBean> list2=new ArrayList<InvestMentBean>();
+                        object = new JSONObject(result);
+                        String strResponse = object.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
+                        //Log.i("======投资管理",strDe);
+                        JSONObject object1=new JSONObject(strDe);
+                        JSONArray array=object1.getJSONArray("investList");
+                        int len=array.length();
+                        for(int i=0;i<len;i++){
+                            InvestMentBean bean=new InvestMentBean();
+                            JSONObject object2=array.getJSONObject(i);
+                            bean.setOrderId(object2.getString("orderId"));
+                            bean.setStatus(object2.getString("status"));
+                            bean.setInvestDate(object2.getString("investDate"));
+                            bean.setPlanName(object2.getString("planName"));
+                            bean.setExpectedRate(object2.getString("expectedRate"));
+                            bean.setInvestAmount(object2.getString("investAmount"));
+                            bean.setLockTime(object2.getString("lockTime"));
+                            bean.setExitFlag(object2.getString("exitFlag"));
+                            list2.add(bean);
+                        }
+                        adapter.addAll(list2);
+                        lv_invest.onRefreshComplete();
+                        // Toast.makeText(InvestMentActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                        //JSONObject obj2=new JSONObject(strDe);
+                        // String rescode=obj2.getString("rescode");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    adapter.addAll(list2);
-                    lv_invest.onRefreshComplete();
-                   // Toast.makeText(InvestMentActivity.this, strDe, Toast.LENGTH_SHORT).show();
-                    //JSONObject obj2=new JSONObject(strDe);
-                    // String rescode=obj2.getString("rescode");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
                 }
-                //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onFailure(HttpException e, String s) {
-                e.printStackTrace();
-               // Toast.makeText(InvestMentActivity.this, "失败", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(HttpException e, String s) {
+                    e.printStackTrace();
+                    // Toast.makeText(InvestMentActivity.this, "失败", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
 }

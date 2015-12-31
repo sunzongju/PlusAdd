@@ -26,6 +26,7 @@ import com.wrmoney.administrator.plusadd.bean.PlanBean;
 import com.wrmoney.administrator.plusadd.encode.IdentifyParams;
 import com.wrmoney.administrator.plusadd.encode.LoginParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
@@ -68,85 +69,72 @@ public class PhoneActivity extends BaseActivity {
     }
 
     public void click(View view) {
-        pd=ProgressDialog.show(this,"","数据加载中...");
-        strPhone = et_phone.getText().toString().trim();
-        //strPhone="18500236430";
-        int i = strPhone.length();
-        if (i == 11) {
-            try {
-                // String json="{ inface:'WRMI100001',mobile:'13651087998'}";
-                //String str = DES3Util.encode(json);
-                params = LoginParams.getPhoneCode(strPhone);
-                //params.addQueryStringParameter("argEncPara", str);
-                utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL,params, new RequestCallBack<String>() {
-                    @Override
-                    public void onSuccess(ResponseInfo<String> responseInfo) {
-                        String result = responseInfo.result;
-                        try {
-                            JSONObject obj = new JSONObject(result);
-                            String strResponse = obj.getString("argEncPara");
-                            String strDe = DES3Util.decode(strResponse);
-                          //  Toast.makeText(PhoneActivity.this, strDe, Toast.LENGTH_SHORT).show();
-                            JSONObject obj2 = new JSONObject(strDe);
-                            String type = obj2.getString("isRegFlag");
-                          //  Toast.makeText(PhoneActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                            if ("1".equals(type)) {
-                                Intent intent = new Intent(PhoneActivity.this, LoginActivity.class);
-                                intent.putExtra("PHONE", strPhone);
-                                intent.putExtra("PLANID",planID);
-                                startActivityForResult(intent,300);
-                                //finish();
-                            } else if ("0".equals(type)) {
-                                RequestParams params2 = IdentifyParams.getSendIdentifyCode(strPhone, "1");
-                                utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params2, new RequestCallBack<String>() {
-                                    @Override
-                                    public void onSuccess(ResponseInfo<String> responseInfo) {
+
+        Boolean b = CheckNetTool.checkNet(this);
+        if(b){
+            pd=ProgressDialog.show(this,"","数据加载中...");
+            strPhone = et_phone.getText().toString().trim();
+            //strPhone="18500236430";
+            int i = strPhone.length();
+            if (i == 11) {
+                try {
+                    // String json="{ inface:'WRMI100001',mobile:'13651087998'}";
+                    //String str = DES3Util.encode(json);
+                    params = LoginParams.getPhoneCode(strPhone);
+                    //params.addQueryStringParameter("argEncPara", str);
+                    utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL,params, new RequestCallBack<String>() {
+                        @Override
+                        public void onSuccess(ResponseInfo<String> responseInfo) {
+                            String result = responseInfo.result;
+                            try {
+                                JSONObject obj = new JSONObject(result);
+                                String strResponse = obj.getString("argEncPara");
+                                String strDe = DES3Util.decode(strResponse);
+                                //  Toast.makeText(PhoneActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                                //Log.i("===========错误手机号", strDe);
+                                JSONObject obj2 = new JSONObject(strDe);
+                                if("0000".equals(obj2.getString("rescode"))){
+                                    String type = obj2.getString("isRegFlag");
+                                    if ("1".equals(type)) {
+                                        Intent intent = new Intent(PhoneActivity.this, LoginActivity.class);
+                                        intent.putExtra("PHONE", strPhone);
+                                        intent.putExtra("PLANID", planID);
+                                        startActivityForResult(intent, 300);
+                                        pd.dismiss();
+                                        //finish();
+                                    } else if ("0".equals(type)) {
                                         Intent intent = new Intent(PhoneActivity.this, RegisterActivity.class);
                                         intent.putExtra("PHONE", strPhone);
                                         //startActivity(intent);
                                         startActivityForResult(intent, 400);
-                                       // finish();
-
+                                        pd.dismiss();
                                     }
 
-                                    @Override
-                                    public void onFailure(HttpException e, String s) {
-                                        e.printStackTrace();
-                                    }
-                                });
-                            } else {
-                                // Toast.makeText(PhoneActivity.this, "ʧ��", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    pd.dismiss();
+                                    DiaLog.showDialog(PhoneActivity.this, obj2.getString("resmsg"));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (Exception e) {
-                            e.printStackTrace();
                         }
-                        pd.dismiss();
-                      //  pro_bar.setVisibility(View.GONE);
-                    }
-                    @Override
-                    public void onFailure(HttpException e, String s) {
-                        //e.getExceptionCode();
-                        e.printStackTrace();
-                      //  Toast.makeText(PhoneActivity.this, "链接失败", Toast.LENGTH_SHORT).show();
-                     ///   pro_bar.setVisibility(View.GONE);
-                        pd.dismiss();
-                    }
-                });
+                        @Override
+                        public void onFailure(HttpException e, String s) {
+                            e.printStackTrace();
+                            pd.dismiss();
+                        }
+                    });
 
-            } catch (Exception e) {
-                e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    pd.dismiss();
+                }
+            } else {
+                DiaLog.showDialog(PhoneActivity.this, "您输入的手机号有误,请重新输入");
+                pd.dismiss();
             }
-        } else {
-//            AlertDialog.Builder builder=new AlertDialog.Builder(this);
-//            builder.setTitle("��ʾ");
-//            builder.setMessage("��������ֻ����������������");
-//            builder.show();
-            DiaLog.showDialog(PhoneActivity.this, "您输入的手机号有误");
-          //  pro_bar.setVisibility(View.GONE);
-            pd.dismiss();
         }
-
     }
 }

@@ -11,6 +11,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -28,6 +29,7 @@ import com.wrmoney.administrator.plusadd.bean.InvitationDetailBean;
 import com.wrmoney.administrator.plusadd.bean.MoneyWaterBean;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
@@ -59,6 +61,8 @@ public class InvitationDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation_detail);
         ActionBarSet.setActionBar(this);
+        TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
+        tv_banner.setText("邀请明细");
         init();
     }
     public void init(){
@@ -147,56 +151,58 @@ public class InvitationDetailActivity extends BaseActivity {
      * 数据请求
      */
     public void dataRequest(String invitationCode, String type, int current){
-
-        RequestParams params = UserCenterParams.getInviteDetailCode(invitationCode,type,current+"","10");
-        httpUtils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                // Toast.makeText(activity,"成功", LENGTH_SHORT).show();
-                String result = responseInfo.result;
-                JSONObject object = null;
-                try {
-                    List<InvitationDetailBean> list2=new ArrayList<InvitationDetailBean>();
-                    object = new JSONObject(result);
-                    String strResponse = object.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
-                   // Log.i("=======邀请好友详情", strDe);
-                    JSONObject object1=new JSONObject(strDe);
-                    JSONArray array=object1.getJSONArray("reList");
-                    int len=array.length();
-                    for(int i=0;i<len;i++){
-                        JSONObject object2=array.getJSONObject(i);
-                        InvitationDetailBean bean=new InvitationDetailBean();
-                        bean.setType(object2.getString("type"));
-                        bean.setProductType(object2.getString("productType"));
-                        bean.setCommissionAmount(object2.getString("commissionAmount"));
-                        bean.setComent(object2.getString("coment"));
-                        bean.setRegTime(object2.getString("regTime"));
-                        bean.setMobile(object2.getString("mobile"));
-                        bean.setInvitedUser(object2.getString("invitedUser"));
-                        bean.setIfOpenAcct(object2.getString("ifOpenAcct"));
-                        if(object2.has("commissionTime")){
-                            bean.setCommissionTime(object2.getString("commissionTime"));
+        Boolean b = CheckNetTool.checkNet(this);
+        if(b){
+            RequestParams params = UserCenterParams.getInviteDetailCode(invitationCode,type,current+"","10");
+            httpUtils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    // Toast.makeText(activity,"成功", LENGTH_SHORT).show();
+                    String result = responseInfo.result;
+                    JSONObject object = null;
+                    try {
+                        List<InvitationDetailBean> list2=new ArrayList<InvitationDetailBean>();
+                        object = new JSONObject(result);
+                        String strResponse = object.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
+                        // Log.i("=======邀请好友详情", strDe);
+                        JSONObject object1=new JSONObject(strDe);
+                        JSONArray array=object1.getJSONArray("reList");
+                        int len=array.length();
+                        for(int i=0;i<len;i++){
+                            JSONObject object2=array.getJSONObject(i);
+                            InvitationDetailBean bean=new InvitationDetailBean();
+                            bean.setType(object2.getString("type"));
+                            bean.setProductType(object2.getString("productType"));
+                            bean.setCommissionAmount(object2.getString("commissionAmount"));
+                            bean.setComent(object2.getString("coment"));
+                            bean.setRegTime(object2.getString("regTime"));
+                            bean.setMobile(object2.getString("mobile"));
+                            bean.setInvitedUser(object2.getString("invitedUser"));
+                            bean.setIfOpenAcct(object2.getString("ifOpenAcct"));
+                            if(object2.has("commissionTime")){
+                                bean.setCommissionTime(object2.getString("commissionTime"));
+                            }
+                            bean.setOrderNum(object2.getString("orderNum"));
+                            bean.setCount(object2.getString("count"));
+                            list2.add(bean);
                         }
-                        bean.setOrderNum(object2.getString("orderNum"));
-                        bean.setCount(object2.getString("count"));
-                        list2.add(bean);
+                        adapter.addAll(list2);
+                        lv_invitation.onRefreshComplete();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    adapter.addAll(list2);
-                    lv_invitation.onRefreshComplete();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
-            }
-            @Override
-            public void onFailure(HttpException e, String s) {
-                e.printStackTrace();
-                //Toast.makeText(MoneyWaterActivity.this, "失败", LENGTH_SHORT).show();
-                lv_invitation.onRefreshComplete();
-            }
-        });
+                }
+                @Override
+                public void onFailure(HttpException e, String s) {
+                    e.printStackTrace();
+                    //Toast.makeText(MoneyWaterActivity.this, "失败", LENGTH_SHORT).show();
+                    lv_invitation.onRefreshComplete();
+                }
+            });
+        }
     }
 }

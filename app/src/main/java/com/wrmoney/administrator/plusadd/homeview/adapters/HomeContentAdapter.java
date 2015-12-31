@@ -79,30 +79,42 @@ public class HomeContentAdapter extends BaseAdapter {
             // holder.tv_title.setText(planBean.getTitle());
             holder.tv_name.setText(planBean.getName());
             holder.tv_rate.setText(planBean.getExpectedRate());
-            holder.pro_rate.setProgress(planBean.getProgress());
+
             holder.tv_repaytype.setText(planBean.getRepayType());
+            double maxFinaning=Double.parseDouble(planBean.getMaxFinaning());
+            double joinAmount=Double.parseDouble(planBean.getJoinAmount());
+            Log.i("====数值",maxFinaning+";"+joinAmount);
+
         if("Y".equals(planBean.getEnablleBuy())){
-            holder.btn_invest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (userid == null) {
-                        Intent intent11 = new Intent(context, PhoneActivity.class);
-                        intent11.putExtra("PLANID",planBean.getId()+"");
-                        context.startActivity(intent11);
-                        //startActivity(intent11);
-                        // finish();
-                    } else {
-                        //  Log.i("=======InvestUserid", SingleUserIdTool.newInstance().getUserid());
-                        SingleUserIdTool.newInstance().setUserid(SingleUserIdTool.newInstance().getUserid());
-                        Intent intent1=new Intent(context,InvestJoinActivity.class);
-                        Bundle bundle2=new Bundle();
-                        //bundle2.putParcelable("BEAN",planBean.getId()+"");
-                        bundle2.putString("PLANID",planBean.getId()+"");
-                        intent1.putExtras(bundle2);
-                        context.startActivity(intent1);
+            if(joinAmount>=maxFinaning){
+                holder.btn_invest.setText("售罄");
+            }else {
+                holder.pro_rate.setProgress(planBean.getProgress());
+                holder.btn_invest.setClickable(true);
+                holder.btn_invest.setText("投资");
+                holder.btn_invest.setBackgroundResource(R.drawable.button_press);
+                holder.btn_invest.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (userid == null) {
+                            Intent intent11 = new Intent(context, PhoneActivity.class);
+                            intent11.putExtra("PLANID",planBean.getId()+"");
+                            context.startActivity(intent11);
+                            //startActivity(intent11);
+                            // finish();
+                        } else {
+                            //  Log.i("=======InvestUserid", SingleUserIdTool.newInstance().getUserid());
+                            SingleUserIdTool.newInstance().setUserid(SingleUserIdTool.newInstance().getUserid());
+                            Intent intent1=new Intent(context,InvestJoinActivity.class);
+                            Bundle bundle2=new Bundle();
+                            //bundle2.putParcelable("BEAN",planBean.getId()+"");
+                            bundle2.putString("PLANID",planBean.getId()+"");
+                            intent1.putExtras(bundle2);
+                            context.startActivity(intent1);
+                        }
                     }
-                }
-            });
+                });
+            }
         }else {
             holder.btn_invest.setText("售罄");
         }
@@ -138,7 +150,7 @@ public class HomeContentAdapter extends BaseAdapter {
             dm=((Activity)context).getResources().getDisplayMetrics();
             ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(dm);
             int  height1= DisplayUtil.dip2px(context, 54);
-            layoutParams.height=(dm.heightPixels-(DisplayUtil.dip2px(context,364)))/2;
+            layoutParams.height=(dm.heightPixels-(DisplayUtil.dip2px(context,384)))/2;
 //            int height2 =dm.heightPixels-height1;  //得到高度
 //            layoutParams.height=height2/4;
             this.ll_layout.setLayoutParams(layoutParams);

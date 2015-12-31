@@ -32,6 +32,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
@@ -68,6 +69,7 @@ import com.wrmoney.administrator.plusadd.view.DiaLog;
 import com.wrmoney.administrator.plusadd.view.MoneyShorDialog;
 import com.wrmoney.administrator.plusadd.view.MyDialog;
 import com.wrmoney.administrator.plusadd.view.QuitPlanDialog;
+import com.wrmoney.administrator.plusadd.wxapi.WXEntryActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,6 +98,7 @@ public class HomeFrament extends BaseFragment {
     private RadioGroup rg_index;
     private ListView lv_plan;
     private List<HomeContentBean> listBean=new ArrayList<HomeContentBean>();
+    private List<ImageView> listImage=new ArrayList<ImageView>();
     private Button btn1;
     private HttpUtils httpUtils;
     private HomeContentAdapter adapter1;
@@ -126,6 +129,10 @@ public class HomeFrament extends BaseFragment {
     };
     private Thread thread;
     private DbUtils dbUtils;
+    private BitmapUtils helper;
+    private ImageView iv_btn1;
+    private ImageView iv_btn2;
+    private ImageView iv_btn3;
 
 
 //    private AlterPassFinishDialog dialog;
@@ -141,7 +148,6 @@ public class HomeFrament extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        init();
         thread = new Thread(new Runnable() {
 
             @Override
@@ -153,6 +159,7 @@ public class HomeFrament extends BaseFragment {
                 }
             }
         });
+        init();
     }
 
     @Override
@@ -173,6 +180,7 @@ public class HomeFrament extends BaseFragment {
     }
     public void init(){
         BitmapHelper.init(activity);
+        helper=BitmapHelper.getUtils();
         DbHelper.init(activity);
         httpUtils = new HttpUtils(10000);
         dbUtils = DbHelper.getUtils();
@@ -180,47 +188,74 @@ public class HomeFrament extends BaseFragment {
         ll_points=(LinearLayout)view.findViewById(R.id.ll_points);
         adapter1=new HomeContentAdapter(listBean,activity);
         lv_plan.setAdapter(adapter1);
+        vp_index= (ViewPager) view.findViewById(R.id.pager_index);
         checkNetWorkInfo();
+            lv_plan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    //Toast.makeText(activity,list.get(position).getId(),LENGTH_SHORT).show();
+                    // Log.i("=========长度",listBean.get(position).getId()+"");
+                    // int pos = position - 1;
+                    //Log.i("====adfa",list.get(pos).getId()+"");
+                    Intent intent = new Intent(activity, InvestActivity.class);
+                    intent.putExtra("PLANID",listBean.get(position).getId()+"");
+                    if("N".equals(listBean.get(position).getEnablleBuy())){
+                        intent.putExtra("FLAG","Y");
+                    }else {
+                      double str1=Double.parseDouble(listBean.get(position).getMaxFinaning());
+                        double str2=Double.parseDouble(listBean.get(position).getJoinAmount());
+                        if(str2>=str1){
+                            intent.putExtra("FLAG","Y");
+                        }
+                    }
+                    activity.startActivity(intent);
 
-        lv_plan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                }
+            });
+        //rg_index = (RadioGroup) view.findViewById(R.id.rg_index);
+        iv_btn1=(ImageView)view.findViewById(R.id.iv_btn1);
+        iv_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(activity,list.get(position).getId(),LENGTH_SHORT).show();
-               // Log.i("=========长度",listBean.get(position).getId()+"");
-               // int pos = position - 1;
-                //Log.i("====adfa",list.get(pos).getId()+"");
-                Intent intent = new Intent(activity, InvestActivity.class);
-                intent.putExtra("PLANID",listBean.get(position).getId()+"");
-                activity.startActivity(intent);
+            public void onClick(View v) {
+
+            }
+        });
+        iv_btn2=(ImageView)view.findViewById(R.id.iv_btn2);
+        iv_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
 
             }
         });
-        //rg_index = (RadioGroup) view.findViewById(R.id.rg_index);
-        vp_index= (ViewPager) view.findViewById(R.id.pager_index);
-        btn1=(Button)view.findViewById(R.id.btn1);
-//        btn1.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                CheckVersionDialog dialog = new CheckVersionDialog(activity, R.style.dialog);
-//                // QuitPlanDialog dialog = new QuitPlanDialog(activity, R.style.dialog);
-//                dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
-//                dialog.show();
-//            }
-//        });
+        iv_btn3=(ImageView)view.findViewById(R.id.iv_btn3);
+        iv_btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
     }
 
+    /**
+     * 检查是否有网络
+     */
 
     private void checkNetWorkInfo() {
         if (!NetworkAvailable.isNetworkAvailable(activity)) {
             try {
                 List<HomeContentBean> all = dbUtils.findAll(HomeContentBean.class);
-             //   Log.i("========all",all.size()+"");
+                List<BannerBean> listB=dbUtils.findAll(BannerBean.class);
+//                Log.i("========all",all.get(0).getName());
                 if(all!=null){
                     adapter1.addAll(all);
                 }
+                if(listB!=null){
+                      //Log.i("========图片的URL",listB.get(0).getUrl());
+                     List<ImageView> imageViews = setData(listB);
+                     // Log.i("===========长度",imageViews.size()+"");
+                    bannerSet(imageViews);
+            }
                 new AlertDialog.Builder(activity)
                         .setTitle("提示!")
                         .setIcon(android.R.drawable.ic_dialog_info)
@@ -228,7 +263,7 @@ public class HomeFrament extends BaseFragment {
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // finish();
+                                activity.finish();
                             }
                         })
                         .setPositiveButton("开启",
@@ -271,10 +306,11 @@ public class HomeFrament extends BaseFragment {
                     object = new JSONObject(result);
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
-                 //   Log.i("====主页", strDe);
+                    // Log.i("====主页", strDe);
                     JSONObject object1 = new JSONObject(strDe);
                     JSONArray array = object1.getJSONArray("bannerList");
                     int len = array.length();
+                    dbUtils.dropTable(HomeContentBean.class);
                     for (int i = 0; i < len; i++) {
                         JSONObject object3 = array.getJSONObject(i);
                         BannerBean bean = new BannerBean();
@@ -282,18 +318,20 @@ public class HomeFrament extends BaseFragment {
                         bean.setTitle(object3.getString("title"));
                         bean.setDescrition(object3.getString("descrition"));
                         bean.setUrl(object3.getString("url"));
+                        bean.setJumpurl(object3.getString("jump_url"));
                         list.add(bean);
                     }
+                    dbUtils.saveOrUpdateAll(list);
                     List<ImageView> listImage = setData(list);
                     bannerSet(listImage);
                     List<HomeContentBean> listBean = new ArrayList<HomeContentBean>();
+                    dbUtils.dropTable(HomeContentBean.class);
                     String str = object1.getString("newHand");
                     contentSet(str,listBean);
                     String str2=object1.getString("seven");
                     contentSet(str2,listBean);
                     //listBean.add();
                     // Log.i("==========", listBean.size()+"");
-                    dbUtils.deleteAll(listBean);
                     dbUtils.saveOrUpdateAll(listBean);
                     adapter1.addAll(listBean);
 
@@ -321,25 +359,18 @@ public class HomeFrament extends BaseFragment {
     int imag2[]={R.drawable.wallpaper_1,R.drawable.wallpaper_2,R.drawable.wallpaper_3};
     List<ImageView> listt=new ArrayList<>();
     public void bannerSet(final List<ImageView> listImage){
-//        for(int i=0;i<3;i++){
-//            ImageView iv1=new ImageView(activity);
-//            iv1.setImageResource(imag2[i]);
-//            listt.add(iv1);
-//        }
-//       Toast.makeText(activity,list.size()+"",Toast.LENGTH_SHORT).show();
         adapter2 = new HomePagerAdapter(listImage,activity);
-         //adapter3= new AdapterCycle(activity,vp_index,listt);
         vp_index.setAdapter(adapter2);
         //vp_index.setCurrentItem(Integer.MAX_VALUE / 2 - 4 - (Integer.MAX_VALUE / 2) % 4);
        // vp_index.setCurrentItem(Integer.MAX_VALUE/2);
        // vp_index.setAdapter(adapter3);
         //实现自动切换界面
         //在外层，将mViewPager初始位置设置为1即可
+        //adapter2.addAll(listImage);
         if (adapter2.getCount() > 1) { //多于1个，才循环并开启定时器
             vp_index.setCurrentItem(1); //将mViewPager初始位置设置为1
-           thread.start(); //startTimer(); //开启定时器，定时切换页面
+            thread.start(); //startTimer(); //开启定时器，定时切换页面
         }
-
         vp_index.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -376,6 +407,7 @@ public class HomeFrament extends BaseFragment {
             Integer progress = object2.getInt("progress");//进度条
             String baseLockPeriod = object2.getString("baseLockPeriod");//期限
             String maxFinaning = object2.getString("maxFinancing");//项目规模
+            String joinAmount=object2.getString("joinAmount");
             String enablleBuy = object2.getString("enableBuy");//是否售罄
             Integer id=object2.getInt("id");//计划的ID
             boolean has = object2.has("repayType");
@@ -383,6 +415,7 @@ public class HomeFrament extends BaseFragment {
                 String repayType= object2.getString("repayType");//还款方式
                 bean.setRepayType(repayType);
             }
+            bean.setJoinAmount(joinAmount);
             bean.setName(name);
             bean.setExpectedRate(expectedRate);
             bean.setProgress(progress);
@@ -406,7 +439,9 @@ public class HomeFrament extends BaseFragment {
            // iv.setImageResource(imag[i]);
             int id=Integer.parseInt(bannerBeans.get(i).getId());;
             iv.setId(id);
-            BitmapHelper.getUtils().display(iv,bannerBeans.get(i).getUrl());
+            String jump_url=bannerBeans.get(i).getJumpurl();
+            iv.setTag(jump_url);
+            helper.display(iv, bannerBeans.get(i).getUrl());
             mList.add(iv);
             //动态的生成小圆点，然后添加到线性布局中
             View view = new View(activity);

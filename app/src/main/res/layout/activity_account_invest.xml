@@ -41,6 +41,23 @@
         android:visibility="invisible"
        />
 
+
+
+    <Button
+        android:id="@+id/btn_http"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/gray3"
+        android:clickable="false"
+        android:onClick="click"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:text="等待签订协议" />
+
     <Button
         android:id="@+id/btn_quit"
         style="@style/button_style"
@@ -51,20 +68,6 @@
         android:onClick="click"
         android:text="是否退出计划" />
 
-    <Button
-        android:id="@+id/btn_http"
-       android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_above="@id/btn_quit"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/gray3"
-        android:clickable="false"
-        android:onClick="click"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:text="等待签订协议" />
+
 
 </LinearLayout>

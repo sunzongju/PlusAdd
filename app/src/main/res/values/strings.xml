@@ -5,4 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="wel">开始使用</string>
     <string name="url_server">http://192.168.1.99/version.xml</string>
+
+    <string name="reg">想发财吗？我来帮你</string>
 </resources>

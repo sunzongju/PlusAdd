@@ -30,6 +30,7 @@ import com.wrmoney.administrator.plusadd.bean.RedPacketBean;
 import com.wrmoney.administrator.plusadd.bean.VoucherBean;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
@@ -78,28 +79,31 @@ public class RedPacketActivity extends BaseActivity {
      * 数据请求
      */
     public void dataRequest(String type) {
-        RequestParams params = UserCenterParams.getBonusCode(userid, "0", "1", "10");
-        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                String result = responseInfo.result;
-                JSONObject object = null;
-                try {
-                    object = new JSONObject(result);
-                    String strResponse = object.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
-                   // Log.v("======红包", strDe);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
+        Boolean b = CheckNetTool.checkNet(this);
+        if(b){
+            RequestParams params = UserCenterParams.getBonusCode(userid, "0", "1", "10");
+            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    String result = responseInfo.result;
+                    JSONObject object = null;
+                    try {
+                        object = new JSONObject(result);
+                        String strResponse = object.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
+                        // Log.v("======红包", strDe);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(HttpException e, String s) {
                     e.printStackTrace();
                 }
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                e.printStackTrace();
-            }
-        });
+            });
+        }
     }
 }

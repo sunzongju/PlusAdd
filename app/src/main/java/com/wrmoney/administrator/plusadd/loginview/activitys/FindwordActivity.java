@@ -2,12 +2,14 @@ package com.wrmoney.administrator.plusadd.loginview.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.encode.IdentifyParams;
 import com.wrmoney.administrator.plusadd.encode.LoginParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
@@ -123,6 +126,7 @@ public class FindwordActivity extends BaseActivity {
                     if(!pass2.equals(pass)){
                         DiaLog.showDialog(FindwordActivity.this, "两次输入的密码不一致");
                     }else{
+                        Log.i("=========找回密码","111111111111");
                         codeCorrect(captcha);
                     }
                 }
@@ -133,100 +137,103 @@ public class FindwordActivity extends BaseActivity {
     /**
      * 判断验证码是否正确
      */
-    public void codeCorrect(String captcha){
-        RequestParams params = IdentifyParams.getCheckIdentifyCode(mobile, captcha);
-        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                String result = responseInfo.result;
-                JSONObject object = null;
-                try {
-                    object = new JSONObject(result);
-                    String strResponse = object.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
-                    //Toast.makeText(FindwordActivity.this, strDe, Toast.LENGTH_SHORT).show();
-                    JSONObject obj2 = new JSONObject(strDe);
-                    String rescode = obj2.getString("rescode");
-                    //Toast.makeText(FindwordActivity.this,rescode , Toast.LENGTH_SHORT).show();
-                    if ("0000".equals(rescode)) {
-//                        Intent intent = new Intent(FindwordActivity.this, FindPassActivity.class);
-//                        intent.putExtra("MOBILE", mobile);
-//                        //intent.putExtra("CAPTCHA", captcha);
-//                        startActivity(intent);
-                        dataRequest(pass);
-                    } else {
-                        DiaLog.showDialog(FindwordActivity.this, "验证码错误");
-                        // Toast.makeText(FindwordActivity.this, "验证码输入错误", Toast.LENGTH_SHORT).show();
+    public void codeCorrect(final String captcha){
+        Boolean b = CheckNetTool.checkNet(this);
+        if(b){
+            RequestParams params = IdentifyParams.getCheckIdentifyCode(mobile, captcha);
+            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    String result = responseInfo.result;
+                    JSONObject object = null;
+                    Log.i("=========找回密码","22222222222222222");
+                    try {
+                        object = new JSONObject(result);
+                        String strResponse = object.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
+                        //Toast.makeText(FindwordActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                        JSONObject obj2 = new JSONObject(strDe);
+                        String rescode = obj2.getString("rescode");
+                        //Toast.makeText(FindwordActivity.this,rescode , Toast.LENGTH_SHORT).show();
+                        if ("0000".equals(rescode)) {
+                            Log.i("=========找回密码","3333333333333");
+                            dataRequest(pass,pass2,captcha);
+                        } else {
+                            DiaLog.showDialog(FindwordActivity.this, "验证码错误");
+                            // Toast.makeText(FindwordActivity.this, "验证码输入错误", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
+                }
+
+                @Override
+                public void onFailure(HttpException e, String s) {
                     e.printStackTrace();
                 }
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                e.printStackTrace();
-            }
-        });
+            });
+        }
     }
     /**
      * 请求数据
      * @param pass
      */
-    public void dataRequest(String pass){
-        RequestParams params= LoginParams.getFindCode(mobile, pass);
-        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String >() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                String result=responseInfo.result;
-                JSONObject obj= null;
-                try {
-                    obj = new JSONObject(result);
-                    String strResponse=obj.getString("argEncPara");
-                    String strDe= DES3Util.decode(strResponse);
-                    // Toast.makeText(FindPassActivity.this,strDe,Toast.LENGTH_SHORT).show();
-                    JSONObject obj2 = new JSONObject(strDe);
-                    String rescode = obj2.getString("rescode");
-                    //Toast.makeText(FindwordActivity.this,rescode , Toast.LENGTH_SHORT).show();
-                    if ("0000".equals(rescode)) {
-//                            Intent intent = new Intent(FindPassActivity.this, CommnActivity.class);
-//                            //intent.putExtra("MOBILE", mobile);
-//                            //intent.putExtra("CAPTCHA", captcha);
-//                            startActivity(intent);
-
-                        dialog=new AlterPassFinishDialog(FindwordActivity.this,R.style.dialog);
-                        dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
-                        dialog.show();
+    public void dataRequest(String pass,String pass2,String captcha){
+        Boolean b = CheckNetTool.checkNet(this);
+        if(b){
+            RequestParams params= LoginParams.getFindCode(mobile, pass,pass2,captcha);
+            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String >() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    Log.i("=========找回密码","44444444444444444");
+                    String result=responseInfo.result;
+                    JSONObject obj= null;
+                    try {
+                        obj = new JSONObject(result);
+                        String strResponse=obj.getString("argEncPara");
+                        String strDe= DES3Util.decode(strResponse);
+                        // Toast.makeText(FindPassActivity.this,strDe,Toast.LENGTH_SHORT).show();
+                        JSONObject obj2 = new JSONObject(strDe);
+                        String rescode = obj2.getString("rescode");
+                        //Toast.makeText(FindwordActivity.this,rescode , Toast.LENGTH_SHORT).show();
+                        if ("0000".equals(rescode)) {
+                            Log.i("=========找回密码","5555555");
+                            dialog=new AlterPassFinishDialog(FindwordActivity.this,R.style.dialog);
+                            dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
+                            dialog.show();
 //                DiaLog.AlterPassFinishDialog(this,"");
-                        Button btn_finsish=(Button)dialog.findViewById(R.id.btn_finish);
-                        btn_finsish.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialog.dismiss();
-                                // Intent intent = new Intent(FindPassActivity.this, CommnActivity.class);
-                                Intent intent = new Intent(FindwordActivity.this, LoginActivity.class);
-                                intent.putExtra("PHONE", mobile);
-                                intent.putExtra("TAG","tag");
-                                FindwordActivity.this.startActivity(intent);
-                            }
-                        });
-                    } else {
-                        // Toast.makeText(FindwordActivity.this, "???", Toast.LENGTH_SHORT).show();
+                            Button btn_finsish=(Button)dialog.findViewById(R.id.btn_finish);
+                            btn_finsish.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    // Intent intent = new Intent(FindPassActivity.this, CommnActivity.class);
+                                    Intent intent = new Intent(FindwordActivity.this, LoginActivity.class);
+                                    intent.putExtra("PHONE", mobile);
+                                    intent.putExtra("TAG","tag");
+                                    FindwordActivity.this.startActivity(intent);
+                                }
+                            });
+                        } else {
+                            DiaLog.showDialog(FindwordActivity.this, obj2.getString("resmsg"));
+                            Log.i("=========找回密码","66666666");
+                            // Toast.makeText(FindwordActivity.this, "???", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
+
+                }
+                @Override
+                public void onFailure(HttpException e, String s) {
                     e.printStackTrace();
                 }
-
-            }
-            @Override
-            public void onFailure(HttpException e, String s) {
-                e.printStackTrace();
-            }
-        });
+            });
+        }
     }
 
     class TimeCount extends CountDownTimer {
@@ -236,12 +243,14 @@ public class FindwordActivity extends BaseActivity {
 
         @Override
         public void onFinish() {//计时完毕时触发
-            bt_timer.setText("点击获取验证码");
+            bt_timer.setBackgroundColor(getResources().getColor(R.color.orange));
+            bt_timer.setText("点击发送验证码");
             bt_timer.setClickable(true);
         }
 
         @Override
         public void onTick(long millisUntilFinished) {//
+            bt_timer.setBackgroundColor(getResources().getColor(R.color.gray));
             bt_timer.setClickable(false);
             bt_timer.setText(millisUntilFinished / 1000 + "秒后重新发送");
         }

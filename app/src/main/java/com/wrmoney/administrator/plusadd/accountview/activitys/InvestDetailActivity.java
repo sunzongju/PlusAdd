@@ -32,6 +32,7 @@ import com.wrmoney.administrator.plusadd.bean.CreditorListBean;
 import com.wrmoney.administrator.plusadd.bean.InvestMentBean;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
@@ -128,74 +129,81 @@ public class InvestDetailActivity extends BaseActivity implements View.OnClickLi
      * 数据请求
      */
     public void dataRequest() {
-       // Log.i("=====", "userid" + userid + "orderID" + orderId);
-        RequestParams params = UserCenterParams.getOrderBondsManagerCode(userid, orderId, "1", "10");
-        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                String result = responseInfo.result;
-                JSONObject object = null;
-                 List<CreditorListBean> list2 = new ArrayList<CreditorListBean>();
-                try {
-                    object = new JSONObject(result);
-                    String strResponse = object.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
-                   // Log.i("======债权明细列表", strDe);
-                    JSONObject object1 = new JSONObject(strDe);
-                    boolean agree = object1.has("agreementUrl");
-                    if(agree){
-                        agreementUrl =object1.getString("agreementUrl");
-                        btn_http.setClickable(true);
-                        btn_http.setText("借款协议");
-                       // btn_http.setBackgroundColor(getResources().getColor(R.color.orange));
-                       // btn_http.setBackground(R.drawable.button_press);
-                        btn_http.setBackgroundResource(R.drawable.button_press);
-                        btn_http.setOnClickListener(InvestDetailActivity.this);
-                    }
-                    JSONArray array = null;
-                    array = object1.getJSONArray("creditList");
-                    int len = array.length();
-                    for (int i = 0; i < len; i++) {
-                        CreditorListBean bean = new CreditorListBean();
-                        JSONObject object2 = array.getJSONObject(i);
-                        bean.setCreditId(object2.getString("creditId"));
-                        bean.setOffLineAgreementCd(object2.getString("offLineAgreementCd"));
-                        bean.setBorrowerIdCard(object2.getString("borrowerIdCard"));
-                        bean.setBorrowerName(object2.getString("borrowerName"));
-                        bean.setCreditAmount(object2.getString("creditAmount"));
-                        bean.setCreditCashValue(object2.getString("creditCashValue"));
-                        //bean.setStatus(object2.getString("status"));
-                        list2.add(bean);
-                    }
-                    if(list2.size()>0){
-                        lv_invest.setVisibility(View.VISIBLE);
-                        adapter.addAll(list2);
-                        tv_empty.setVisibility(View.GONE);
-                    }else {
-                        tv_empty.setVisibility(View.VISIBLE);
-                    }
-                    tv_investDate.setText(object1.getString("investDate"));
-                    tv_planName.setText(object1.getString("planName"));
-                    tv_expectedRate.setText("预期收益率：" + object1.getString("expectedRate"));
-                    tv_investAmount.setText(object1.getString("investAmount"));
-                    tv_lockTime.setText(object1.getString("lockTime")+"天");
-                    tv_status.setText(object1.getString("status"));
+        Boolean b = CheckNetTool.checkNet(this);
+        if(b){
+            // Log.i("=====", "userid" + userid + "orderID" + orderId);
+            RequestParams params = UserCenterParams.getOrderBondsManagerCode(userid, orderId, "1", "10");
+            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    String result = responseInfo.result;
+                    JSONObject object = null;
+                    List<CreditorListBean> list2 = new ArrayList<CreditorListBean>();
+                    try {
+                        object = new JSONObject(result);
+                        String strResponse = object.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
+                        // Log.i("======债权明细列表", strDe);
+                        JSONObject object1 = new JSONObject(strDe);
+                        boolean agree = object1.has("agreementUrl");
+                        if(agree){
+                            agreementUrl =object1.getString("agreementUrl");
+                            if("".equals(agreementUrl)||agreementUrl==null){
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                            }else {
+                                btn_http.setClickable(true);
+                                btn_http.setText("借款协议");
+                                // btn_http.setBackgroundColor(getResources().getColor(R.color.orange));
+                                // btn_http.setBackground(R.drawable.button_press);
+                                btn_http.setBackgroundResource(R.drawable.button_press);
+                                btn_http.setOnClickListener(InvestDetailActivity.this);
+                            }
+                        }
+                        JSONArray array = null;
+                        array = object1.getJSONArray("creditList");
+                        int len = array.length();
+                        for (int i = 0; i < len; i++) {
+                            CreditorListBean bean = new CreditorListBean();
+                            JSONObject object2 = array.getJSONObject(i);
+                            bean.setCreditId(object2.getString("creditId"));
+                            bean.setOffLineAgreementCd(object2.getString("offLineAgreementCd"));
+                            bean.setBorrowerIdCard(object2.getString("borrowerIdCard"));
+                            bean.setBorrowerName(object2.getString("borrowerName"));
+                            bean.setCreditAmount(object2.getString("creditAmount"));
+                            bean.setCreditCashValue(object2.getString("creditCashValue"));
+                            //bean.setStatus(object2.getString("status"));
+                            list2.add(bean);
+                        }
+                        if(list2.size()>0){
+                            lv_invest.setVisibility(View.VISIBLE);
+                            adapter.addAll(list2);
+                            tv_empty.setVisibility(View.GONE);
+                        }else {
+                            tv_empty.setVisibility(View.VISIBLE);
+                        }
+                        tv_investDate.setText(object1.getString("investDate"));
+                        tv_planName.setText(object1.getString("planName"));
+                        tv_expectedRate.setText("预期收益率" + object1.getString("expectedRate"));
+                        tv_investAmount.setText(object1.getString("investAmount"));
+                        tv_lockTime.setText(object1.getString("lockTime")+"天");
+                        tv_status.setText(object1.getString("status"));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
                 }
 
-                //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                e.printStackTrace();
-                //Toast.makeText(InvestDetailActivity.this, "失败", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(HttpException e, String s) {
+                    e.printStackTrace();
+                    //Toast.makeText(InvestDetailActivity.this, "失败", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     /**
@@ -207,6 +215,7 @@ public class InvestDetailActivity extends BaseActivity implements View.OnClickLi
         utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
+                btn_quit.setVisibility(View.INVISIBLE);
 //                String result = responseInfo.result;
 //                JSONObject object = null;
 //                List<CreditorListBean> list = new ArrayList<CreditorListBean>();

@@ -29,6 +29,13 @@ public class HomePagerAdapter extends android.support.v4.view.PagerAdapter {
         this.context=context;
 
     }
+
+    public void addAll(Collection<? extends ImageView> collection){
+        mList.addAll(collection);
+        notifyDataSetChanged();
+    }
+
+
     @Override
     public int getCount() {
         return Integer.MAX_VALUE;
@@ -40,7 +47,7 @@ public class HomePagerAdapter extends android.support.v4.view.PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container,final int position) {
 //        ImageView imageView = mList.get(position % mList.size());
 //        ViewGroup parent = (ViewGroup) imageView.getParent();
 //        if (parent != null) {
@@ -59,10 +66,19 @@ public class HomePagerAdapter extends android.support.v4.view.PagerAdapter {
             container.removeView(mList.get(position % mList.size()));
             container.addView(mList.get(position % mList.size()));
         }
-                return mList.get(position%mList.size());
-//            }else {
-//                return  null;
-//            }
+        mList.get(position % mList.size()).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                       if(mList.size()>0){
+                           Intent intent=new Intent(context,ActivityDetailActivity.class);
+                           intent.putExtra("URL",(String)mList.get(position % mList.size()).getTag());
+                           context.startActivity(intent);
+
+                          // Log.i("======= ==图片", (String) mList.get(position % mList.size()).getTag());
+                       }
+                    }
+                });
+        return mList.get(position%mList.size());
     }
 
     @Override

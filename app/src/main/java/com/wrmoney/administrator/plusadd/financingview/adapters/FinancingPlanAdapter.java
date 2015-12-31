@@ -38,10 +38,10 @@ import java.util.List;
  * Created by Administrator on 2015/11/3.
  */
 public class FinancingPlanAdapter extends BaseAdapter {
-   private List<FinancingPlanBean> list;
-   private static Context context;
+    private List<FinancingPlanBean> list;
+    private static Context context;
     private FinancingPlanBean planBean;
-   private String userid= SingleUserIdTool.newInstance().getUserid();
+    private String userid= SingleUserIdTool.newInstance().getUserid();
     public FinancingPlanAdapter(List<FinancingPlanBean> list, Context context) {
         this.list = list;
         this.context = context;
@@ -51,7 +51,6 @@ public class FinancingPlanAdapter extends BaseAdapter {
     public int getCount() {
         return list.size();
     }
-
     @Override
     public Object getItem(int position) {
         return list.get(position);
@@ -77,32 +76,15 @@ public class FinancingPlanAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.financing_plan_item,null);
-            convertView.setTag(new ViewHolder(convertView));
+            convertView.setTag(new ViewHolder1(convertView));
         }
-        final ViewHolder holder = (ViewHolder) convertView.getTag();
-
-        planBean = list.get(position);
        // Log.i("=======", planBean.getId() + "展示的ID");
+        final ViewHolder1 holder = (ViewHolder1) convertView.getTag();
+        planBean = list.get(position);
         holder.tv_type.setText(planBean.getName());
-//        switch (planBean.getType()){
-//            case 1:
-//                holder.tv_type.setText("新手");
-//                break;
-//            case 2:
-//                holder.tv_type.setText("90天");
-//                break;
-//            case 3:
-//                holder.tv_type.setText("180天");
-//                break;
-//            case 4:
-//                holder.tv_type.setText("360天");
-//                break;
-//            default:
-//                break;
-//
-//        }
         holder.tv_rate.setText(planBean.getExpectedRate());
         holder.pro_rate.setProgress(planBean.getProgress());
         //holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + " 项目规模" + planBean.getMaxFinancing());
@@ -131,7 +113,6 @@ public class FinancingPlanAdapter extends BaseAdapter {
                             intent1.putExtras(bundle2);
                             context.startActivity(intent1);
                         }
-
                 }
             });
         }else {
@@ -140,7 +121,7 @@ public class FinancingPlanAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public static class ViewHolder {
+    public static class ViewHolder1 {
         private LinearLayout ll_layout;
         private  int id;//计划ID
         private TextView tv_type;//标题
@@ -149,7 +130,7 @@ public class FinancingPlanAdapter extends BaseAdapter {
         private TextView tv_content;//投资内容
         private TextView tv_repaytype;//
         private TextView btn_invest;//投资按钮
-        public ViewHolder(View itemView) {
+        public ViewHolder1(View itemView) {
             this.tv_type = (TextView) itemView.findViewById(R.id.tv_type);
             this.tv_rate = (TextView) itemView.findViewById(R.id.tv_expectedRate);
             this.pro_rate=(ProgressBar)itemView.findViewById(R.id.pro_rate);
@@ -168,4 +149,11 @@ public class FinancingPlanAdapter extends BaseAdapter {
             this.ll_layout.setLayoutParams(layoutParams);
         }
     }
+    public static class ViewHolder2{
+        private TextView tv_all;//加载完毕提示
+        public ViewHolder2(View itemView) {
+            this.tv_all =(TextView)itemView.findViewById(R.id.tv_all);
+        }
+    }
+
 }

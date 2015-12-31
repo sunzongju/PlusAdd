@@ -4,15 +4,20 @@
     android:layout_height="44dp"
     android:gravity="center_vertical"
     android:background="@color/white">
-
+    <LinearLayout
+        android:id="@+id/lv_return"
+        android:layout_width="48dp"
+        android:layout_height="44dp"
+        android:gravity="center"
+        android:orientation="horizontal">
         <ImageView
-            android:layout_marginLeft="10dp"
             android:id="@+id/iv_return"
+            android:layout_marginRight="10dp"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_centerVertical="true"
             android:onClick="click"
             android:src="@drawable/tab_return"/>
+    </LinearLayout>
         <TextView
             android:id="@+id/tv_banner"
             android:layout_width="wrap_content"
@@ -21,13 +26,18 @@
             android:text="标题"
             android:textColor="@color/black0"
             android:textSize="20sp"/>
+
+    <LinearLayout
+        android:id="@+id/lv_answer"
+        android:layout_width="48dp"
+        android:layout_height="44dp"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal">
         <ImageView
             android:id="@+id/iv_answer"
-            android:layout_marginRight="10dp"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
             android:src="@drawable/tab_answer"/>
-
+    </LinearLayout>
 </RelativeLayout>

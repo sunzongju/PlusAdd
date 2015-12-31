@@ -75,8 +75,8 @@ public class LoginParams {
      * @param passwordc
      * @return
      */
-    public static RequestParams getFindCode(String mobilec, String passwordc) {
-        String json = "{ iface:'WRMI100004',mobile:'" + mobilec + "',password:'" + passwordc + "'}";
+    public static RequestParams getFindCode(String mobilec, String passwordc,String rePassword,String captcha) {
+        String json = "{ iface:'WRMI100004',mobile:'" + mobilec + "',password:'" + passwordc+ "',rePassword:'" + rePassword+ "',captcha:'" + captcha + "'}";
         RequestParams params = new RequestParams();
         String str;
         try {

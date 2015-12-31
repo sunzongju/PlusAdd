@@ -1,9 +1,14 @@
 package com.wrmoney.administrator.plusadd.accountview.activitys;
 
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,8 +31,10 @@ import com.wrmoney.administrator.plusadd.bean.ActivityListBean;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.BitmapHelper;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
+import com.wrmoney.administrator.plusadd.tools.NetworkAvailable;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
 
@@ -53,16 +60,33 @@ public class ActivityCenterActivity extends BaseActivity {
     private Integer pageSize=10;
     private PullToRefreshListView lv_activity;
     private int current=1;
+    private WebView wv_center_activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_activity);
+        setContentView(R.layout.activity_account_activity2);
         ActionBarSet.setActionBar(this);
         TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
         tv_banner.setText("活动专区");
-
-        init();
+        wv_center_activity=(WebView)this.findViewById(R.id.wv_center_activity);
+        WebSettings webSettings = wv_center_activity.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDefaultTextEncodingName("utf-8");
+        wv_center_activity.setWebViewClient(new WebViewClient() {
+           ProgressDialog prDialog;
+           @Override
+           public void onPageStarted(WebView view, String url, Bitmap favicon) {
+               prDialog = ProgressDialog.show(ActivityCenterActivity.this, null, "数据加载中...");
+               super.onPageStarted(view, url, favicon);
+           }
+           @Override
+           public void onPageFinished(WebView view, String url) {
+               prDialog.dismiss();
+               super.onPageFinished(view, url);
+           }
+       });
+        wv_center_activity.loadUrl(UrlTool.activityUrl);
     }
 
     @Override
@@ -103,51 +127,54 @@ public class ActivityCenterActivity extends BaseActivity {
      * 数据请求
      */
     public void dataRequest(int current){
-        RequestParams params = UserCenterParams.getActivityListCode(current+"",pageSize+"");
-        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                String result = responseInfo.result;
-                JSONObject object = null;
-                try {
-                    List<ActivityListBean> list2 = new ArrayList<ActivityListBean>();
-                    object = new JSONObject(result);
-                    String strResponse = object.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
+        Boolean b=CheckNetTool.checkNet(this);
+        if(b){
+            RequestParams params = UserCenterParams.getActivityListCode(current+"",pageSize+"");
+            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    String result = responseInfo.result;
+                    JSONObject object = null;
+                    try {
+                        List<ActivityListBean> list2 = new ArrayList<ActivityListBean>();
+                        object = new JSONObject(result);
+                        String strResponse = object.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
 //                    Toast.makeText(ActivityCenterActivity.this, strDe, Toast.LENGTH_SHORT).show();
-                    // Log.i("========图片",strDe);
-                    JSONObject object1=new JSONObject(strDe);
-                    JSONArray array=object1.getJSONArray("msgList");
-                    int len=array.length();
-                    for(int i=0;i<len;i++){
-                        JSONObject object2=array.getJSONObject(i);
-                        ActivityListBean bean=new ActivityListBean();
-                        String activityId=object2.getString("activityId");
-                        String activityImgUrl=object2.getString("activityImgUrl");
-                        String activityStatus=object2.getString("activityStatus");
-                        String activityTime=object2.getString("activityTime");
-                        bean.setBeginTimeStr(object2.getString("beginTimeStr"));
-                        bean.setEndTimeStr(object2.getString("endTimeStr"));
-                        bean.setActivityId(activityId);
-                        bean.setActivityImgUrl(activityImgUrl);
-                        bean.setActivityStatus(activityStatus);
-                        bean.setActivityTime(activityTime);
-                        list2.add(bean);
+                        // Log.i("========图片",strDe);
+                        JSONObject object1=new JSONObject(strDe);
+                        JSONArray array=object1.getJSONArray("msgList");
+                        int len=array.length();
+                        for(int i=0;i<len;i++){
+                            JSONObject object2=array.getJSONObject(i);
+                            ActivityListBean bean=new ActivityListBean();
+                            String activityId=object2.getString("activityId");
+                            String activityImgUrl=object2.getString("activityImgUrl");
+                            String activityStatus=object2.getString("activityStatus");
+                            String activityTime=object2.getString("activityTime");
+                            bean.setBeginTimeStr(object2.getString("beginTimeStr"));
+                            bean.setEndTimeStr(object2.getString("endTimeStr"));
+                            bean.setActivityId(activityId);
+                            bean.setActivityImgUrl(activityImgUrl);
+                            bean.setActivityStatus(activityStatus);
+                            bean.setActivityTime(activityTime);
+                            list2.add(bean);
+                        }
+                        adapter.addAll(list2);
+                        lv_activity.onRefreshComplete();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    adapter.addAll(list2);
-                    lv_activity.onRefreshComplete();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
+                    //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(HttpException e, String s) {
                     e.printStackTrace();
                 }
-                //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                e.printStackTrace();
-            }
-        });
+            });
+        }
     }
 }

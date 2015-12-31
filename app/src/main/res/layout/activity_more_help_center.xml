@@ -75,14 +75,24 @@
               <TextView
                   android:id="@+id/tv_01"
                   android:layout_marginLeft="14dp"
-                  android:layout_width="wrap_content"
+                  android:layout_width="0dp"
+                  android:layout_weight="1"
                   android:layout_height="wrap_content"
                   android:textSize="14sp"
                   android:textColor="@color/gray3"
                   android:onClick="click"
                   android:text="注册与登录"/>
-
+              <ImageView
+                  android:layout_marginRight="15dp"
+                  android:layout_width="18dp"
+                  android:layout_height="18dp"
+                  android:layout_gravity="end|center_vertical"
+                  android:src="@drawable/index1" />
           </LinearLayout>
+           <TextView
+               android:layout_width="1dp"
+               android:layout_height="match_parent"
+               android:background="@color/backgro"/>
            <LinearLayout
                android:layout_width="0dp"
                android:layout_height="wrap_content"
@@ -90,12 +100,18 @@
                android:orientation="horizontal">
                <TextView
                    android:layout_marginLeft="14dp"
-                   android:layout_width="wrap_content"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
                    android:layout_height="wrap_content"
                    android:textSize="14sp"
                    android:textColor="@color/gray3"
                    android:text="充值与提现"/>
-
+               <ImageView
+                   android:layout_marginRight="15dp"
+                   android:layout_width="18dp"
+                   android:layout_height="18dp"
+                   android:layout_gravity="end|center_vertical"
+                   android:src="@drawable/index1" />
            </LinearLayout>
        </LinearLayout>
        <LinearLayout
@@ -113,13 +129,23 @@
                android:orientation="horizontal">
                <TextView
                    android:layout_marginLeft="14dp"
-                   android:layout_width="wrap_content"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
                    android:layout_height="wrap_content"
                    android:textSize="14sp"
                    android:textColor="@color/gray3"
                    android:text="投资与还款"/>
-
+               <ImageView
+                   android:layout_marginRight="15dp"
+                   android:layout_width="18dp"
+                   android:layout_height="18dp"
+                   android:layout_gravity="end|center_vertical"
+                   android:src="@drawable/index1" />
            </LinearLayout>
+           <TextView
+               android:layout_width="1dp"
+               android:layout_height="match_parent"
+               android:background="@color/backgro"/>
            <LinearLayout
                android:layout_width="0dp"
                android:layout_height="wrap_content"
@@ -127,12 +153,18 @@
                android:orientation="horizontal">
                <TextView
                    android:layout_marginLeft="14dp"
-                   android:layout_width="wrap_content"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
                    android:layout_height="wrap_content"
                    android:textSize="14sp"
                    android:textColor="@color/gray3"
                    android:text="红包与抵用券"/>
-
+               <ImageView
+                   android:layout_marginRight="15dp"
+                   android:layout_width="18dp"
+                   android:layout_height="18dp"
+                   android:layout_gravity="end|center_vertical"
+                   android:src="@drawable/index1" />
            </LinearLayout>
        </LinearLayout>
        <LinearLayout
@@ -150,13 +182,23 @@
                android:orientation="horizontal">
                <TextView
                    android:layout_marginLeft="14dp"
-                   android:layout_width="wrap_content"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
                    android:layout_height="wrap_content"
                    android:textSize="14sp"
                    android:textColor="@color/gray3"
                    android:text="账户与红包"/>
-
+               <ImageView
+                   android:layout_marginRight="15dp"
+                   android:layout_width="18dp"
+                   android:layout_height="18dp"
+                   android:layout_gravity="end|center_vertical"
+                   android:src="@drawable/index1" />
            </LinearLayout>
+           <TextView
+               android:layout_width="1dp"
+               android:layout_height="match_parent"
+               android:background="@color/backgro"/>
            <LinearLayout
                android:layout_width="0dp"
                android:layout_height="wrap_content"
@@ -164,11 +206,18 @@
                android:orientation="horizontal">
                <TextView
                    android:layout_marginLeft="14dp"
-                   android:layout_width="wrap_content"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
                    android:layout_height="wrap_content"
                    android:textSize="14sp"
                    android:textColor="@color/gray3"
                    android:text="邀请与返利"/>
+               <ImageView
+                   android:layout_marginRight="15dp"
+                   android:layout_width="18dp"
+                   android:layout_height="18dp"
+                   android:layout_gravity="end|center_vertical"
+                   android:src="@drawable/index1" />
            </LinearLayout>
        </LinearLayout>
    </LinearLayout>

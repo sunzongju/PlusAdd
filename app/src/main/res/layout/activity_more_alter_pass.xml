@@ -10,13 +10,16 @@
     android:layout_width="match_parent"
     android:layout_height="43dp"
     android:background="@color/white">
-        <EditText
-            android:id="@+id/et_oldpwd"
-            android:layout_width="match_parent"
-            android:layout_gravity="center_vertical"
-            style="@style/edit_style"
-            android:inputType="textPassword"
-            android:hint="原密码" />
+    <com.wrmoney.administrator.plusadd.view.ClearEditText
+        android:id="@+id/et_oldpwd"
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        style="@style/edit_style"
+        android:drawableRight="@drawable/clear_pic"
+        android:inputType="textPassword"
+        android:maxLength="16"
+        android:hint="原密码"
+        />
 
 </FrameLayout>
 
@@ -31,13 +34,16 @@
         android:layout_width="match_parent"
         android:layout_height="43dp"
         android:background="@color/white">
-        <EditText
+        <com.wrmoney.administrator.plusadd.view.ClearEditText
             android:id="@+id/et_newpwd"
+            android:singleLine="true"
             android:layout_width="match_parent"
-            android:layout_gravity="center_vertical"
             style="@style/edit_style"
+            android:drawableRight="@drawable/clear_pic"
             android:inputType="textPassword"
-            android:hint="设置密码" />
+            android:maxLength="16"
+            android:hint="新密码"
+            />
     </FrameLayout>
 
     <TextView
@@ -50,13 +56,16 @@
         android:layout_width="match_parent"
         android:layout_height="43dp"
         android:background="@color/white">
-        <EditText
+        <com.wrmoney.administrator.plusadd.view.ClearEditText
             android:id="@+id/et_renewpwd"
+            android:singleLine="true"
             android:layout_width="match_parent"
-            android:layout_gravity="center_vertical"
             style="@style/edit_style"
+            android:drawableRight="@drawable/clear_pic"
             android:inputType="textPassword"
-            android:hint="重复密码" />
+            android:maxLength="16"
+            android:hint="确认密码"
+            />
     </FrameLayout>
     <Button
         android:id="@+id/btn_finish"

@@ -40,18 +40,18 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         ActivityCollectorTool.removeActivity(this);
     }
-    public void click(View view){
-        switch (view.getId()){
-            case R.id.iv_return:
-               // finish();
-               // onKeyDown()
-                break;
-            default:
-                break;
-
-
-        }
-    }
+//    public void click(View view){
+//        switch (view.getId()){
+//            case R.id.iv_return:
+//               // finish();
+//               // onKeyDown()
+//                break;
+//            default:
+//                break;
+//
+//
+//        }
+//    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -61,8 +61,6 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onActivityReenter(int resultCode, Intent data) {
         super.onActivityReenter(resultCode, data);
-
-
 
     }
 }

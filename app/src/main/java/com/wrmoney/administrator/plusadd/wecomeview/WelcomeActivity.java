@@ -76,13 +76,13 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     /**
-     * ���"������ʼ"����ת��������
+     * ����
      *
      * @param view
      */
     public void click(View view) {
         Intent intent = new Intent(WelcomeActivity.this, CommnActivity.class);
         startActivity(intent);
-
+        finish();
     }
 }

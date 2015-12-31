@@ -25,6 +25,7 @@ import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
 import com.wrmoney.administrator.plusadd.view.AlterPassFinishDialog;
+import com.wrmoney.administrator.plusadd.view.DiaLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +42,8 @@ public class AlterPassActivity extends BaseActivity {
     private String oldPwd;
     private String password;
     private AlterPassFinishDialog dialog;
+    private EditText re_pwd;
+    private String repwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class AlterPassActivity extends BaseActivity {
         params = new RequestParams();
         old_pwd = (EditText) this.findViewById(R.id.et_oldpwd);
         new_pwd = (EditText) this.findViewById(R.id.et_newpwd);
+        re_pwd=(EditText)this.findViewById(R.id.et_renewpwd);
         userId = SingleUserIdTool.newInstance().getUserid();
 
 
@@ -61,66 +65,101 @@ public class AlterPassActivity extends BaseActivity {
     public void click(View view) {
         oldPwd = old_pwd.getText().toString();
         password = new_pwd.getText().toString();
-        try {
-            // String json="{ inface:'WRMI100001',mobile:'13651087998'}";
-            //String str = DES3Util.encode(json);
-            params = SetUpParams.getLoginCode(userId, oldPwd, password);
-            //params.addQueryStringParameter("argEncPara", str);
-            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-                @Override
-                public void onSuccess(ResponseInfo<String> responseInfo) {
-                    String result = responseInfo.result;
-                    try {
-                        JSONObject obj = new JSONObject(result);
-                        String strResponse = obj.getString("argEncPara");
-                        String strDe = DES3Util.decode(strResponse);
-                      //  Toast.makeText(AlterPassActivity.this, strDe, Toast.LENGTH_SHORT).show();
-                        JSONObject obj2=new JSONObject(strDe);
-                        String rescode = obj2.getString("rescode");
-                        if ("0000".equals(rescode)) {
-                            dialog=new AlterPassFinishDialog(AlterPassActivity.this,R.style.dialog);
-                            dialog.setCanceledOnTouchOutside(true);//���õ��Dialog�ⲿ��������ر�Dialog
-                            dialog.show();
-//                DiaLog.AlterPassFinishDialog(this,"");
-                            Button btn_finsish=(Button)dialog.findViewById(R.id.btn_finish);
-                            TextView textView=(TextView)dialog.findViewById(R.id.tv_title);
-                            textView.setText("密码修改成功");
-                            btn_finsish.setOnClickListener(new View.OnClickListener() {
+        repwd=re_pwd.getText().toString();
+        if("".equals(oldPwd)){
+            DiaLog.showDialog(AlterPassActivity.this, "请输入原密码");
+            //Toast.makeText(this,"验证码不能为空",Toast.LENGTH_SHORT).show();
+            //
+        }else{
+            if("".equals(password)){
+                DiaLog.showDialog(AlterPassActivity.this, "请输入新密码");
+            }else{
+              if(oldPwd.equals(password)){
+                  DiaLog.showDialog(AlterPassActivity.this, "新密码与原密码相同，请重新输入");
+              }else {
+                  if("".equals(repwd)){
+                      DiaLog.showDialog(AlterPassActivity.this, "请输入确认密码");
+                  }else {
+                    if(!password.equals(repwd)){
+                        DiaLog.showDialog(AlterPassActivity.this, "新密码与确认密码不一致，请重新输入");
+
+                    }else {
+                        try {
+                            // String json="{ inface:'WRMI100001',mobile:'13651087998'}";
+                            //String str = DES3Util.encode(json);
+                            params = SetUpParams.getLoginCode(userId, oldPwd, password);
+                            //params.addQueryStringParameter("argEncPara", str);
+                            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
                                 @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
-//                                    Intent intent = new Intent(AlterPassActivity.this, CommnActivity.class);
-//                                    AlterPassActivity.this.startActivity(intent);
-                                    AlterPassActivity.this.finish();
-                                }
-                            });
-                        } else {
-                            // Toast.makeText(FindwordActivity.this, "???", Toast.LENGTH_SHORT).show();
-                        }
+                                public void onSuccess(ResponseInfo<String> responseInfo) {
+                                    String result = responseInfo.result;
+                                    try {
+                                        JSONObject obj = new JSONObject(result);
+                                        String strResponse = obj.getString("argEncPara");
+                                        String strDe = DES3Util.decode(strResponse);
+                                        //  Toast.makeText(AlterPassActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                                        JSONObject obj2=new JSONObject(strDe);
+                                        String rescode = obj2.getString("rescode");
+                                        if ("0000".equals(rescode)) {
+                                            dialog=new AlterPassFinishDialog(AlterPassActivity.this,R.style.dialog);
+                                            dialog.setCanceledOnTouchOutside(true);//���õ��Dialog�ⲿ��������ر�Dialog
+                                            dialog.show();
+//                DiaLog.AlterPassFinishDialog(this,"");
+                                            Button btn_finsish=(Button)dialog.findViewById(R.id.btn_finish);
+                                            TextView textView=(TextView)dialog.findViewById(R.id.tv_title);
+                                            textView.setText("密码修改成功");
+
+                                            new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    try {
+                                                        Thread.sleep(500);
+                                                        dialog.dismiss();
+                                                        AlterPassActivity.this.finish();
+                                                    } catch (InterruptedException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }).start();
+
+//                                            btn_finsish.setOnClickListener(new View.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(View v) {
+//
+////                                    Intent intent = new Intent(AlterPassActivity.this, CommnActivity.class);
+////                                    AlterPassActivity.this.startActivity(intent);
+//
+//                                                }
+//                                            });
+                                        } else {
+                                            DiaLog.showDialog(AlterPassActivity.this, obj2.getString("resmsg"));
+                                            // Toast.makeText(FindwordActivity.this, "???", Toast.LENGTH_SHORT).show();
+                                        }
 //                            String type=obj2.getString("isRegFlag");
 //                            Toast.makeText(AlterPassActivity.this,"����ʧ��",Toast.LENGTH_SHORT).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(HttpException e, String s) {
+                                    //e.getExceptionCode();
+                                    e.printStackTrace();
+                                    //   Toast.makeText(AlterPassActivity.this, "����ɹ�", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
+                  }
+              }
+            }
 
-                @Override
-                public void onFailure(HttpException e, String s) {
-                    //e.getExceptionCode();
-                    e.printStackTrace();
-                 //   Toast.makeText(AlterPassActivity.this, "����ɹ�", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
-
     }
-
-
-
 }

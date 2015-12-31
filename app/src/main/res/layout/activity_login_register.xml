@@ -29,7 +29,7 @@
             android:layout_width="120dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:background="@color/gray6"
+            android:background="@color/orange"
             android:textColor="@color/white"
             android:text="点击发送验证码"
             />
@@ -48,17 +48,9 @@
         android:layout_width="match_parent"
         android:layout_height="86dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/border"
         android:orientation="vertical"
+        android:background="@color/white"
         >
-
-        <!--<EditText-->
-            <!--android:id="@+id/et_password"-->
-            <!--android:layout_width="match_parent"-->
-            <!--style="@style/edit_style"-->
-            <!--android:inputType="textPassword"-->
-            <!--android:maxLength="16"-->
-            <!--android:hint="请设置密码" />-->
 
         <com.wrmoney.administrator.plusadd.view.ClearEditText
             android:id="@+id/et_password"
@@ -70,22 +62,12 @@
             android:inputType="textPassword"
             android:hint="请设置密码"
             />
-
-
-
         <TextView
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray2"/>
-
-        <!--<EditText-->
-            <!--android:id="@+id/et_repassword"-->
-            <!--android:layout_width="match_parent"-->
-            <!--style="@style/edit_style"-->
-            <!--android:maxLength="16"-->
-            <!--android:inputType="textPassword"-->
-            <!--android:hint="请重复密码" />-->
-
         <com.wrmoney.administrator.plusadd.view.ClearEditText
             android:id="@+id/et_repassword"
             android:singleLine="true"
@@ -103,21 +85,21 @@
        android:layout_height="wrap_content"
        android:background="@color/white"
        android:orientation="vertical">
-
-       <!--<EditText-->
-           <!--android:id="@+id/et_invitCode"-->
-           <!--android:layout_width="match_parent"-->
-           <!--style="@style/edit_style"-->
-           <!--android:hint="请输入邀请码(可为空)"-->
-           <!--/>-->
+       <TextView
+           android:layout_marginRight="10dp"
+           android:layout_marginLeft="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="@color/gray2"/>
        <com.wrmoney.administrator.plusadd.view.ClearEditText
            android:id="@+id/et_invitCode"
            android:singleLine="true"
            android:layout_width="match_parent"
            style="@style/edit_style"
            android:drawableRight="@drawable/clear_pic"
-           android:maxLength="16"
-           android:hint="请输入邀请码(可为空)"
+           android:maxLength="5"
+           android:inputType="textCapCharacters"
+           android:hint="请输入邀请码（可为空）"
            />
    </LinearLayout>
 
@@ -128,13 +110,23 @@
         android:orientation="horizontal"
         android:gravity="center_vertical|right">
 
-    <CheckBox
-        android:id="@+id/cb_sure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:checked="true"
-        />
+    <!--<CheckBox-->
+        <!--android:id="@+id/cb_sure"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:checked="true"-->
+        <!--/>-->
+
+        <CheckBox
+            android:id="@+id/cb_sure"
+            android:layout_marginRight="5dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:checked="true"
+            android:button="@null"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/agree_select"/>
         <TextView
             android:id="@+id/tv_agree"
             android:layout_width="wrap_content"

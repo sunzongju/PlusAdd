@@ -6,11 +6,6 @@
     android:gravity="center_vertical"
     android:background="@color/white"
     >
-    <ImageView
-        android:layout_marginLeft="15dp"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/water_lab"/>
     <LinearLayout
         android:layout_marginLeft="15dp"
         android:layout_width="0dp"
@@ -30,13 +25,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:textSize="13sp"
             android:textColor="@color/gray3"
             android:text="用户充值"/>
         <TextView
             android:id="@+id/tv_transAmount"
+            android:layout_marginRight="15dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="right"
             android:layout_weight="1"
             android:textColor="@color/red"
             android:textSize="13sp"

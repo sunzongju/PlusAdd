@@ -17,6 +17,7 @@ import com.wrmoney.administrator.plusadd.BaseActivity;
 import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.encode.RechargeParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
@@ -53,30 +54,33 @@ public class EssayActivity extends BaseActivity{
             case R.id.btn_next:
                 String drawalAmount=et_essay.getText().toString();
                 String captcha=et_captcha.getText().toString();
-                RequestParams params= RechargeParams.getWithdrawCashCode(userid, drawalAmount, captcha);
-                utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-                    @Override
-                    public void onSuccess(ResponseInfo<String> responseInfo) {
-                        String result = responseInfo.result;
-                        JSONObject object = null;
-                        try {
-                            object = new JSONObject(result);
-                            String strResponse = object.getString("argEncPara");
-                            String strDe = DES3Util.decode(strResponse);
-                           // Toast.makeText(EssayActivity.this, strDe, Toast.LENGTH_SHORT).show();
-                            // JSONObject obj2 = new JSONObject(strDe);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (Exception e) {
+                Boolean b = CheckNetTool.checkNet(this);
+                if(b){
+                    RequestParams params= RechargeParams.getWithdrawCashCode(userid, drawalAmount, captcha);
+                    utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                        @Override
+                        public void onSuccess(ResponseInfo<String> responseInfo) {
+                            String result = responseInfo.result;
+                            JSONObject object = null;
+                            try {
+                                object = new JSONObject(result);
+                                String strResponse = object.getString("argEncPara");
+                                String strDe = DES3Util.decode(strResponse);
+                                // Toast.makeText(EssayActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                                // JSONObject obj2 = new JSONObject(strDe);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        @Override
+                        public void onFailure(HttpException e, String s) {
+                            // Toast.makeText(EssayActivity.this,"取现失败",Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
-                    }
-                    @Override
-                    public void onFailure(HttpException e, String s) {
-                       // Toast.makeText(EssayActivity.this,"取现失败",Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                    }
-                });
+                    });
+                }
                 break;
         }
     }

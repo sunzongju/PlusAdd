@@ -25,6 +25,7 @@ import com.wrmoney.administrator.plusadd.bean.InvestMentBean;
 import com.wrmoney.administrator.plusadd.bean.MessageBean;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
@@ -111,51 +112,54 @@ public class MessageActivity extends BaseActivity{
      */
     public void dataRequest(int current) {
         //Log.i("userid",userid);
-        RequestParams params = UserCenterParams.getMessageListCode(userid,current+"","10");
-        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                String result = responseInfo.result;
-                JSONObject object = null;
-                try {
-                    List<MessageBean> list2 = new ArrayList<MessageBean>();
-                    object = new JSONObject(result);
-                    String strResponse = object.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
-                   // Log.i("======消息列表", strDe);
-                    JSONObject object1=new JSONObject(strDe);
-                    JSONArray array=object1.getJSONArray("msgList");
-                    int len=array.length();
-                    for(int i=0;i<len;i++){
-                        JSONObject object2=array.getJSONObject(i);
-                        MessageBean bean=new MessageBean();
-                        bean.setMsgId(object2.getString("msgId"));
-                        bean.setMsgTitle(object2.getString("msgTitle"));
-                        bean.setSendTime(object2.getString("sendTime"));
-                        bean.setMsgContent(object2.getString("msgContent"));
-                        bean.setIsRead(object2.getString("isRead"));
-                        list2.add(bean);
+        Boolean b = CheckNetTool.checkNet(this);
+        if(b){
+            RequestParams params = UserCenterParams.getMessageListCode(userid,current+"","10");
+            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    String result = responseInfo.result;
+                    JSONObject object = null;
+                    try {
+                        List<MessageBean> list2 = new ArrayList<MessageBean>();
+                        object = new JSONObject(result);
+                        String strResponse = object.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
+                        // Log.i("======消息列表", strDe);
+                        JSONObject object1=new JSONObject(strDe);
+                        JSONArray array=object1.getJSONArray("msgList");
+                        int len=array.length();
+                        for(int i=0;i<len;i++){
+                            JSONObject object2=array.getJSONObject(i);
+                            MessageBean bean=new MessageBean();
+                            bean.setMsgId(object2.getString("msgId"));
+                            bean.setMsgTitle(object2.getString("msgTitle"));
+                            bean.setSendTime(object2.getString("sendTime"));
+                            bean.setMsgContent(object2.getString("msgContent"));
+                            bean.setIsRead(object2.getString("isRead"));
+                            list2.add(bean);
+                        }
+                        //  Log.i("====长度",list2.size()+"");
+                        adapter.addAll(list2);
+                        lv_news.onRefreshComplete();
+                        // Toast.makeText(InvestMentActivity.this, strDe, Toast.LENGTH_SHORT).show();
+                        //JSONObject obj2=new JSONObject(strDe);
+                        // String rescode=obj2.getString("rescode");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                  //  Log.i("====长度",list2.size()+"");
-                    adapter.addAll(list2);
-                    lv_news.onRefreshComplete();
-                    // Toast.makeText(InvestMentActivity.this, strDe, Toast.LENGTH_SHORT).show();
-                    //JSONObject obj2=new JSONObject(strDe);
-                    // String rescode=obj2.getString("rescode");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
                 }
-                //Toast.makeText(LoginActivity.this, strDe, Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onFailure(HttpException e, String s) {
-                e.printStackTrace();
-                //Toast.makeText(MessageActivity.this, "失败", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(HttpException e, String s) {
+                    e.printStackTrace();
+                    //Toast.makeText(MessageActivity.this, "失败", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
 

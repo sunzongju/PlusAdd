@@ -55,61 +55,62 @@ public class FindPassActivity extends BaseActivity {
     public void click(View view){
         String pass=et_pass.getText().toString();
         String repass=et_repass.getText().toString();
-        if(pass.equals(repass)){
-            RequestParams params= LoginParams.getFindCode(mobile, pass);
-            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String >() {
-                @Override
-                public void onSuccess(ResponseInfo<String> responseInfo) {
-                    String result=responseInfo.result;
-                    JSONObject obj= null;
-                    try {
-                        obj = new JSONObject(result);
-                        String strResponse=obj.getString("argEncPara");
-                        String strDe= DES3Util.decode(strResponse);
-                       // Toast.makeText(FindPassActivity.this,strDe,Toast.LENGTH_SHORT).show();
-                        JSONObject obj2 = new JSONObject(strDe);
-                        String rescode = obj2.getString("rescode");
-                        //Toast.makeText(FindwordActivity.this,rescode , Toast.LENGTH_SHORT).show();
-                        if ("0000".equals(rescode)) {
-//                            Intent intent = new Intent(FindPassActivity.this, CommnActivity.class);
-//                            //intent.putExtra("MOBILE", mobile);
-//                            //intent.putExtra("CAPTCHA", captcha);
-//                            startActivity(intent);
-
-                            dialog=new AlterPassFinishDialog(FindPassActivity.this,R.style.dialog);
-                            dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
-                            dialog.show();
-//                DiaLog.AlterPassFinishDialog(this,"");
-                            Button btn_finsish=(Button)dialog.findViewById(R.id.btn_finish);
-                            btn_finsish.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
-                                   // Intent intent = new Intent(FindPassActivity.this, CommnActivity.class);
-                                    Intent intent = new Intent(FindPassActivity.this, LoginActivity.class);
-                                    intent.putExtra("PHONE", mobile);
-                                    intent.putExtra("TAG","tag");
-                                    FindPassActivity.this.startActivity(intent);
-                                }
-                            });
-                        } else {
-                            // Toast.makeText(FindwordActivity.this, "???", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-                @Override
-                public void onFailure(HttpException e, String s) {
-                         e.printStackTrace();
-                }
-            });
-        }else {
-           // Toast.makeText(this,"失败",Toast.LENGTH_SHORT).show();
-        }
+//        if(pass.equals(repass)){
+//            RequestParams params= LoginParams.getFindCode(mobile, pass);
+//            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+//                @Override
+//                public void onSuccess(ResponseInfo<String> responseInfo) {
+//                    String result = responseInfo.result;
+//                    JSONObject obj = null;
+//                    try {
+//                        obj = new JSONObject(result);
+//                        String strResponse = obj.getString("argEncPara");
+//                        String strDe = DES3Util.decode(strResponse);
+//                        // Toast.makeText(FindPassActivity.this,strDe,Toast.LENGTH_SHORT).show();
+//                        JSONObject obj2 = new JSONObject(strDe);
+//                        String rescode = obj2.getString("rescode");
+//                        //Toast.makeText(FindwordActivity.this,rescode , Toast.LENGTH_SHORT).show();
+//                        if ("0000".equals(rescode)) {
+////                            Intent intent = new Intent(FindPassActivity.this, CommnActivity.class);
+////                            //intent.putExtra("MOBILE", mobile);
+////                            //intent.putExtra("CAPTCHA", captcha);
+////                            startActivity(intent);
+//
+//                            dialog = new AlterPassFinishDialog(FindPassActivity.this, R.style.dialog);
+//                            dialog.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
+//                            dialog.show();
+////                DiaLog.AlterPassFinishDialog(this,"");
+//                            Button btn_finsish = (Button) dialog.findViewById(R.id.btn_finish);
+//                            btn_finsish.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    dialog.dismiss();
+//                                    // Intent intent = new Intent(FindPassActivity.this, CommnActivity.class);
+//                                    Intent intent = new Intent(FindPassActivity.this, LoginActivity.class);
+//                                    intent.putExtra("PHONE", mobile);
+//                                    intent.putExtra("TAG", "tag");
+//                                    FindPassActivity.this.startActivity(intent);
+//                                }
+//                            });
+//                        } else {
+//                            // Toast.makeText(FindwordActivity.this, "???", Toast.LENGTH_SHORT).show();
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void onFailure(HttpException e, String s) {
+//                    e.printStackTrace();
+//                }
+//            });
+//        }else {
+//           // Toast.makeText(this,"失败",Toast.LENGTH_SHORT).show();
+//        }
 
     }
 }

@@ -153,37 +153,33 @@
       android:textColor="@color/red"
       android:textSize="13sp"
       android:text="《服务协议》"/>
-   <RelativeLayout
+   <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="0dp"
        android:layout_weight="1"
+       android:gravity="center_vertical"
+       android:orientation="horizontal"
        android:background="@color/white">
        <TextView
            android:layout_marginLeft="13dp"
-           android:layout_width="wrap_content"
+           android:layout_width="0dp"
+           android:layout_weight="1"
            android:layout_height="wrap_content"
-           android:layout_centerVertical="true"
            android:textColor="@color/black2"
            android:textSize="13sp"
            android:text="可使用的红包"/>
        <TextView
            android:id="@+id/tv_redpacket"
-           android:layout_marginRight="13dp"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_alignParentRight="true"
-           android:drawableRight="@drawable/index1"
-           android:gravity="center_vertical"
-           android:hint="已选择"/>
-       <!--<ImageView-->
-           <!--android:id="@+id/btn_alterpass"-->
-           <!--android:layout_width="wrap_content"-->
-           <!--android:layout_height="wrap_content"-->
-           <!--android:layout_alignParentRight="true"-->
-         <!-- -->
-           <!--android:src="@drawable/index1" />-->
-
-   </RelativeLayout>
+           android:hint="未选择"/>
+       <ImageView
+           android:id="@+id/iv_index"
+           android:layout_marginRight="13dp"
+           android:layout_width="18dp"
+           android:layout_height="18dp"
+           android:src="@drawable/index1" />
+   </LinearLayout>
     <Button
         android:layout_marginTop="40dp"
         style="@style/button_style"

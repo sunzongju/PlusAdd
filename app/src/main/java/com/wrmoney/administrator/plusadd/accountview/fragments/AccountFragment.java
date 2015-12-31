@@ -44,6 +44,7 @@ import com.wrmoney.administrator.plusadd.bean.MessageBean;
 import com.wrmoney.administrator.plusadd.bean.PictureBean;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
 import com.wrmoney.administrator.plusadd.homeview.activitys.ActivityDetailActivity;
+import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
 import com.wrmoney.administrator.plusadd.tools.FormatTool;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
@@ -76,9 +77,9 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private GridView gv_menu;
     private List<PictureBean> list=new ArrayList<PictureBean>();
     private int[] pic={R.drawable.account_01,R.drawable.account_02,R.drawable.account_03,R.drawable.account_04,
-    R.drawable.account_06,R.drawable.account_07,R.drawable.account_08};
+    R.drawable.account_06,R.drawable.account_07,R.drawable.account_08,0,0};
     private String[] tle={"投资管理","资金流水","活动专区","邀请机制","抵用券",
-    "充值","提现"};
+    "充值","提现","",""};
     private ImageView iv_news;
     private BadgeView badge1;
     private TranslateAnimation mHiddenAction;
@@ -103,7 +104,6 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private Thread thread;
     private String jumpUrl;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -125,19 +125,37 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
+        layout_activity.setVisibility(View.VISIBLE);
         autoScrollTextView = (com.wrmoney.administrator.plusadd.view.AutoScrollTextView)view.findViewById(R.id.TextViewNotice);
+        autoScrollTextView.startScroll();
         autoScrollTextView.init(activity.getWindowManager());
         autoScrollTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if(!"".equals(jumpUrl)&&jumpUrl!=null){
-                   Intent intent = new Intent(activity, ActivityFDetailActivity.class);
-                   intent.putExtra("URL",jumpUrl);
-                   startActivity(intent);
-               }
+                if (!"".equals(jumpUrl) && jumpUrl != null) {
+                    Intent intent = new Intent(activity, ActivityFDetailActivity.class);
+                    intent.putExtra("URL", jumpUrl);
+                    startActivity(intent);
+                }
             }
         });
-
+        if (thread!=null){
+            thread.interrupt();
+        }
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+                    Message msg = new Message();
+                    handler.sendMessage(msg);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        //throw new NumberFormatException();
+        thread.start();
     }
 
     @Override
@@ -226,8 +244,9 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         badge1.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);//显示的位置.中间，还有其他位置属性
         badge1.setTextColor(Color.WHITE);  //文本颜色
         badge1.setBadgeBackgroundColor(Color.RED); //背景颜色
-        badge1.setTextSize(12); //文本大小
+        badge1.setTextSize(10); //文本大小
         badge1.setBadgeMargin(0, 0); //水平和竖直方向的间距
+//        badge1.setHeight(20);
         badge1.toggle();
         dataRequest();
         //messageCount();
@@ -278,77 +297,82 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
      * 数据请求
      */
     public void dataRequest() {
+        Boolean b = CheckNetTool.checkNet(activity);
+        if(b){
+            RequestParams params = UserCenterParams.getUpdateCode(userid);
+            utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    String result = responseInfo.result;
+                    JSONObject object = null;
+                    try {
+                        object = new JSONObject(result);
+                        String strResponse = object.getString("argEncPara");
+                        String strDe = DES3Util.decode(strResponse);
+                        //   Log.i("======个人中心", strDe);
+                        JSONObject obj2 = new JSONObject(strDe);
+                        String allAmount = obj2.getString("allAmount");//总资产
+                        if("".equals(allAmount)||allAmount==null||"0".equals(allAmount)){
+                            tv_money.setText("0.00");
+                        }else {
+                            tv_money.setText(FormatTool.amtFormat(allAmount));
+                        }
+                        String incomeAmount = obj2.getString("incomeAmount");//累计收益
+                        if("".equals(incomeAmount)||incomeAmount==null||"0".equals(incomeAmount)){
+                            tv_addup.setText("0.00");
 
-        RequestParams params = UserCenterParams.getUpdateCode(userid);
-        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                String result = responseInfo.result;
-                JSONObject object = null;
-                try {
-                    object = new JSONObject(result);
-                    String strResponse = object.getString("argEncPara");
-                    String strDe = DES3Util.decode(strResponse);
-                  //   Log.i("======个人中心", strDe);
-                    JSONObject obj2 = new JSONObject(strDe);
-                    String allAmount = obj2.getString("allAmount");//总资产
-                    tv_money.setText(FormatTool.amtFormat(allAmount));
-                    String incomeAmount = obj2.getString("incomeAmount");//累计收益
-                    tv_addup.setText(FormatTool.amtFormat(incomeAmount));
-                    String acctBalance=obj2.getString("acctBalance");//账号可用余额
-                    tv_balance.setText(FormatTool.amtFormat(acctBalance));
-                    String investAmount = obj2.getString("investAmount");//投资总额
-                    tv_count.setText(FormatTool.amtFormat(investAmount));
-                    bundleWhole.putString("allAmount", allAmount);//总额
-                    bundleWhole.putString("incomeAmount",incomeAmount);//累计收益
-                    bundleWhole.putString("acctBalance",acctBalance);
-                    JSONArray array=obj2.getJSONArray("listActive");
-                    if(array.length()>0){
-                        JSONObject object3=array.getJSONObject(0);
-                      activityTitle=object3.getString("title");
-                        jumpUrl=object3.getString("jumpUrl");
+                        }else {
+                            tv_addup.setText(FormatTool.amtFormat(incomeAmount));
+                        }
+                        String acctBalance=obj2.getString("acctBalance");//账号可用余额
+                        if("".equals(acctBalance)||acctBalance==null||"0".equals(acctBalance)){
+                            tv_balance.setText("0.00");
+                        }else {
+                            tv_balance.setText(FormatTool.amtFormat(acctBalance));
+                        }
+                        String investAmount = obj2.getString("investAmount");//投资总额
+                        if("".equals(investAmount)||investAmount==null||"0".equals(investAmount)){
+                            tv_count.setText("0.00");
+                        }else {
+                            tv_count.setText(FormatTool.amtFormat(investAmount));
+                        }
+                        //tv_count.setText(FormatTool.amtFormat(investAmount));
+                        bundleWhole.putString("allAmount", allAmount);//总额
+                        bundleWhole.putString("incomeAmount",incomeAmount);//累计收益
+                        bundleWhole.putString("acctBalance",acctBalance);
+                        JSONArray array=obj2.getJSONArray("listActive");
+                        if(array.length()>0){
+                            JSONObject object3=array.getJSONObject(0);
+                            activityTitle=object3.getString("title");
+                            jumpUrl=object3.getString("jumpUrl");
 
+                        }
+                        if(!"".equals(activityTitle)&&activityTitle!=null){
+                            //  Log.i("=====活动标题",activityTitle);
+                            //autoScrollTextView.setText(activityTitle);
+                            autoScrollTextView.setText2(activityTitle);
+                            autoScrollTextView.startScroll();
+
+
+                        }
+                        // p.setInvestAmount(obj2.getString("investAmount"));
+                        //String activityTitle=obj2.getString("activityTitle");//活动标题
+                        // p.setActivityTitle(obj2.getString("activityTitle"));
+                        // Toast.makeText(FinancingActivity.this, ""+allAmount+"累计"+incomeAmount+"投资"+investAmount, Toast.LENGTH_SHORT).show()
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    if(!"".equals(activityTitle)&&activityTitle!=null){
-                    //  Log.i("=====活动标题",activityTitle);
-                      //autoScrollTextView.setText(activityTitle);
-                        autoScrollTextView.setText2(activityTitle);
-                        autoScrollTextView.startScroll();
-                      if (thread!=null){
-                          thread.interrupt();
-                      }
-                      thread = new Thread(new Runnable() {
-                          @Override
-                          public void run() {
-                              try {
-                                  Thread.sleep(5000);
-                                  Message msg = new Message();
-                                  handler.sendMessage(msg);
-                              } catch (InterruptedException e) {
-                                  e.printStackTrace();
-                              }
-                          }
-                      });
-                      //throw new NumberFormatException();
-                      thread.start();
-                  }
-                    // p.setInvestAmount(obj2.getString("investAmount"));
-                    //String activityTitle=obj2.getString("activityTitle");//活动标题
-                    // p.setActivityTitle(obj2.getString("activityTitle"));
-                    // Toast.makeText(FinancingActivity.this, ""+allAmount+"累计"+incomeAmount+"投资"+investAmount, Toast.LENGTH_SHORT).show()
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
+
                 }
 
-            }
+                @Override
+                public void onFailure(HttpException e, String s) {
 
-            @Override
-            public void onFailure(HttpException e, String s) {
-
-            }
-        });
+                }
+            });
+        }
     }
 
     @Override

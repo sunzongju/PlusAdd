@@ -1,5 +1,7 @@
 package com.wrmoney.administrator.plusadd.tools;
 
+import android.content.Context;
+
 import com.lidroid.xutils.HttpUtils;
 
 /**
@@ -14,7 +16,6 @@ public class HttpXutilTool {
     }
 
     public static HttpUtils getUtils() {
-
-        return httpUtils;
+            return httpUtils;
     }
 }
