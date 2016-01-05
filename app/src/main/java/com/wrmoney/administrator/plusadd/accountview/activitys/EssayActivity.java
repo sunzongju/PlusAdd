@@ -1,7 +1,12 @@
 package com.wrmoney.administrator.plusadd.accountview.activitys;
 
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,6 +40,7 @@ public class EssayActivity extends BaseActivity{
     private EditText et_essay;
     private HttpUtils utils;
     private EditText et_captcha;
+    private WebView wv_essay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,44 +50,26 @@ public class EssayActivity extends BaseActivity{
         TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
         tv_banner.setText("取现");
         userid= SingleUserIdTool.newInstance().getUserid();
-        et_essay=(EditText)this.findViewById(R.id.et_essay);
-        et_captcha=(EditText)this.findViewById(R.id.et_captcha);
-        utils = HttpXutilTool.getUtils();
+        wv_essay=(WebView)this.findViewById(R.id.wv_essay);
+        WebSettings webSettings = wv_essay.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDefaultTextEncodingName("utf-8");
+        wv_essay.setWebViewClient(new WebViewClient() {
+            ProgressDialog prDialog;
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                //prDialog = ProgressDialog.show(EssayActivity.this, null, "数据加载中...");
+                super.onPageStarted(view, url, favicon);
+            }
+            @Override
+            public void onPageFinished(WebView view, String url) {
+               // prDialog.dismiss();
+                super.onPageFinished(view, url);
+            }
+        });
+        wv_essay.loadUrl(UrlTool.essayUrl+userid);
+
     }
 
-    public void click(View view){
-        switch (view.getId()){
-            case R.id.btn_next:
-                String drawalAmount=et_essay.getText().toString();
-                String captcha=et_captcha.getText().toString();
-                Boolean b = CheckNetTool.checkNet(this);
-                if(b){
-                    RequestParams params= RechargeParams.getWithdrawCashCode(userid, drawalAmount, captcha);
-                    utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-                        @Override
-                        public void onSuccess(ResponseInfo<String> responseInfo) {
-                            String result = responseInfo.result;
-                            JSONObject object = null;
-                            try {
-                                object = new JSONObject(result);
-                                String strResponse = object.getString("argEncPara");
-                                String strDe = DES3Util.decode(strResponse);
-                                // Toast.makeText(EssayActivity.this, strDe, Toast.LENGTH_SHORT).show();
-                                // JSONObject obj2 = new JSONObject(strDe);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        @Override
-                        public void onFailure(HttpException e, String s) {
-                            // Toast.makeText(EssayActivity.this,"取现失败",Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                        }
-                    });
-                }
-                break;
-        }
-    }
 }

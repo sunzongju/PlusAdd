@@ -25,6 +25,7 @@ import com.wrmoney.administrator.plusadd.bean.RedPacketBean;
 import com.wrmoney.administrator.plusadd.financingview.activitys.InvestActivity;
 import com.wrmoney.administrator.plusadd.financingview.activitys.InvestDetailActivity;
 import com.wrmoney.administrator.plusadd.financingview.activitys.InvestJoinActivity;
+import com.wrmoney.administrator.plusadd.financingview.activitys.InvestWebJoinActivity;
 import com.wrmoney.administrator.plusadd.loginview.activitys.PhoneActivity;
 import com.wrmoney.administrator.plusadd.tools.DisplayUtil;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
@@ -106,7 +107,7 @@ public class FinancingPlanAdapter extends BaseAdapter {
                         } else {
                            // Log.i("=======InvestUserid", SingleUserIdTool.newInstance().getUserid());
                             SingleUserIdTool.newInstance().setUserid(SingleUserIdTool.newInstance().getUserid());
-                            Intent intent1=new Intent(context,InvestJoinActivity.class);
+                            Intent intent1=new Intent(context,InvestWebJoinActivity.class);
                             Bundle bundle2=new Bundle();
                             //bundle2.putParcelable("BEAN",planBean);
                             bundle2.putString("PLANID",planBean.getId()+"");

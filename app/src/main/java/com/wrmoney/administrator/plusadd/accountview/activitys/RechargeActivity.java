@@ -1,7 +1,12 @@
 package com.wrmoney.administrator.plusadd.accountview.activitys;
 
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +39,8 @@ public class RechargeActivity extends BaseActivity {
     private EditText et_recharge;
     private HttpUtils utils;
     private String userid;
+    private WebView wv_recharge;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,46 +48,27 @@ public class RechargeActivity extends BaseActivity {
         ActionBarSet.setActionBar(this);
         TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
         tv_banner.setText("充值");
-        userid = SingleUserIdTool.newInstance().getUserid();
-        et_recharge = (EditText) this.findViewById(R.id.et_recharge);
-        utils = HttpXutilTool.getUtils();
+        userid= SingleUserIdTool.newInstance().getUserid();
+        wv_recharge=(WebView)this.findViewById(R.id.wv_recharge);
+        WebSettings webSettings = wv_recharge.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDefaultTextEncodingName("utf-8");
+        wv_recharge.setWebViewClient(new WebViewClient() {
+            ProgressDialog prDialog;
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+//                prDialog = ProgressDialog.show(RechargeActivity.this, null, "数据加载中...");
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+//                prDialog.dismiss();
+            }
+        });
+        wv_recharge.loadUrl(UrlTool.rechargeUrl+userid);
     }
 
-    public void click(View view) {
-        switch (view.getId()) {
-            case R.id.btn_next:
-                Boolean b = CheckNetTool.checkNet(this);
-                if(b){
-                    String rechargeAmount = et_recharge.getText().toString();
-                    RequestParams params = RechargeParams.getRechargeCode(userid, rechargeAmount);
-                    utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
-                        @Override
-                        public void onSuccess(ResponseInfo<String> responseInfo) {
-                            String result = responseInfo.result;
-                            JSONObject object = null;
-                            try {
-                                object = new JSONObject(result);
-                                String strResponse = object.getString("argEncPara");
-                                String strDe = DES3Util.decode(strResponse);
-                                //  Toast.makeText(RechargeActivity.this, strDe, Toast.LENGTH_SHORT).show();
-                                // JSONObject obj2 = new JSONObject(strDe);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(HttpException e, String s) {
-                            //Toast.makeText(RechargeActivity.this, "��ֵʧ��", Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                        }
-                    });
-                }
-                break;
-        }
-
-
-    }
 }

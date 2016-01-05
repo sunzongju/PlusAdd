@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.DbUtils;
@@ -66,6 +67,7 @@ public class FinancingFragment extends BaseFragment{
     private int current=1;
     private ProgressBar pro_bar;
     private DbUtils dbUtils;
+    private ILoadingLayout loadingLayoutProxy;
 
     @Nullable
     @Override
@@ -98,6 +100,8 @@ public class FinancingFragment extends BaseFragment{
         adapter=new FinancingPlanAdapter(list,activity);
         lv_plan.setAdapter(adapter);
         checkNetWorkInfo();
+        loadingLayoutProxy = lv_plan.getLoadingLayoutProxy();
+        loadingLayoutProxy.setPullLabel("");
 //        dataRequest(current);
         lv_plan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

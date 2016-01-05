@@ -95,6 +95,14 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".wxapi.WXEntryActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".homeview.activitys.HomefirstActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".homeview.activitys.HomeSecondActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".homeview.activitys.HomeThirdActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".financingview.activitys.InvestWebJoinActivity"
+            android:screenOrientation="portrait"/>
 
 
     </application>

@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -80,6 +81,8 @@ public class VoucherActivity extends BaseActivity {
         rg_group = (RadioGroup) this.findViewById(R.id.rg);
         adapter=new VouchersAdapter(list,this);
         lv_voucher.setAdapter(adapter);
+        ILoadingLayout loadingLayoutProxy = lv_voucher.getLoadingLayoutProxy();
+        loadingLayoutProxy.setPullLabel("");
         lv_voucher.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {

@@ -98,7 +98,7 @@
            style="@style/edit_style"
            android:drawableRight="@drawable/clear_pic"
            android:maxLength="5"
-           android:inputType="textCapCharacters"
+           android:digits="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
            android:hint="请输入邀请码（可为空）"
            />
    </LinearLayout>

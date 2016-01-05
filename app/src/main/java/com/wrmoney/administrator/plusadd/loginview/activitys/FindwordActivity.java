@@ -159,7 +159,7 @@ public class FindwordActivity extends BaseActivity {
                             Log.i("=========找回密码","3333333333333");
                             dataRequest(pass,pass2,captcha);
                         } else {
-                            DiaLog.showDialog(FindwordActivity.this, "验证码错误");
+                            DiaLog.showDialog(FindwordActivity.this, obj2.getString("resmsg"));
                             // Toast.makeText(FindwordActivity.this, "验证码输入错误", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {

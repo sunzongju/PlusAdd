@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.HttpUtils;
@@ -76,6 +77,8 @@ public class InvitationDetailActivity extends BaseActivity {
         lv_invitation.setEmptyView(v);
         adapter=new InvitationDetailAdapter(this,list);
         lv_invitation.setAdapter(adapter);
+        ILoadingLayout loadingLayoutProxy = lv_invitation.getLoadingLayoutProxy();
+        loadingLayoutProxy.setPullLabel("");
         lv_invitation.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {

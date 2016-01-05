@@ -50,6 +50,9 @@ import com.wrmoney.administrator.plusadd.bean.HomeContentBean;
 import com.wrmoney.administrator.plusadd.encode.FinancingParams;
 import com.wrmoney.administrator.plusadd.financingview.activitys.InvestActivity;
 import com.wrmoney.administrator.plusadd.financingview.adapters.FinancingPlanAdapter;
+import com.wrmoney.administrator.plusadd.homeview.activitys.HomeSecondActivity;
+import com.wrmoney.administrator.plusadd.homeview.activitys.HomeThirdActivity;
+import com.wrmoney.administrator.plusadd.homeview.activitys.HomefirstActivity;
 import com.wrmoney.administrator.plusadd.homeview.adapters.AdapterCycle;
 import com.wrmoney.administrator.plusadd.homeview.adapters.HomeContentAdapter;
 import com.wrmoney.administrator.plusadd.homeview.adapters.HomePagerAdapter;
@@ -217,14 +220,16 @@ public class HomeFrament extends BaseFragment {
         iv_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+             Intent intent=new Intent(activity, HomefirstActivity.class);
+                startActivity(intent);
             }
         });
         iv_btn2=(ImageView)view.findViewById(R.id.iv_btn2);
         iv_btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent(activity, HomeSecondActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -232,6 +237,8 @@ public class HomeFrament extends BaseFragment {
         iv_btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent=new Intent(activity, HomeThirdActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -306,7 +313,7 @@ public class HomeFrament extends BaseFragment {
                     object = new JSONObject(result);
                     String strResponse = object.getString("argEncPara");
                     String strDe = DES3Util.decode(strResponse);
-                    // Log.i("====主页", strDe);
+                    Log.i("====主页", strDe);
                     JSONObject object1 = new JSONObject(strDe);
                     JSONArray array = object1.getJSONArray("bannerList");
                     int len = array.length();

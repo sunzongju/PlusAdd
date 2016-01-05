@@ -69,25 +69,17 @@ public class AlterPassActivity extends BaseActivity {
         if("".equals(oldPwd)){
             DiaLog.showDialog(AlterPassActivity.this, "请输入原密码");
             //Toast.makeText(this,"验证码不能为空",Toast.LENGTH_SHORT).show();
-            //
         }else{
             if("".equals(password)){
                 DiaLog.showDialog(AlterPassActivity.this, "请输入新密码");
             }else{
-              if(oldPwd.equals(password)){
-                  DiaLog.showDialog(AlterPassActivity.this, "新密码与原密码相同，请重新输入");
-              }else {
                   if("".equals(repwd)){
                       DiaLog.showDialog(AlterPassActivity.this, "请输入确认密码");
                   }else {
-                    if(!password.equals(repwd)){
-                        DiaLog.showDialog(AlterPassActivity.this, "新密码与确认密码不一致，请重新输入");
-
-                    }else {
                         try {
                             // String json="{ inface:'WRMI100001',mobile:'13651087998'}";
                             //String str = DES3Util.encode(json);
-                            params = SetUpParams.getLoginCode(userId, oldPwd, password);
+                            params = SetUpParams.getLoginCode(userId, oldPwd, password,repwd);
                             //params.addQueryStringParameter("argEncPara", str);
                             utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
                                 @Override
@@ -113,7 +105,7 @@ public class AlterPassActivity extends BaseActivity {
                                                 @Override
                                                 public void run() {
                                                     try {
-                                                        Thread.sleep(500);
+                                                        Thread.sleep(1000);
                                                         dialog.dismiss();
                                                         AlterPassActivity.this.finish();
                                                     } catch (InterruptedException e) {
@@ -156,8 +148,8 @@ public class AlterPassActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                     }
-                  }
-              }
+
+
             }
 
         }

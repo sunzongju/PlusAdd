@@ -38,8 +38,8 @@ public class SetUpParams {
      * @param password
      * @return
      */
-    public static RequestParams getLoginCode(String userIdc, String oldPwdc, String password) {
-        String json = "{ iface:'WRMI100008',userId:'" + userIdc + "',oldPwd:'" + oldPwdc + "',password:'" + password + "'}";
+    public static RequestParams getLoginCode(String userIdc, String oldPwdc, String password,String rePassword) {
+        String json = "{ iface:'WRMI100008',userId:'" + userIdc + "',oldPwd:'" + oldPwdc + "',password:'" + password + "',rePassword:'" + rePassword +"'}";
         Log.i("===============", json);
         RequestParams params = new RequestParams();
         String str;
@@ -61,7 +61,7 @@ public class SetUpParams {
      * @return
      */
     public static RequestParams getUpdateCode(String appVerc, String osc) {
-        String json = "{ inface:'WRMI100009',appVer:" + appVerc + ",os:" + osc + "}";
+        String json = "{ iface:'WRMI100009',appVer:'" + appVerc + "',os:'" + osc + "'}";
         RequestParams params = new RequestParams();
         String str;
         try {

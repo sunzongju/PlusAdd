@@ -10,6 +10,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,7 +50,7 @@ import java.util.List;
  * �活动专区�
  * Created by Administrator on 2015/11/2.
  */
-public class ActivityCenterActivity extends BaseActivity {
+public class ActivityCenterActivity extends BaseActivity implements View.OnClickListener{
 
     private HttpUtils utils;
     private String userid;
@@ -61,12 +62,12 @@ public class ActivityCenterActivity extends BaseActivity {
     private PullToRefreshListView lv_activity;
     private int current=1;
     private WebView wv_center_activity;
+    private String url2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_activity2);
-        ActionBarSet.setActionBar(this);
         TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
         tv_banner.setText("活动专区");
         wv_center_activity=(WebView)this.findViewById(R.id.wv_center_activity);
@@ -74,20 +75,38 @@ public class ActivityCenterActivity extends BaseActivity {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDefaultTextEncodingName("utf-8");
         wv_center_activity.setWebViewClient(new WebViewClient() {
-           ProgressDialog prDialog;
-           @Override
-           public void onPageStarted(WebView view, String url, Bitmap favicon) {
-               prDialog = ProgressDialog.show(ActivityCenterActivity.this, null, "数据加载中...");
-               super.onPageStarted(view, url, favicon);
-           }
-           @Override
-           public void onPageFinished(WebView view, String url) {
-               prDialog.dismiss();
-               super.onPageFinished(view, url);
-           }
-       });
+            ProgressDialog prDialog;
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                prDialog = ProgressDialog.show(ActivityCenterActivity.this, null, "数据加载中...");
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                prDialog.dismiss();
+                super.onPageFinished(view, url);
+            }
+        });
         wv_center_activity.loadUrl(UrlTool.activityUrl);
+        ImageView iv_return=(ImageView)this.findViewById(R.id.iv_return);
+        iv_return.setOnClickListener(this);
+        LinearLayout viewById = (LinearLayout) this.findViewById(R.id.lv_return);
+        viewById.setOnClickListener(this);
     }
+
+    @Override
+    public void onClick(View v) {
+        url2 =wv_center_activity.getUrl();
+        if (url2.equals(UrlTool.activityUrl)) {
+            finish();
+        } else {
+            wv_center_activity.loadUrl(UrlTool.activityUrl);
+        }
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -177,4 +196,6 @@ public class ActivityCenterActivity extends BaseActivity {
             });
         }
     }
+
+
 }

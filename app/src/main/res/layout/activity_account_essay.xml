@@ -8,85 +8,9 @@
 
     <include layout="@layout/tab_view" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:text="可提现金额（元）" />
-
-    <TextView
+    <WebView
+        android:id="@+id/wv_essay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingTop="20dp"
-        android:text="2,000,00"
-        android:textColor="@color/red"
-        android:textSize="20dp" />
-    -
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/border"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_marginLeft="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="金额（元）" />
-
-        <EditText
-            android:id="@+id/et_essay"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            style="@style/edit_style"
-            android:hint="最低提现金额1元" />
-    </LinearLayout>
-    -
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/border"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/et_captcha"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            style="@style/edit_style"
-            android:hint="请输入验证码" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="30秒后重新发送" />
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:background="@drawable/border"
-        android:gravity="center" />
-
-    <Button
-        android:id="@+id/btn_next"
-        style="@style/button_style"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="1dp"
-        android:onClick="click"
-        android:text="下一步"
-        />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

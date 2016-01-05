@@ -26,6 +26,7 @@ import com.wrmoney.administrator.plusadd.bean.FinancingDetailBean;
 import com.wrmoney.administrator.plusadd.bean.FinancingPlanBean;
 import com.wrmoney.administrator.plusadd.encode.FinancingParams;
 import com.wrmoney.administrator.plusadd.financingview.adapters.FinancingPlanAdapter;
+import com.wrmoney.administrator.plusadd.homeview.activitys.HomeSecondActivity;
 import com.wrmoney.administrator.plusadd.loginview.activitys.PhoneActivity;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
@@ -63,6 +64,7 @@ public class InvestActivity extends BaseActivity implements View.OnClickListener
     private TextView tv_interestDate;
     private TextView tv_repayType;
     private TextView tv_safeguardMode;
+    private TextView tv_safelable;
     private FinancingDetailBean bean;
     private String userid;
     private TextView tv_restAmount;
@@ -162,9 +164,12 @@ public class InvestActivity extends BaseActivity implements View.OnClickListener
         btn_detail=(Button)this.findViewById(R.id.btn_detail);
         btn_join=(Button)this.findViewById(R.id.btn_join);
         iv_cal=(ImageView)this.findViewById(R.id.iv_cal);
+        tv_safelable=(TextView)this.findViewById(R.id.tv_safelable);
+
        // iv_cal.setOnClickListener(this);
         btn_detail.setOnClickListener(this);
         btn_join.setOnClickListener(this);
+        tv_safelable.setOnClickListener(this);
         intent=getIntent();
         planID=intent.getStringExtra("PLANID");
         flag=intent.getStringExtra("FLAG");
@@ -193,6 +198,7 @@ public class InvestActivity extends BaseActivity implements View.OnClickListener
         tv_interestDate=(TextView)this.findViewById(R.id.tv_interestDate);//计息方式
         tv_repayType=(TextView)this.findViewById(R.id.tv_repayType);//还款方式
         tv_safeguardMode=(TextView)this.findViewById(R.id.tv_safeguardMode);//安全保障
+        tv_safeguardMode.setOnClickListener(this);
         httpUtils = new HttpUtils(10000);
         dataRequest();
     }
@@ -311,7 +317,7 @@ public class InvestActivity extends BaseActivity implements View.OnClickListener
                 } else {
                    // Log.i("=======InvestUserid",SingleUserIdTool.newInstance().getUserid());
                     SingleUserIdTool.newInstance().setUserid(SingleUserIdTool.newInstance().getUserid());
-                    Intent intent1=new Intent(this,InvestJoinActivity.class);
+                    Intent intent1=new Intent(this,InvestWebJoinActivity.class);
                     Bundle bundle2=new Bundle();
 //                    bundle2.putParcelable("BEAN",bean);
                     bundle2.putString("PLANID",bean.getPlanId());
@@ -327,6 +333,11 @@ public class InvestActivity extends BaseActivity implements View.OnClickListener
 //                dialog.show();
 //                TextView tv_title =(TextView)dialog.findViewById(R.id.tv_title);
 //                tv_title.setText("哈哈");
+                break;
+            case R.id.tv_safelable:
+            case R.id.tv_safeguardMode:
+                Intent intent=new Intent(this, HomeSecondActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

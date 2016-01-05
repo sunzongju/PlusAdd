@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.HttpUtils;
@@ -108,6 +109,8 @@ public class MoneyWaterActivity extends BaseActivity {
         lv_water.setEmptyView(v);
        adapter=new MoneyWaterAdapter(list,this);
        lv_water.setAdapter(adapter);
+        ILoadingLayout loadingLayoutProxy = lv_water.getLoadingLayoutProxy();
+        loadingLayoutProxy.setPullLabel("");
         lv_water.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {

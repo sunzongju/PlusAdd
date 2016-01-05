@@ -1,6 +1,9 @@
 package com.wrmoney.administrator.plusadd.moreview.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -9,6 +12,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -38,6 +43,7 @@ import com.wrmoney.administrator.plusadd.moreview.activitys.AlterPassActivity;
 import com.wrmoney.administrator.plusadd.moreview.activitys.BindCodeActivity;
 import com.wrmoney.administrator.plusadd.moreview.activitys.ConnectOurActivity;
 import com.wrmoney.administrator.plusadd.moreview.activitys.HelpCenterActivity;
+import com.wrmoney.administrator.plusadd.moreview.checkversion.DownLoadManager;
 import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.CutBitmap;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
@@ -57,6 +63,11 @@ import java.io.File;
  */
 public class MoreFragment extends BaseFragment implements View.OnClickListener,ActionSheet.ActionSheetListener{
 
+    private final int UPDATA_NONEED = 0;
+    private final int UPDATA_CLIENT = 1;
+    private final int GET_UNDATAINFO_ERROR = 2;
+    private final int SDCARD_NOMOUNTED = 3;
+    private final int DOWN_ERROR = 4;
     private static String path = "/sdcard/myHead/";//sd路径
     private FragmentCallback callback;
     private RequestParams params;
@@ -81,6 +92,55 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
     private TextView tv_bind2;
     private ImageView iv_help;
     private ImageView iv_connect;
+    private String updateContent;
+    private String downloadUrl;
+    Handler handler = new Handler() {
+
+        @Override
+
+        public void handleMessage(Message msg) {
+
+            // TODO Auto-generated method stub
+
+            super.handleMessage(msg);
+
+            switch (msg.what) {
+
+                case UPDATA_NONEED:
+
+                    Toast.makeText(activity, "不需要更新",
+
+                            Toast.LENGTH_SHORT).show();
+
+                case UPDATA_CLIENT:
+
+                    //对话框通知用户升级程序
+
+                    showUpdataDialog();
+
+                    break;
+
+                case GET_UNDATAINFO_ERROR:
+
+                    //服务器超时
+
+                    Toast.makeText(activity, "获取服务器更新信息失败", Toast.LENGTH_SHORT).show();
+
+                    break;
+
+                case DOWN_ERROR:
+
+                    //下载apk失败
+
+                    Toast.makeText(activity, "下载新版本失败", Toast.LENGTH_SHORT).show();
+
+                    break;
+
+            }
+
+        }
+
+    };
 
     @Nullable
     @Override
@@ -250,7 +310,7 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
                 startActivity(intent2);
                 break;
             case R.id.tv_update:
-                DiaLog.showDialog(activity, "暂无新版本");
+                checkVersion();
                 break;
             case R.id.btn_finish://退出程序
 
@@ -315,6 +375,133 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
 
         }
     }
+
+    public void checkVersion(){
+        RequestParams params= SetUpParams.getUpdateCode("1.0","Android");
+        utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                String result = responseInfo.result;
+                try {
+                    JSONObject obj = new JSONObject(result);
+                    String strResponse = obj.getString("argEncPara");
+                    String strDe = DES3Util.decode(strResponse);
+                    //Toast.makeText(activity, strDe, Toast.LENGTH_SHORT).show();
+                     Log.i("========版本号",strDe);;
+                    JSONObject obj2 = new JSONObject(strDe);
+                    String isNewVer=obj2.getString("isNewVer");
+                    if("0".equals(isNewVer)){
+                        DiaLog.showDialog(activity, "暂无新版本");
+                    }else {
+                        showUpdataDialog2();
+//                        updateContent=obj2.getString("updateContent");
+//                        downloadUrl=obj2.getString("downloadUrl");
+//                        showUpdataDialog();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                //e.getExceptionCode();
+                e.printStackTrace();
+                //Toast.makeText(activity, "请求成功", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    /*
+*
+* 弹出对话框通知用户更新程序
+*
+* 弹出对话框的步骤：
+*  1.创建alertDialog的builder.
+*  2.要给builder设置属性, 对话框的内容,样式,按钮
+*  3.通过builder 创建一个对话框
+*  4.对话框show()出来
+*/
+    protected void showUpdataDialog() {
+        AlertDialog.Builder builer = new AlertDialog.Builder(activity);
+        builer.setTitle("版本升级");
+        builer.setMessage(updateContent);
+        //当点确定按钮时从服务器上下载 新的apk 然后安装   װ
+        builer.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                Log.i("下载更新", "下载apk,更新");
+                downLoadApk();
+            }
+        });
+        builer.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                //do sth
+            }
+        });
+        AlertDialog dialog = builer.create();
+        dialog.show();
+    }
+
+    protected void showUpdataDialog2() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("提示");
+        builder.setMessage("这已经是最高版本了");
+        builder.setPositiveButton("知道了",null);
+        builder.setCancelable(false);
+        builder.show();
+
+
+//                .setTitle("标题")
+//                .setMessage("简单消息框")
+//                .setPositiveButton("确定", null)
+//                .show();
+
+    }
+
+
+    /*
+ * 从服务器中下载APK
+*/
+    protected void downLoadApk() {
+        final ProgressDialog pd;    //进度条对话框
+        pd = new  ProgressDialog(activity);
+        pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        pd.setMessage("正在下载更新");
+        pd.show();
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    File file = DownLoadManager.getFileFromServer(downloadUrl, pd);
+                    sleep(3000);
+                    installApk(file);
+                    pd.dismiss(); //结束掉进度条对话框
+
+                } catch (Exception e) {
+                    Message msg = new Message();
+                    msg.what = DOWN_ERROR;
+                    handler.sendMessage(msg);
+                    e.printStackTrace();
+                }
+            }}.start();
+
+    }
+
+    //安装apk
+    protected void installApk(File file) {
+        Intent intent = new Intent();
+        //执行动作
+        intent.setAction(Intent.ACTION_VIEW);
+        //执行的数据类型
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        startActivity(intent);
+    }
+
     public void showActionSheet() {
         ActionSheet.createBuilder(activity, activity.getSupportFragmentManager())
                 .setCancelButtonTitle("Cancel")
@@ -344,8 +531,4 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
 
         }
     }
-
-
-
-
 }

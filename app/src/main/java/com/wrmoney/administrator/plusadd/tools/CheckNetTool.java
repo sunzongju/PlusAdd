@@ -10,7 +10,7 @@ import com.wrmoney.administrator.plusadd.view.DiaLog;
 public class CheckNetTool {
     public static Boolean checkNet(Context context){
         if (!NetworkAvailable.isNetworkAvailable(context)){
-            DiaLog.showDialog(context, "网速不给力");
+            DiaLog.showDialog(context, "您当前网络不好，请检查网络");
             return false;
         }else{
             return true;

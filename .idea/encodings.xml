@@ -2,6 +2,11 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/BaseActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/financingview/activitys/InvestWebJoinActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/homeview/activitys/HomeSecondActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/homeview/activitys/HomeThirdActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/homeview/activitys/HomefirstActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/moreview/checkversion/UpdataInfo.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/ActionBarSet.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/CheckNetTool.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/HttpXutilTool.java" charset="UTF-8" />

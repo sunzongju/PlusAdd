@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -136,7 +137,7 @@ public class InvestMentActivity extends BaseActivity{
         }
         rg_invest=(RadioGroup) this.findViewById(R.id.rg_invest);
         lv_invest = (PullToRefreshListView) this.findViewById(R.id.lv_invest);
-        View v=LayoutInflater.from(this).inflate(R.layout.empty_view,null);
+        View v=LayoutInflater.from(this).inflate(R.layout.empty_view, null);
         lv_invest.setEmptyView(v);
 
         userid = SingleUserIdTool.newInstance().getUserid();
@@ -144,6 +145,8 @@ public class InvestMentActivity extends BaseActivity{
         dataRequest("0",current);
        adapter=new InvestMentAdapter(list,this);
         lv_invest.setAdapter(adapter);
+        ILoadingLayout loadingLayoutProxy = lv_invest.getLoadingLayoutProxy();
+        loadingLayoutProxy.setPullLabel("");
         lv_invest.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase refreshView) {
