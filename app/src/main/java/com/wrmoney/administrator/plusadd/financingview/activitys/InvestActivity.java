@@ -158,6 +158,7 @@ public class InvestActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_financing_invest);
+        ActionBarSet.setHelpBar(this);
         ActionBarSet.setActionBar(this);
         TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
         tv_banner.setText("产品详情");

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -70,10 +71,15 @@ public class ActivityCenterActivity extends BaseActivity implements View.OnClick
         setContentView(R.layout.activity_account_activity2);
         TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
         tv_banner.setText("活动专区");
+        ActionBarSet.setHelpBar(this);
         wv_center_activity=(WebView)this.findViewById(R.id.wv_center_activity);
         WebSettings webSettings = wv_center_activity.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDefaultTextEncodingName("utf-8");
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
+        wv_center_activity.setWebChromeClient(new WebChromeClient());
         wv_center_activity.setWebViewClient(new WebViewClient() {
             ProgressDialog prDialog;
 

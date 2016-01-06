@@ -38,8 +38,11 @@ public class WelcomeActivity extends BaseActivity {
         list.add(LayoutInflater.from(this).inflate(R.layout.welcom_item_01, null));
         list.add(LayoutInflater.from(this).inflate(R.layout.welcom_item_02, null));
         list.add(LayoutInflater.from(this).inflate(R.layout.welcom_item_03, null));
+        list.add(LayoutInflater.from(this).inflate(R.layout.welcom_item_04,null));
+
         WelcomeAdapter adapter = new WelcomeAdapter(list);
         rg_group = (RadioGroup) this.findViewById(R.id.rg_group);
+        rg_group.setVisibility(View.INVISIBLE);
         SharedPreferences pre1 = getSharedPreferences("user", Context.MODE_PRIVATE);
         type = pre1.getBoolean("TYPE", true);
         if (type) {

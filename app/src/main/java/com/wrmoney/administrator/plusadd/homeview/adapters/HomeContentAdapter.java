@@ -122,7 +122,7 @@ public class HomeContentAdapter extends BaseAdapter {
             try {
                 float account=(Float.parseFloat(planBean.getMaxFinaning()))/10000;
                 int account1=(int)account;
-                holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + "天，项目规模" +account1+"万");
+                holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + "天 项目规模" +account1+"万");
             }catch (Exception e){
                 e.printStackTrace();
             }

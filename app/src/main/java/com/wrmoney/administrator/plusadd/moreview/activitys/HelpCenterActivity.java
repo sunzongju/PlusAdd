@@ -103,4 +103,15 @@ public class HelpCenterActivity extends BaseActivity implements View.OnClickList
             wv_help.loadUrl(UrlTool.helpUrl);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        url2 =wv_help.getUrl();
+        if (url2.equals(UrlTool.helpUrl)) {
+            finish();
+        } else {
+            wv_help.loadUrl(UrlTool.helpUrl);
+        }
+        //super.onBackPressed();
+    }
 }

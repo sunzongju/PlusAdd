@@ -77,21 +77,21 @@ public class FinancingPlanAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
+        planBean = list.get(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.financing_plan_item,null);
             convertView.setTag(new ViewHolder1(convertView));
         }
        // Log.i("=======", planBean.getId() + "展示的ID");
         final ViewHolder1 holder = (ViewHolder1) convertView.getTag();
-        planBean = list.get(position);
+
         holder.tv_type.setText(planBean.getName());
         holder.tv_rate.setText(planBean.getExpectedRate());
         holder.pro_rate.setProgress(planBean.getProgress());
         //holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + " 项目规模" + planBean.getMaxFinancing());
         float account=(Float.parseFloat(planBean.getMaxFinancing()))/10000;
         int account1=(int)account;
-        holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + "天，项目规模" +account1+"万");
+        holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + "天 项目规模" +account1+"万");
         holder.tv_repaytype.setText(planBean.getRepayType());
         holder.btn_invest.setTag(planBean.getId());
         if("Y".equals(planBean.getEnableBuy())){
@@ -110,7 +110,7 @@ public class FinancingPlanAdapter extends BaseAdapter {
                             Intent intent1=new Intent(context,InvestWebJoinActivity.class);
                             Bundle bundle2=new Bundle();
                             //bundle2.putParcelable("BEAN",planBean);
-                            bundle2.putString("PLANID",planBean.getId()+"");
+                            bundle2.putString("PLANID",holder.btn_invest.getTag()+"");
                             intent1.putExtras(bundle2);
                             context.startActivity(intent1);
                         }

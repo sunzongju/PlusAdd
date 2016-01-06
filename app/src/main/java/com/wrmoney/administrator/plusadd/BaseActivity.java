@@ -10,7 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.wrmoney.administrator.plusadd.moreview.activitys.HelpCenterActivity;
+import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.ActivityCollectorTool;
 
 /**
@@ -24,8 +27,6 @@ public class BaseActivity extends AppCompatActivity {
         ActionBar supportActionBar = getSupportActionBar();
         supportActionBar.hide();
         //(ImageView)this.findViewById(R.id.iv_return);
-
-
     }
     @Override
     public Resources getResources() {

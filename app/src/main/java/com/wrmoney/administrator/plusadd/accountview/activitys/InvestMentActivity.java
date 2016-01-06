@@ -72,6 +72,7 @@ public class InvestMentActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_invest_manage);
         ActionBarSet.setActionBar(this);
+        ActionBarSet.setHelpBar(this);
         TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
         tv_banner.setText("投资管理");
         init();
@@ -121,19 +122,19 @@ public class InvestMentActivity extends BaseActivity{
         if("".equals(allAmount)||allAmount==null||"0".equals(allAmount)){
             tv_allAmount.setText("0.00");
         }else {
-            tv_allAmount.setText(FormatTool.amtFormat(allAmount));//总额
+            tv_allAmount.setText(allAmount);//总额
         }
         String acctBalance=bundle.getString("acctBalance");
         if("".equals(acctBalance)||acctBalance==null||"0".equals(acctBalance)){
             tv_acctBalance.setText("0.00");
         }else {
-            tv_acctBalance.setText(FormatTool.amtFormat(acctBalance));//累计收益
+            tv_acctBalance.setText(acctBalance);//累计收益
         }
         String incomeAmount=bundle.getString("incomeAmount");
         if("".equals(incomeAmount)||incomeAmount==null||"0".equals(incomeAmount)){
             tv_incomeAmount.setText("0.00");
         }else {
-            tv_incomeAmount.setText(FormatTool.amtFormat(bundle.getString("incomeAmount")));//可用余额
+            tv_incomeAmount.setText(bundle.getString("incomeAmount"));//可用余额
         }
         rg_invest=(RadioGroup) this.findViewById(R.id.rg_invest);
         lv_invest = (PullToRefreshListView) this.findViewById(R.id.lv_invest);

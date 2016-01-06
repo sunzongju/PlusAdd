@@ -28,11 +28,13 @@
     </RadioGroup>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/rg_group"
+        android:layout_marginBottom="20dp"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="click"
-        android:text="@string/wel" />
+        android:text="" />
 
 </RelativeLayout>

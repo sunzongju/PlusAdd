@@ -85,6 +85,7 @@ public class MoneyWaterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_water);
+        ActionBarSet.setHelpBar(this);
         ActionBarSet.setActionBar(this);
         TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
         tv_banner.setText("资金流水");
@@ -98,7 +99,7 @@ public class MoneyWaterActivity extends BaseActivity {
         if("".equals(allAmount)||allAmount==null||"0".equals(allAmount)){
             tv_allAmount.setText("0.00");
         }else {
-            tv_allAmount.setText(FormatTool.amtFormat(allAmount));//总额
+            tv_allAmount.setText(allAmount);//总额
         }
         userid= SingleUserIdTool.newInstance().getUserid();
         httpUtils = new HttpUtils(10000);

@@ -160,10 +160,10 @@ public class CommnActivity extends BaseActivity implements View.OnClickListener,
         setContentView(R.layout.activity_commn);
         tv_banner=(TextView)this.findViewById(R.id.tv_banner);
         tv_banner.setText("Plus0乘10理财");
-
-        //checkNetWorkInfo();
         ImageView iv_return=(ImageView)this.findViewById(R.id.iv_return);
         iv_return.setVisibility(View.GONE);
+        ImageView iv_answer=(ImageView)this.findViewById(R.id.iv_answer);
+        iv_answer.setVisibility(View.INVISIBLE);
         int i = DisplayUtil.dip2px(this, 28);
         rg_menu=(RadioGroup)findViewById(R.id.rg_menu);
         radio_home = ((CheckBox) findViewById(R.id.radio_home));
@@ -185,7 +185,7 @@ public class CommnActivity extends BaseActivity implements View.OnClickListener,
         radio_more = ((CheckBox) findViewById(R.id.radio_more));
         Drawable drawable4 = getResources().getDrawable(R.drawable.menu_select_04);
         drawable4.setBounds(0, 0, i, i);//第一0是距左边距离，第二0是距上边距离，40分别是长宽
-        radio_more.setCompoundDrawables(null,drawable4,  null, null);//只放左边
+        radio_more.setCompoundDrawables(null, drawable4, null, null);//只放左边
 
         radio_home.setOnClickListener(this);
         radio_financing.setOnClickListener(this);
@@ -210,13 +210,6 @@ public class CommnActivity extends BaseActivity implements View.OnClickListener,
         }
         init();
     }
-
-
-
-
-
-
-
     /**
      *
      */
@@ -272,6 +265,20 @@ public class CommnActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onStart() {
         super.onStart();
+        String str=getIntent().getStringExtra("FLAG");
+        if("financeUrl".equals(str)){
+            radiotype=radio_financing;
+
+            radio_home.setChecked(false);
+            radio_financing.setChecked(true);
+            radio_account.setChecked(false);
+            radio_more.setChecked(false);
+
+            switchContent(mContent, finacingFragment);
+            //setCurrentItemt(mContent,finacingFragment);
+            tv_banner.setText("投资列表");
+
+        }
         if(userid!=null){
             RequestParams params = UserCenterParams.getUpdateCode(userid);
             utils.send(HttpRequest.HttpMethod.POST, UrlTool.resURL, params, new RequestCallBack<String>() {

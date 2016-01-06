@@ -63,6 +63,7 @@ public class VoucherActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_red);
         ActionBarSet.setActionBar(this);
+        ActionBarSet.setHelpBar(this);
         TextView tv_banner=(TextView)this.findViewById(R.id.tv_banner);
         tv_banner.setText("我的抵用券");
         init();

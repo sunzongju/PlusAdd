@@ -24,7 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:text="0.00"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,7 +96,7 @@
                 android:includeFontPadding="false"
                 android:textSize="11sp"
                 android:textColor="@color/black3"
-                android:text=""/>
+                android:text="0.00"/>
         </LinearLayout>
         <TextView
             android:layout_width="1dp"
@@ -127,7 +128,7 @@
                 android:includeFontPadding="false"
                 android:textSize="11sp"
                 android:textColor="@color/black3"
-                android:text=""/>
+                android:text="0.00"/>
         </LinearLayout>
 
         <TextView

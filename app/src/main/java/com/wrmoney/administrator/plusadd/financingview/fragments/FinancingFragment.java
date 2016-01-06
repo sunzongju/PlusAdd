@@ -68,6 +68,10 @@ public class FinancingFragment extends BaseFragment{
     private ProgressBar pro_bar;
     private DbUtils dbUtils;
     private ILoadingLayout loadingLayoutProxy;
+    private TextView tv_finish;
+//    private ListView refreshableView;
+//    private int footerViewsCount;
+//    private TextView finishView;
 
     @Nullable
     @Override
@@ -93,9 +97,12 @@ public class FinancingFragment extends BaseFragment{
         activity = getActivity();
          dbUtils = DbHelper.getUtils();
          pro_bar=(ProgressBar)view.findViewById(R.id.pro_bar);
+         tv_finish=(TextView)view.findViewById(R.id.tv_finish);
         lv_plan=(PullToRefreshListView)view.findViewById(R.id.lv_money_plan);
-//        View v= LayoutInflater.from(activity).inflate(R.layout.empty_view,null);
-//        lv_plan.setEmptyView(v);
+//        refreshableView = lv_plan.getRefreshableView();
+//        footerViewsCount = refreshableView.getFooterViewsCount();
+//         finishView = new TextView(activity);
+//         finishView.setText("数据加载完成");
         lv_plan.setEmptyView(pro_bar);
         adapter=new FinancingPlanAdapter(list,activity);
         lv_plan.setAdapter(adapter);
@@ -120,6 +127,7 @@ public class FinancingFragment extends BaseFragment{
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //Toast.makeText(activity,"下拉刷新",LENGTH_SHORT).show();
+                tv_finish.setVisibility(View.GONE);
                 current=1;
                 list.clear();
                 dataRequest(current);
@@ -205,10 +213,13 @@ public class FinancingFragment extends BaseFragment{
                             bean.setName(name);
                             list2.add(bean);
                         }
-//                    if(list2.size()<10){
-//                        FinancingPlanBean bean=new FinancingPlanBean();
-//                        list2.add(bean);
-//                    }
+                    if(list2.size()<10){
+                        tv_finish.setVisibility(View.VISIBLE);
+//                        Log.i("======个数",footerViewsCount+"");
+//                        if(footerViewsCount<2){
+//                            refreshableView.addFooterView(finishView);
+//                        }
+                    }
                         dbUtils.dropTable(FinancingPlanBean.class);
                         dbUtils.saveOrUpdateAll(list2);
                         adapter.addAll(list2);

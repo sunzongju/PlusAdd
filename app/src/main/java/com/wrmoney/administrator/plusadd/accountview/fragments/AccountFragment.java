@@ -309,32 +309,33 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                         object = new JSONObject(result);
                         String strResponse = object.getString("argEncPara");
                         String strDe = DES3Util.decode(strResponse);
-                        //   Log.i("======个人中心", strDe);
+                        Log.i("======个人中心", strDe);
                         JSONObject obj2 = new JSONObject(strDe);
                         String allAmount = obj2.getString("allAmount");//总资产
+                        Log.i("======allAmount",allAmount);
                         if("".equals(allAmount)||allAmount==null||"0".equals(allAmount)){
                             tv_money.setText("0.00");
                         }else {
-                            tv_money.setText(FormatTool.amtFormat(allAmount));
+                            tv_money.setText(allAmount);
                         }
                         String incomeAmount = obj2.getString("incomeAmount");//累计收益
                         if("".equals(incomeAmount)||incomeAmount==null||"0".equals(incomeAmount)){
                             tv_addup.setText("0.00");
 
                         }else {
-                            tv_addup.setText(FormatTool.amtFormat(incomeAmount));
+                            tv_addup.setText(incomeAmount);
                         }
                         String acctBalance=obj2.getString("acctBalance");//账号可用余额
                         if("".equals(acctBalance)||acctBalance==null||"0".equals(acctBalance)){
                             tv_balance.setText("0.00");
                         }else {
-                            tv_balance.setText(FormatTool.amtFormat(acctBalance));
+                            tv_balance.setText(acctBalance);
                         }
                         String investAmount = obj2.getString("investAmount");//投资总额
                         if("".equals(investAmount)||investAmount==null||"0".equals(investAmount)){
                             tv_count.setText("0.00");
                         }else {
-                            tv_count.setText(FormatTool.amtFormat(investAmount));
+                            tv_count.setText(investAmount);
                         }
                         //tv_count.setText(FormatTool.amtFormat(investAmount));
                         bundleWhole.putString("allAmount", allAmount);//总额
