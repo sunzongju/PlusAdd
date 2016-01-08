@@ -322,6 +322,7 @@ public class InvestActivity extends BaseActivity implements View.OnClickListener
                     Bundle bundle2=new Bundle();
 //                    bundle2.putParcelable("BEAN",bean);
                     bundle2.putString("PLANID",bean.getPlanId());
+                    bundle2.putString("USERID",userid);
                     intent1.putExtras(bundle2);
                     startActivity(intent1);
                 }

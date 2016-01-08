@@ -91,7 +91,8 @@ public class FinancingPlanAdapter extends BaseAdapter {
         //holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + " 项目规模" + planBean.getMaxFinancing());
         float account=(Float.parseFloat(planBean.getMaxFinancing()))/10000;
         int account1=(int)account;
-        holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + "天 项目规模" +account1+"万");
+        holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + "天");
+        holder.tv_content2.setText("项目规模"+account1+"万");
         holder.tv_repaytype.setText(planBean.getRepayType());
         holder.btn_invest.setTag(planBean.getId());
         if("Y".equals(planBean.getEnableBuy())){
@@ -106,11 +107,12 @@ public class FinancingPlanAdapter extends BaseAdapter {
                             // finish();
                         } else {
                            // Log.i("=======InvestUserid", SingleUserIdTool.newInstance().getUserid());
-                            SingleUserIdTool.newInstance().setUserid(SingleUserIdTool.newInstance().getUserid());
+                            //SingleUserIdTool.newInstance().setUserid(SingleUserIdTool.newInstance().getUserid());
                             Intent intent1=new Intent(context,InvestWebJoinActivity.class);
                             Bundle bundle2=new Bundle();
                             //bundle2.putParcelable("BEAN",planBean);
                             bundle2.putString("PLANID",holder.btn_invest.getTag()+"");
+                            bundle2.putString("USERID",userid);
                             intent1.putExtras(bundle2);
                             context.startActivity(intent1);
                         }
@@ -129,6 +131,7 @@ public class FinancingPlanAdapter extends BaseAdapter {
         private TextView tv_rate;//预期收益率
          private ProgressBar pro_rate;//进度条
         private TextView tv_content;//投资内容
+        private TextView tv_content2;
         private TextView tv_repaytype;//
         private TextView btn_invest;//投资按钮
         public ViewHolder1(View itemView) {
@@ -136,6 +139,7 @@ public class FinancingPlanAdapter extends BaseAdapter {
             this.tv_rate = (TextView) itemView.findViewById(R.id.tv_expectedRate);
             this.pro_rate=(ProgressBar)itemView.findViewById(R.id.pro_rate);
             this.tv_content = (TextView) itemView.findViewById(R.id.tv_content);
+            this.tv_content2=(TextView)itemView.findViewById(R.id.tv_content2);
             this.tv_repaytype=(TextView)itemView.findViewById(R.id.tv_repaytype);
             this.btn_invest=(TextView)itemView.findViewById(R.id.btn_invest);
             this.ll_layout=(LinearLayout)itemView.findViewById(R.id.ll_layout);

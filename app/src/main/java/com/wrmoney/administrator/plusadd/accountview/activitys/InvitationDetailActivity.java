@@ -70,13 +70,19 @@ public class InvitationDetailActivity extends BaseActivity {
         userid= SingleUserIdTool.newInstance().getUserid();
         httpUtils = new HttpUtils(10000);
         invitationCode=getIntent().getStringExtra("CODE");
-        dataRequest(invitationCode,"0",current);
        rg_invitation= (RadioGroup)this.findViewById(R.id.rg_invitation);
        lv_invitation= (PullToRefreshListView)this.findViewById(R.id.lv_invitation);
-        View v= LayoutInflater.from(this).inflate(R.layout.empty_view,null);
+        View v= LayoutInflater.from(this).inflate(R.layout.empty_view, null);
         lv_invitation.setEmptyView(v);
         adapter=new InvitationDetailAdapter(this,list);
         lv_invitation.setAdapter(adapter);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dataRequest(invitationCode, "0", current);
         ILoadingLayout loadingLayoutProxy = lv_invitation.getLoadingLayoutProxy();
         loadingLayoutProxy.setPullLabel("");
         lv_invitation.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -129,19 +135,19 @@ public class InvitationDetailActivity extends BaseActivity {
                 FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
                 switch (checkedId) {
                     case R.id.btn_all://全部
-                        checked=R.id.btn_all;
+                        checked = R.id.btn_all;
                         list.clear();
-                        dataRequest(invitationCode,"0",current);
+                        dataRequest(invitationCode, "0", current);
                         break;
                     case R.id.btn_reg://邀请注册
-                        checked=R.id.btn_reg;
+                        checked = R.id.btn_reg;
                         list.clear();
-                        dataRequest(invitationCode,"1",current);
+                        dataRequest(invitationCode, "1", current);
                         break;
                     case R.id.btn_invest://注册投资
-                        checked=R.id.btn_invest;
+                        checked = R.id.btn_invest;
                         list.clear();
-                        dataRequest(invitationCode,"2",current);
+                        dataRequest(invitationCode, "2", current);
                         break;
                     default:
                         break;

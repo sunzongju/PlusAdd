@@ -21,7 +21,7 @@
             android:includeFontPadding="false"
             android:text="乘10计划B（043期）"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
         <LinearLayout
             android:layout_marginTop="8dp"
             android:layout_marginLeft="13dp"
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:text="预期年化收益率" />
         </LinearLayout>
 
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:textColor="#999999"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:text="投资期限0个月 项目规模100万" />
 
     </LinearLayout>

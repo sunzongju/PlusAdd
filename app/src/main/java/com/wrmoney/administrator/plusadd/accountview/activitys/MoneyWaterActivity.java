@@ -103,13 +103,19 @@ public class MoneyWaterActivity extends BaseActivity {
         }
         userid= SingleUserIdTool.newInstance().getUserid();
         httpUtils = new HttpUtils(10000);
-        dataRequest("0",current);
         rg_water = (RadioGroup) this.findViewById(R.id.rg_water);
         lv_water=(PullToRefreshListView)this.findViewById(R.id.lv_water);
-        View v= LayoutInflater.from(this).inflate(R.layout.empty_view,null);
+        View v= LayoutInflater.from(this).inflate(R.layout.empty_view, null);
         lv_water.setEmptyView(v);
        adapter=new MoneyWaterAdapter(list,this);
        lv_water.setAdapter(adapter);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dataRequest("0", current);
         ILoadingLayout loadingLayoutProxy = lv_water.getLoadingLayoutProxy();
         loadingLayoutProxy.setPullLabel("");
         lv_water.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -153,26 +159,26 @@ public class MoneyWaterActivity extends BaseActivity {
         rg_water.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-               current=1;
+                current = 1;
                 //选中的RadioButton播放动画
                 ScaleAnimation sAnim = new ScaleAnimation(1, 1.1f, 1, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 sAnim.setDuration(2000);
                 sAnim.setFillAfter(true);
                 switch (checkedId) {
                     case R.id.btn_all:
-                        checked=R.id.btn_all;
+                        checked = R.id.btn_all;
                         list.clear();
-                        dataRequest("0",current);
+                        dataRequest("0", current);
                         break;
                     case R.id.btn_add:
-                        checked=R.id.btn_add;
+                        checked = R.id.btn_add;
                         list.clear();
-                        dataRequest("1",current);
+                        dataRequest("1", current);
                         break;
                     case R.id.btn_cut:
-                        checked=R.id.btn_cut;
+                        checked = R.id.btn_cut;
                         list.clear();
-                        dataRequest("2",current);
+                        dataRequest("2", current);
                         break;
                     default:
                         break;

@@ -72,6 +72,9 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+                if(UrlTool.userCenterUrl.equals(url)){
+                    finish();
+                }
 //                prDialog = ProgressDialog.show(RechargeActivity.this, null, "数据加载中...");
             }
 

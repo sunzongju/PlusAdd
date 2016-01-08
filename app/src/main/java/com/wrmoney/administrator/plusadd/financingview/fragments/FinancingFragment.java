@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -81,11 +82,7 @@ public class FinancingFragment extends BaseFragment{
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-       // Log.i("========FinmentonResume","11111111111");
-    }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -106,10 +103,10 @@ public class FinancingFragment extends BaseFragment{
         lv_plan.setEmptyView(pro_bar);
         adapter=new FinancingPlanAdapter(list,activity);
         lv_plan.setAdapter(adapter);
-        checkNetWorkInfo();
-        loadingLayoutProxy = lv_plan.getLoadingLayoutProxy();
-        loadingLayoutProxy.setPullLabel("");
+
 //        dataRequest(current);
+
+
         lv_plan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -123,25 +120,61 @@ public class FinancingFragment extends BaseFragment{
 
             }
         });
-        lv_plan.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                //Toast.makeText(activity,"下拉刷新",LENGTH_SHORT).show();
-                tv_finish.setVisibility(View.GONE);
-                current=1;
-                list.clear();
-                dataRequest(current);
-            }
+//        lv_plan.setOnScrollListener(new AbsListView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//                synchronized (this) {
+//                    if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+//                        // 判断是否滚动到底部
+//                        if (view.getLastVisiblePosition() == view
+//                                .getCount() - 1) {
+//                            //JLog.e("LOADMORE==========", "loading...");
+//                            //在这里加载数据
+//                            current++;
+//                            dataRequest(current);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//
+//            }
+//        });
 
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-               //Toast.makeText(activity,"上拉加载",LENGTH_SHORT).show();
-                current++;
-                dataRequest(current);
-            }
-        });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkNetWorkInfo();
+        loadingLayoutProxy = lv_plan.getLoadingLayoutProxy();
+        loadingLayoutProxy.setPullLabel("");
+            lv_plan.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+                @Override
+                public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                    //Toast.makeText(activity,"下拉刷新",LENGTH_SHORT).show();
+                    tv_finish.setVisibility(View.GONE);
+                    current=1;
+                    list.clear();
+                    dataRequest(current);
+                }
+
+                @Override
+                public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                    //Toast.makeText(activity,"上拉加载",LENGTH_SHORT).show();
+                    current++;
+                    dataRequest(current);
+                    
+
+
+                }
+
+            });
+
+        // Log.i("========FinmentonResume","11111111111");
+    }
 
     /**
      * 检查是否有网络

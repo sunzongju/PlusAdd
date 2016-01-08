@@ -313,7 +313,6 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
                 checkVersion();
                 break;
             case R.id.btn_finish://退出程序
-
                 final QuitLoginDialog  dialog2=new QuitLoginDialog(activity,R.style.dialog);
                 dialog2.setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
                 dialog2.show();
@@ -391,7 +390,7 @@ public class MoreFragment extends BaseFragment implements View.OnClickListener,A
                     JSONObject obj2 = new JSONObject(strDe);
                     String isNewVer=obj2.getString("isNewVer");
                     if("0".equals(isNewVer)){
-                        DiaLog.showDialog(activity, "暂无新版本");
+                        DiaLog.showDialog2(activity, "您当前已经是最新版本");
                     }else {
                         showUpdataDialog2();
 //                        updateContent=obj2.getString("updateContent");

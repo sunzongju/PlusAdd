@@ -69,6 +69,9 @@ public class EssayActivity extends BaseActivity implements View.OnClickListener{
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 //prDialog = ProgressDialog.show(EssayActivity.this, null, "数据加载中...");
+                if(UrlTool.userCenterUrl.equals(url)){
+                    finish();
+                }
                 super.onPageStarted(view, url, favicon);
             }
 

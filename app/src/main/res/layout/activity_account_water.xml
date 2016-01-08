@@ -7,7 +7,7 @@
     <include layout="@layout/tab_view"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="128dp">
         <TextView
             android:id="@+id/tv_nul"
             android:layout_width="wrap_content"
@@ -18,16 +18,16 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/tv_nul"
             android:layout_centerHorizontal="true"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textColor="@color/red5"
-            android:text="账号资产（元）"/>
+            android:text="账号资产(元)"/>
         <TextView
             android:id="@+id/tv_allAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_nul"
             android:layout_centerHorizontal="true"
-            android:textSize="21sp"
+            android:textSize="20sp"
             android:textColor="@color/red5"
             android:text=""/>
 
@@ -36,7 +36,8 @@
         android:id="@+id/rg_water"
         android:layout_width="match_parent"
         android:layout_height="29dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/white">
         <RadioButton
             android:id="@+id/btn_all"
             style="@style/radio_style2"
@@ -46,7 +47,8 @@
             android:layout_width="1dp"
             android:layout_height="20dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/gray2"/>
+            android:background="@color/backgro"
+          />
         <RadioButton
             android:id="@+id/btn_add"
             style="@style/radio_style2"
@@ -56,7 +58,8 @@
             android:layout_width="1dp"
             android:layout_height="20dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/gray2"/>
+            android:background="@color/backgro"
+            />
         <RadioButton
             android:id="@+id/btn_cut"
             style="@style/radio_style2"

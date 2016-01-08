@@ -41,8 +41,6 @@
         android:visibility="invisible"
        />
 
-
-
     <Button
         android:id="@+id/btn_http"
         android:layout_marginLeft="15dp"
@@ -51,9 +49,8 @@
         android:layout_height="40dp"
         android:layout_marginBottom="20dp"
         android:layout_gravity="center_horizontal"
-        android:background="@color/gray3"
+        android:background="@drawable/button_press2"
         android:clickable="false"
-        android:onClick="click"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:text="等待签订协议" />

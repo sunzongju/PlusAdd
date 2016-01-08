@@ -2,6 +2,7 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/BaseActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/accountview/activitys/AgreeActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/financingview/activitys/InvestWebJoinActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/homeview/activitys/HomeSecondActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/homeview/activitys/HomeThirdActivity.java" charset="UTF-8" />
@@ -12,5 +13,6 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/HttpXutilTool.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/tools/UrlTool.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/wrmoney/administrator/plusadd/view/BadgeView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build.gradle" charset="UTF-8" />
   </component>
 </project>

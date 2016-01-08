@@ -140,12 +140,17 @@ public class InvestMentActivity extends BaseActivity{
         lv_invest = (PullToRefreshListView) this.findViewById(R.id.lv_invest);
         View v=LayoutInflater.from(this).inflate(R.layout.empty_view, null);
         lv_invest.setEmptyView(v);
-
         userid = SingleUserIdTool.newInstance().getUserid();
         utils = HttpXutilTool.getUtils();
-        dataRequest("0",current);
        adapter=new InvestMentAdapter(list,this);
         lv_invest.setAdapter(adapter);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dataRequest("0", current);
         ILoadingLayout loadingLayoutProxy = lv_invest.getLoadingLayoutProxy();
         loadingLayoutProxy.setPullLabel("");
         lv_invest.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
@@ -202,45 +207,45 @@ public class InvestMentActivity extends BaseActivity{
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 //选中的RadioButton播放动画
-                current=1;
+                current = 1;
                 ScaleAnimation sAnim = new ScaleAnimation(1, 1.1f, 1, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 sAnim.setDuration(2000);
                 sAnim.setFillAfter(true);
                 FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
                 switch (checkedId) {
                     case R.id.btn_all:
-                        checked=R.id.btn_all;
+                        checked = R.id.btn_all;
                         list.clear();
-                       dataRequest("0",current);
+                        dataRequest("0", current);
                         break;
                     case R.id.btn_locked:
-                        checked=R.id.btn_locked;
+                        checked = R.id.btn_locked;
                         list.clear();
-                        dataRequest("1",current);
+                        dataRequest("1", current);
                         break;
                     case R.id.btn_unlock:
-                        checked=R.id.btn_unlock;
+                        checked = R.id.btn_unlock;
                         list.clear();
-                        dataRequest("2",current);
+                        dataRequest("2", current);
                         break;
                     case R.id.btn_quit:
-                        checked=R.id.btn_quit;
+                        checked = R.id.btn_quit;
                         list.clear();
-                        dataRequest("3",current);
+                        dataRequest("3", current);
                         break;
                     case R.id.btn_quited:
-                        checked=R.id.btn_quited;
+                        checked = R.id.btn_quited;
                         list.clear();
-                        dataRequest("4",current);
+                        dataRequest("4", current);
                         break;
                     default:
                         break;
                 }
             }
         });
-
     }
-        /**
+
+    /**
          * 数据请求
          */
     public void dataRequest(String type,int current) {

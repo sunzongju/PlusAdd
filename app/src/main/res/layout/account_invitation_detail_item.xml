@@ -13,10 +13,11 @@
         android:background="@color/white">
         <TextView
             android:id="@+id/tv_invitedUser"
+            android:layout_marginLeft="10dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
+            android:textSize="14sp"
             android:text="张三"/>
         <TextView
             android:id="@+id/tv_commissionAmountStr"
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:textSize="14sp"
             android:text="待返0.02元"/>
         <TextView
             android:id="@+id/tv_commissionTimeStr"
@@ -32,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
+            android:textSize="13sp"
             android:text="2015-10-30"/>
     </LinearLayout>
     <TextView
@@ -48,11 +51,12 @@
         <Button
             android:id="@+id/btn_type"
             android:layout_marginLeft="10dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:clickable="false"
             android:background="@drawable/dialog_btn"
             android:textColor="@color/orange"
+            android:textSize="14sp"
             android:text="投"/>
         <TextView
             android:id="@+id/tv_coment"
@@ -60,6 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="14sp"
             android:text="返佣完成"/>
         <TextView
             android:id="@+id/tv_count"
@@ -67,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="13sp"
             android:text="共计1次"/>
     </LinearLayout>
 </LinearLayout>

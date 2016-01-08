@@ -70,10 +70,12 @@ public class HomePagerAdapter extends android.support.v4.view.PagerAdapter {
                     @Override
                     public void onClick(View v) {
                        if(mList.size()>0){
-                           Intent intent=new Intent(context,ActivityDetailActivity.class);
-                           intent.putExtra("URL",(String)mList.get(position % mList.size()).getTag());
-                           context.startActivity(intent);
-
+                           String str=(String)mList.get(position % mList.size()).getTag();
+                           if(!"".equals(str)&&str!=null){
+                               Intent intent=new Intent(context,ActivityDetailActivity.class);
+                               intent.putExtra("URL",str);
+                               context.startActivity(intent);
+                           }
                           // Log.i("======= ==图片", (String) mList.get(position % mList.size()).getTag());
                        }
                     }

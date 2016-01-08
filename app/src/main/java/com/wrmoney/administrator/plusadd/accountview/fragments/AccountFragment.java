@@ -122,48 +122,6 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         return fragment;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        layout_activity.setVisibility(View.VISIBLE);
-        autoScrollTextView = (com.wrmoney.administrator.plusadd.view.AutoScrollTextView)view.findViewById(R.id.TextViewNotice);
-        autoScrollTextView.startScroll();
-        autoScrollTextView.init(activity.getWindowManager());
-        autoScrollTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!"".equals(jumpUrl) && jumpUrl != null) {
-                    Intent intent = new Intent(activity, ActivityFDetailActivity.class);
-                    intent.putExtra("URL", jumpUrl);
-                    startActivity(intent);
-                }
-            }
-        });
-        if (thread!=null){
-            thread.interrupt();
-        }
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(5000);
-                    Message msg = new Message();
-                    handler.sendMessage(msg);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        //throw new NumberFormatException();
-        thread.start();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //thread.isDaemon();
-    }
-
     private void init() {
         activity = getActivity();
         tv_money = (TextView) view.findViewById(R.id.tv_money);
@@ -251,6 +209,49 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         dataRequest();
         //messageCount();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        layout_activity.setVisibility(View.VISIBLE);
+        autoScrollTextView = (com.wrmoney.administrator.plusadd.view.AutoScrollTextView)view.findViewById(R.id.TextViewNotice);
+        autoScrollTextView.startScroll();
+        autoScrollTextView.init(activity.getWindowManager());
+        autoScrollTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!"".equals(jumpUrl) && jumpUrl != null) {
+                    Intent intent = new Intent(activity, ActivityFDetailActivity.class);
+                    intent.putExtra("URL", jumpUrl);
+                    startActivity(intent);
+                }
+            }
+        });
+        if (thread!=null){
+            thread.interrupt();
+        }
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+                    Message msg = new Message();
+                    handler.sendMessage(msg);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        //throw new NumberFormatException();
+        thread.start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //thread.isDaemon();
+    }
+
 
     @Override
     public void onStart() {

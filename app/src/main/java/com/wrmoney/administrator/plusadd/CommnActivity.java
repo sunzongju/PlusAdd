@@ -403,7 +403,7 @@ public class CommnActivity extends BaseActivity implements View.OnClickListener,
 
          if(from!=to){
              mContent=to;
-             if(from==accountFragment||from==moreFragment){
+             if(from==accountFragment||from==moreFragment||from==finacingFragment){
                  transaction3.remove(from);
                  if(!to.isAdded()){
                      transaction3.add(R.id.frag_container, to).commit();

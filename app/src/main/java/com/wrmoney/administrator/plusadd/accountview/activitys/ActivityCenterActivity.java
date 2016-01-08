@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.extras.PullToRefreshWebView2;
@@ -64,6 +65,7 @@ public class ActivityCenterActivity extends BaseActivity implements View.OnClick
     private int current=1;
     private WebView wv_center_activity;
     private String url2;
+    private ILoadingLayout loadingLayoutProxy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +93,9 @@ public class ActivityCenterActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                prDialog.dismiss();
+                if(prDialog.isShowing()){
+                    prDialog.dismiss();
+                }
                 super.onPageFinished(view, url);
             }
         });
@@ -129,6 +133,8 @@ public class ActivityCenterActivity extends BaseActivity implements View.OnClick
         lv_activity.setEmptyView(v);
         adapter = new ActivityCenterAdapter(list, this);
         lv_activity.setAdapter(adapter);
+        loadingLayoutProxy = lv_activity.getLoadingLayoutProxy();
+        loadingLayoutProxy.setPullLabel("");
         lv_activity.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {

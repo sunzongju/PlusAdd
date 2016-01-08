@@ -59,6 +59,7 @@ public class InvitationDetailAdapter extends BaseAdapter{
         Log.i("========Type", bean.getType());
         if("1".equals(bean.getIfOpenAcct())){
             holder.tv_invitedUser.setText(bean.getInvitedUser());
+           // holder.tv_invitedUser.setText(bean.getMobile());
         }else if("0".equals(bean.getIfOpenAcct())){
             holder.tv_invitedUser.setText(bean.getMobile());
         }

@@ -333,10 +333,17 @@ public class HomeFrament extends BaseFragment {
                     bannerSet(listImage);
                     List<HomeContentBean> listBean = new ArrayList<HomeContentBean>();
                     dbUtils.dropTable(HomeContentBean.class);
-                    String str = object1.getString("newHand");
-                    contentSet(str,listBean);
-                    String str2=object1.getString("seven");
-                    contentSet(str2,listBean);
+                    JSONArray array2 = object1.getJSONArray("planList");
+                    int len2=array2.length();
+                    for(int i=0;i<len2;i++){
+                        JSONObject object4 = array2.getJSONObject(i);
+                        contentSet(object4, listBean);
+                    }
+
+//                    String str2=object1.getString("seven");
+//                    contentSet(str2, listBean);
+//                    String str = object1.getString("newHand");
+//                    contentSet(str,listBean);
                     //listBean.add();
                     // Log.i("==========", listBean.size()+"");
                     dbUtils.saveOrUpdateAll(listBean);
@@ -403,11 +410,8 @@ public class HomeFrament extends BaseFragment {
         });
     }
 
-    public void contentSet(String str,List<HomeContentBean> listBean){
-
-        JSONObject object2 = null;
+    public void contentSet(JSONObject  object2,List<HomeContentBean> listBean){
         try {
-            object2 = new JSONObject(str);
             HomeContentBean bean = new HomeContentBean();
             String name = object2.getString("name");//标题
             String expectedRate = object2.getString("expectedRate");//收益率

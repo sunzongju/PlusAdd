@@ -8,27 +8,36 @@
 
     <RadioGroup
         android:id="@+id/rg_invitation"
+        android:layout_marginTop="14dp"
         android:layout_width="match_parent"
         android:layout_height="31dp"
+        android:background="@color/white"
         android:orientation="horizontal">
         <RadioButton
             android:id="@+id/btn_all"
             style="@style/radio_style2"
             android:checked="true"
             android:text="全部"/>
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/backgro"/>
         <RadioButton
             android:id="@+id/btn_reg"
             style="@style/radio_style2"
             android:text="邀请注册"
             />
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/backgro"/>
         <RadioButton
             android:id="@+id/btn_invest"
             style="@style/radio_style2"
             android:text="注册投资"/>
     </RadioGroup>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
     <!--<ListView-->
         <!--android:id="@+id/lv_invitation"-->
         <!--android:layout_width="match_parent"-->
