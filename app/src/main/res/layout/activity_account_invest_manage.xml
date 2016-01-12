@@ -18,7 +18,7 @@
             android:layout_above="@id/tv_nul"
             android:layout_centerHorizontal="true"
             android:textSize="16sp"
-            android:textColor="#ff0000"
+            android:textColor="@color/orange"
             android:text="账户资产(元)"/>
         <TextView
             android:id="@+id/tv_allAmount"
@@ -27,7 +27,7 @@
             android:layout_below="@id/tv_nul"
             android:layout_centerHorizontal="true"
             android:textSize="20sp"
-            android:textColor="#ff0000"
+            android:textColor="@color/orange"
             android:text=""/>
 
         <TextView
@@ -69,7 +69,7 @@
         </LinearLayout>
         <TextView
             android:layout_width="1dp"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_vertical"
             android:background="@color/backgro"/>
         <LinearLayout
@@ -156,7 +156,11 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="10dp"-->
         <!--android:background="@color/gray1"/>-->
-
+    <LinearLayout
+        android:id="@+id/ll_finish"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/lv_invest"
@@ -165,5 +169,12 @@
         android:divider="@color/backgro"
         android:dividerHeight="10dp"
         ptr:ptrMode="both"/>
-
+        <TextView
+            android:id="@+id/tv_finish"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="数据加载完成"/>
+    </LinearLayout>
 </LinearLayout>

@@ -52,6 +52,7 @@ import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
 import com.wrmoney.administrator.plusadd.view.AutoScrollTextView;
 import com.wrmoney.administrator.plusadd.view.BadgeView;
+import com.wrmoney.administrator.plusadd.wxapi.WXEntryActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -206,13 +207,14 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         badge1.setBadgeMargin(0, 0); //水平和竖直方向的间距
 //        badge1.setHeight(20);
         badge1.toggle();
-        dataRequest();
+
         //messageCount();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        dataRequest();
         layout_activity.setVisibility(View.VISIBLE);
         autoScrollTextView = (com.wrmoney.administrator.plusadd.view.AutoScrollTextView)view.findViewById(R.id.TextViewNotice);
         autoScrollTextView.startScroll();

@@ -1,6 +1,7 @@
 package com.wrmoney.administrator.plusadd.accountview.activitys;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.wrmoney.administrator.plusadd.BaseActivity;
+import com.wrmoney.administrator.plusadd.CommnActivity;
 import com.wrmoney.administrator.plusadd.R;
 import com.wrmoney.administrator.plusadd.encode.RechargeParams;
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
@@ -66,11 +68,26 @@ public class EssayActivity extends BaseActivity implements View.OnClickListener{
         wv_essay.setWebViewClient(new WebViewClient() {
             ProgressDialog prDialog;
 
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                Log.i("=======网址1111",url);
+//                if(UrlTool.userCenterUrl.equals(url)){
+//                    Intent intent1 = new Intent(EssayActivity.this, CommnActivity.class);
+//                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    intent1.putExtra("FLAG", "userCenterUrl");
+//                    startActivity(intent1);
+//                }
+//                return true;
+//            }
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 //prDialog = ProgressDialog.show(EssayActivity.this, null, "数据加载中...");
                 if(UrlTool.userCenterUrl.equals(url)){
                     finish();
+//                    Intent intent1 = new Intent(EssayActivity.this, CommnActivity.class);
+//                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    intent1.putExtra("FLAG", "userCenterUrl");
+//                    startActivity(intent1);
                 }
                 super.onPageStarted(view, url, favicon);
             }
@@ -80,6 +97,10 @@ public class EssayActivity extends BaseActivity implements View.OnClickListener{
                 Log.i("=====取现55", UrlTool.essayUrl + userid);
                 // prDialog.dismiss();
                 if(UrlTool.userCenterUrl.equals(url)){
+//                    Intent intent1 = new Intent(EssayActivity.this, CommnActivity.class);
+//                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    intent1.putExtra("FLAG", "userCenterUrl");
+//                    startActivity(intent1);
                     finish();
                 }
                 super.onPageFinished(view, url);

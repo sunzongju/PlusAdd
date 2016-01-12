@@ -15,7 +15,7 @@ public class UrlTool {
     public static String financeUrl="http://mpre.plus0.com/financeVicePage";
     public static String indexUrl="http://mpre.plus0.com/index";
     public static String userCenterUrl="http://mpre.plus0.com/personal/userCenter";
-    public static String app_id2="wx387db71dad0fb42c";
+    public static String app_id1="wx387db71dad0fb42c";
     public static String app_id="wx716fc156d0cf12d8";
     public static String activityUrl="http://mpre.plus0.com/activity/activityList";//�ר���ַ
     public static String helpUrl="http://mpre.plus0.com/helpCenter";//�������ĵ�ַ

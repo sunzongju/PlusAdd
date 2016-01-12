@@ -19,7 +19,7 @@
             android:layout_above="@id/tv_nul"
             android:layout_centerHorizontal="true"
             android:textSize="16sp"
-            android:textColor="@color/red5"
+            android:textColor="@color/orange"
             android:text="账号资产(元)"/>
         <TextView
             android:id="@+id/tv_allAmount"
@@ -28,7 +28,7 @@
             android:layout_below="@id/tv_nul"
             android:layout_centerHorizontal="true"
             android:textSize="20sp"
-            android:textColor="@color/red5"
+            android:textColor="@color/orange"
             android:text=""/>
 
     </RelativeLayout>

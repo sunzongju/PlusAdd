@@ -36,7 +36,6 @@ public class HomeContentAdapter extends BaseAdapter {
     private static Context context;
     private HomeContentBean planBean;
     private String userid=SingleUserIdTool.newInstance().getUserid();
-
     public HomeContentAdapter(List<HomeContentBean> list, Context context) {
         this.list = list;
         this.context = context;
@@ -99,7 +98,7 @@ public class HomeContentAdapter extends BaseAdapter {
                     public void onClick(View v) {
                         if (userid == null) {
                             Intent intent11 = new Intent(context, PhoneActivity.class);
-                            intent11.putExtra("PLANID",planBean.getId()+"");
+//                            intent11.putExtra("PLANID",planBean.getId()+"");
                             context.startActivity(intent11);
                             //startActivity(intent11);
                             // finish();
@@ -110,6 +109,7 @@ public class HomeContentAdapter extends BaseAdapter {
                             Bundle bundle2=new Bundle();
                             //bundle2.putParcelable("BEAN",planBean.getId()+"");
                             bundle2.putString("PLANID",planBean.getId()+"");
+                            bundle2.putString("USERID",userid);
                             intent1.putExtras(bundle2);
                             context.startActivity(intent1);
                         }
@@ -122,7 +122,7 @@ public class HomeContentAdapter extends BaseAdapter {
             try {
                 float account=(Float.parseFloat(planBean.getMaxFinaning()))/10000;
                 int account1=(int)account;
-                holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + "天 项目规模" +account1+"万");
+                holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + "天 项目金额" +account1+"万");
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -151,7 +151,7 @@ public class HomeContentAdapter extends BaseAdapter {
             dm=((Activity)context).getResources().getDisplayMetrics();
             ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(dm);
             int  height1= DisplayUtil.dip2px(context, 54);
-            layoutParams.height=(dm.heightPixels-(DisplayUtil.dip2px(context,384)))/2;
+            layoutParams.height=(dm.heightPixels-(DisplayUtil.dip2px(context,414)))/2;
 //            int height2 =dm.heightPixels-height1;  //得到高度
 //            layoutParams.height=height2/4;
             this.ll_layout.setLayoutParams(layoutParams);

@@ -117,7 +117,6 @@ public class ActivityCenterActivity extends BaseActivity implements View.OnClick
 
     }
 
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();

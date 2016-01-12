@@ -259,11 +259,11 @@ public class  InvitationActivity extends BaseActivity implements View.OnClickLis
         WXWebpageObject webpage = new WXWebpageObject();
         webpage.webpageUrl = login_url;
         WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.title = "微融财富APP";
+        msg.title = "Plus0 乘10理财";
         msg.description = getResources().getString(
                 R.string.reg);
         Bitmap thumb = BitmapFactory.decodeResource(getResources(),
-                R.drawable.logo);
+                R.drawable.headmag_pic);
         msg.setThumbImage(thumb);
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = String.valueOf(System.currentTimeMillis());

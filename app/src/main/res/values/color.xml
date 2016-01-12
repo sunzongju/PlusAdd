@@ -38,5 +38,6 @@
     <color name="green_bj">#43b853</color>
     <color name="pressed_false">#39b44a</color>
     <color name="pressed_true">#189a2a</color>
+    <color name="mblue">#0000ff</color>
 
 </resources>

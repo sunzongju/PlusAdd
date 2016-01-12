@@ -278,6 +278,28 @@ public class CommnActivity extends BaseActivity implements View.OnClickListener,
             //setCurrentItemt(mContent,finacingFragment);
             tv_banner.setText("投资列表");
 
+        }else if("indexUrl".equals(str)){
+            radiotype=radio_home;
+            radio_home.setChecked(true);
+            radio_financing.setChecked(false);
+            radio_account.setChecked(false);
+            radio_more.setChecked(false);
+
+            switchContent(mContent, homeFragment);
+            //setCurrentItemt(mContent,finacingFragment);
+            tv_banner.setText("Plus0乘10理财");
+
+        }else if("userCenterUrl".equals(str)){
+            radiotype=radio_account;
+            radio_home.setChecked(false);
+            radio_financing.setChecked(false);
+            radio_account.setChecked(true);
+            radio_more.setChecked(false);
+
+            switchContent(mContent, accountFragment);
+            //setCurrentItemt(mContent,finacingFragment);
+            tv_banner.setText("账户中心");
+
         }
         if(userid!=null){
             RequestParams params = UserCenterParams.getUpdateCode(userid);

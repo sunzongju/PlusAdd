@@ -1,22 +1,20 @@
 package com.wrmoney.administrator.plusadd.accountview.activitys;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
+
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
-import android.widget.ImageView;
+
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshAdapterViewBase;
@@ -34,11 +32,10 @@ import com.wrmoney.administrator.plusadd.accountview.adapters.InvestMentAdapter;
 import com.wrmoney.administrator.plusadd.bean.InvestMentBean;
 import com.wrmoney.administrator.plusadd.encode.UserCenterParams;
 import com.wrmoney.administrator.plusadd.loginview.activitys.LoginActivity2;
-import com.wrmoney.administrator.plusadd.loginview.activitys.PhoneActivity2;
+
 import com.wrmoney.administrator.plusadd.tools.ActionBarSet;
 import com.wrmoney.administrator.plusadd.tools.CheckNetTool;
 import com.wrmoney.administrator.plusadd.tools.DES3Util;
-import com.wrmoney.administrator.plusadd.tools.FormatTool;
 import com.wrmoney.administrator.plusadd.tools.HttpXutilTool;
 import com.wrmoney.administrator.plusadd.tools.SingleUserIdTool;
 import com.wrmoney.administrator.plusadd.tools.UrlTool;
@@ -66,7 +63,9 @@ public class InvestMentActivity extends BaseActivity{
     private int current=1;
     private int checked=R.id.btn_all;
     private Bundle bundle;
-
+    private TextView tv_finish;
+    private TextView tv;
+    private ListView lv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +137,12 @@ public class InvestMentActivity extends BaseActivity{
         }
         rg_invest=(RadioGroup) this.findViewById(R.id.rg_invest);
         lv_invest = (PullToRefreshListView) this.findViewById(R.id.lv_invest);
+        lv = (ListView) lv_invest.getRefreshableView();
+        tv=new TextView(this);
+        tv.setGravity(Gravity.CENTER);
+        tv.setText("数据加载完毕");
+
+        tv_finish=(TextView)this.findViewById(R.id.tv_finish);
         View v=LayoutInflater.from(this).inflate(R.layout.empty_view, null);
         lv_invest.setEmptyView(v);
         userid = SingleUserIdTool.newInstance().getUserid();
@@ -156,6 +161,8 @@ public class InvestMentActivity extends BaseActivity{
         lv_invest.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+                tv_finish.setVisibility(View.GONE);
+                lv.removeFooterView(tv);
                 current=1;
                 list.clear();
                 switch (checked){
@@ -207,6 +214,7 @@ public class InvestMentActivity extends BaseActivity{
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 //选中的RadioButton播放动画
+                lv.removeFooterView(tv);
                 current = 1;
                 ScaleAnimation sAnim = new ScaleAnimation(1, 1.1f, 1, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 sAnim.setDuration(2000);
@@ -278,6 +286,13 @@ public class InvestMentActivity extends BaseActivity{
                             bean.setLockTime(object2.getString("lockTime"));
                             bean.setExitFlag(object2.getString("exitFlag"));
                             list2.add(bean);
+                        }
+                        if(list2.size()<10){
+                            //tv_finish.setVisibility(View.VISIBLE);
+                            int footerViewsCount = lv.getFooterViewsCount();
+                            if(footerViewsCount<2){
+                                lv.addFooterView(tv);
+                            }
                         }
                         adapter.addAll(list2);
                         lv_invest.onRefreshComplete();

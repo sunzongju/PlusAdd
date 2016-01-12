@@ -69,10 +69,26 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
         wv_recharge.setWebViewClient(new WebViewClient() {
             ProgressDialog prDialog;
 
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                Log.i("=======网址1111",url);
+//                if(UrlTool.userCenterUrl.equals(url)){
+//                    Intent intent1 = new Intent(RechargeActivity.this, CommnActivity.class);
+//                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    intent1.putExtra("FLAG", "userCenterUrl");
+//                    startActivity(intent1);
+//                }
+//                return true;
+//            }
+
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
                 if(UrlTool.userCenterUrl.equals(url)){
+//                    Intent intent1 = new Intent(RechargeActivity.this, CommnActivity.class);
+//                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    intent1.putExtra("FLAG", "userCenterUrl");
+//                    startActivity(intent1);
                     finish();
                 }
 //                prDialog = ProgressDialog.show(RechargeActivity.this, null, "数据加载中...");
@@ -82,6 +98,10 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
             public void onPageFinished(WebView view, String url) {
                 Log.i("=====充值55", UrlTool.rechargeUrl + userid);
                 if(UrlTool.userCenterUrl.equals(url)){
+//                    Intent intent1 = new Intent(RechargeActivity.this, CommnActivity.class);
+//                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    intent1.putExtra("FLAG", "userCenterUrl");
+//                    startActivity(intent1);
                     finish();
                 }
                     super.onPageFinished(view, url);

@@ -2,17 +2,21 @@ package com.wrmoney.administrator.plusadd.financingview.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -69,10 +73,11 @@ public class FinancingFragment extends BaseFragment{
     private ProgressBar pro_bar;
     private DbUtils dbUtils;
     private ILoadingLayout loadingLayoutProxy;
-    private TextView tv_finish;
 //    private ListView refreshableView;
 //    private int footerViewsCount;
-//    private TextView finishView;
+    private TextView finishView;
+    private ListView lv;
+    private TextView tv;
 
     @Nullable
     @Override
@@ -94,8 +99,15 @@ public class FinancingFragment extends BaseFragment{
         activity = getActivity();
          dbUtils = DbHelper.getUtils();
          pro_bar=(ProgressBar)view.findViewById(R.id.pro_bar);
-         tv_finish=(TextView)view.findViewById(R.id.tv_finish);
+         finishView=(TextView)view.findViewById(R.id.tv_finish);
         lv_plan=(PullToRefreshListView)view.findViewById(R.id.lv_money_plan);
+        lv = lv_plan.getRefreshableView();
+        tv=new TextView(activity);
+        tv.setGravity(Gravity.CENTER);
+        tv.setText("数据加载完毕");
+
+
+        //lv.addHeaderView(header);
 //        refreshableView = lv_plan.getRefreshableView();
 //        footerViewsCount = refreshableView.getFooterViewsCount();
 //         finishView = new TextView(activity);
@@ -151,11 +163,18 @@ public class FinancingFragment extends BaseFragment{
         checkNetWorkInfo();
         loadingLayoutProxy = lv_plan.getLoadingLayoutProxy();
         loadingLayoutProxy.setPullLabel("");
-            lv_plan.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+//        if(){
+//            lv_plan.setMode(null);
+//        }else {
+//            lv_plan.setMode(PullToRefreshBase.Mode.BOTH);
+//        }
+
+        lv_plan.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
                 @Override
                 public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                     //Toast.makeText(activity,"下拉刷新",LENGTH_SHORT).show();
-                    tv_finish.setVisibility(View.GONE);
+                    lv.removeFooterView(tv);
+                    finishView.setVisibility(View.GONE);
                     current=1;
                     list.clear();
                     dataRequest(current);
@@ -166,11 +185,7 @@ public class FinancingFragment extends BaseFragment{
                     //Toast.makeText(activity,"上拉加载",LENGTH_SHORT).show();
                     current++;
                     dataRequest(current);
-                    
-
-
                 }
-
             });
 
         // Log.i("========FinmentonResume","11111111111");
@@ -192,6 +207,7 @@ public class FinancingFragment extends BaseFragment{
                 e.printStackTrace();
             }
         }else{
+            list.clear();
             dataRequest(current);
         }
     }
@@ -216,7 +232,7 @@ public class FinancingFragment extends BaseFragment{
                         String strResponse = object.getString("argEncPara");
                         String strDe = DES3Util.decode(strResponse);
                         //Toast.makeText(activity,str, LENGTH_SHORT).show();
-                        // Log.i("=======理财页",strDe);
+                        Log.i("=======理财页",strDe);
                         JSONObject object1=new JSONObject(strDe);
                         JSONArray array=object1.getJSONArray("result");
                         int len=array.length();
@@ -247,7 +263,12 @@ public class FinancingFragment extends BaseFragment{
                             list2.add(bean);
                         }
                     if(list2.size()<10){
-                        tv_finish.setVisibility(View.VISIBLE);
+                        int footerViewsCount = lv.getFooterViewsCount();
+                        Log.i("=====个数1", footerViewsCount + "");
+                        if(footerViewsCount<2){
+                            lv.addFooterView(tv);
+                        }
+//                        finishView.setVisibility(View.VISIBLE);
 //                        Log.i("======个数",footerViewsCount+"");
 //                        if(footerViewsCount<2){
 //                            refreshableView.addFooterView(finishView);

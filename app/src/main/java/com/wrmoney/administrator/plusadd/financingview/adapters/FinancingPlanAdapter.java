@@ -3,6 +3,7 @@ package com.wrmoney.administrator.plusadd.financingview.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -84,15 +85,16 @@ public class FinancingPlanAdapter extends BaseAdapter {
         }
        // Log.i("=======", planBean.getId() + "展示的ID");
         final ViewHolder1 holder = (ViewHolder1) convertView.getTag();
-
         holder.tv_type.setText(planBean.getName());
         holder.tv_rate.setText(planBean.getExpectedRate());
         holder.pro_rate.setProgress(planBean.getProgress());
         //holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + " 项目规模" + planBean.getMaxFinancing());
-        float account=(Float.parseFloat(planBean.getMaxFinancing()))/10000;
-        int account1=(int)account;
+        double account=(Double.parseDouble(planBean.getMaxFinancing()))/10000;
+
+        Log.i("=========数据值",account+"");
+        int account1=(int)Math.round(account);
         holder.tv_content.setText("投资期限" + planBean.getBaseLockPeriod() + "天");
-        holder.tv_content2.setText("项目规模"+account1+"万");
+        holder.tv_content2.setText("项目金额"+account1+"万");
         holder.tv_repaytype.setText(planBean.getRepayType());
         holder.btn_invest.setTag(planBean.getId());
         if("Y".equals(planBean.getEnableBuy())){
@@ -101,7 +103,7 @@ public class FinancingPlanAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     if (userid == null) {
                             Intent intent11 = new Intent(context, PhoneActivity.class);
-                            intent11.putExtra("PLANID",planBean.getId());
+//                            intent11.putExtra("PLANID",planBean.getId());
                             context.startActivity(intent11);
                             //startActivity(intent11);
                             // finish();
@@ -134,6 +136,7 @@ public class FinancingPlanAdapter extends BaseAdapter {
         private TextView tv_content2;
         private TextView tv_repaytype;//
         private TextView btn_invest;//投资按钮
+        private LinearLayout  ll;
         public ViewHolder1(View itemView) {
             this.tv_type = (TextView) itemView.findViewById(R.id.tv_type);
             this.tv_rate = (TextView) itemView.findViewById(R.id.tv_expectedRate);

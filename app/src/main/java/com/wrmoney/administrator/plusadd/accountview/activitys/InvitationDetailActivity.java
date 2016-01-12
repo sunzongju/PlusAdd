@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -57,6 +58,10 @@ public class InvitationDetailActivity extends BaseActivity {
     private String invitationCode;
     private int current=1;
     private int checked=R.id.btn_all;
+    private TextView tv_finish;
+    private ListView lv;
+    private TextView tv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +77,12 @@ public class InvitationDetailActivity extends BaseActivity {
         invitationCode=getIntent().getStringExtra("CODE");
        rg_invitation= (RadioGroup)this.findViewById(R.id.rg_invitation);
        lv_invitation= (PullToRefreshListView)this.findViewById(R.id.lv_invitation);
-        View v= LayoutInflater.from(this).inflate(R.layout.empty_view, null);
+        lv = lv_invitation.getRefreshableView();
+        tv=new TextView(this);
+        tv.setGravity(Gravity.CENTER);
+        tv.setText("仅显示近30天的数据");
+
+        View v= LayoutInflater.from(this).inflate(R.layout.empty_view2, null);
         lv_invitation.setEmptyView(v);
         adapter=new InvitationDetailAdapter(this,list);
         lv_invitation.setAdapter(adapter);
@@ -88,6 +98,8 @@ public class InvitationDetailActivity extends BaseActivity {
         lv_invitation.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+               // tv_finish.setVisibility(View.GONE);
+                lv.removeFooterView(tv);
                 current=1;
                 list.clear();
                 switch (checked) {
@@ -129,6 +141,7 @@ public class InvitationDetailActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 //选中的RadioButton播放动画
+                lv.removeFooterView(tv);
                 ScaleAnimation sAnim = new ScaleAnimation(1, 1.1f, 1, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 sAnim.setDuration(2000);
                 sAnim.setFillAfter(true);
@@ -174,13 +187,16 @@ public class InvitationDetailActivity extends BaseActivity {
                         object = new JSONObject(result);
                         String strResponse = object.getString("argEncPara");
                         String strDe = DES3Util.decode(strResponse);
-                        // Log.i("=======邀请好友详情", strDe);
+                         Log.i("=======邀请好友详情", strDe);
                         JSONObject object1=new JSONObject(strDe);
                         JSONArray array=object1.getJSONArray("reList");
                         int len=array.length();
                         for(int i=0;i<len;i++){
                             JSONObject object2=array.getJSONObject(i);
                             InvitationDetailBean bean=new InvitationDetailBean();
+                            bean.setCommissionAmountStr(object2.getString("commissionAmountStr"));
+                            bean.setComminssionTimeStr(object2.getString("commissionTimeStr"));
+                            bean.setReturnState(object2.getString("returnState"));
                             bean.setType(object2.getString("type"));
                             bean.setProductType(object2.getString("productType"));
                             bean.setCommissionAmount(object2.getString("commissionAmount"));
@@ -195,6 +211,12 @@ public class InvitationDetailActivity extends BaseActivity {
                             bean.setOrderNum(object2.getString("orderNum"));
                             bean.setCount(object2.getString("count"));
                             list2.add(bean);
+                        }
+                        if(list2.size()<10){
+                            int footerViewsCount = lv.getFooterViewsCount();
+                            if(footerViewsCount<2){
+                                lv.addFooterView(tv);
+                            }
                         }
                         adapter.addAll(list2);
                         lv_invitation.onRefreshComplete();

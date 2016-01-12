@@ -3,6 +3,7 @@ package com.wrmoney.administrator.plusadd.accountview.activitys;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -57,6 +58,8 @@ public class VoucherActivity extends BaseActivity {
     private PullToRefreshListView lv_voucher;
     private int current=1;
     private int checked=R.id.btn1;
+    private ListView lv;
+    private TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,11 @@ public class VoucherActivity extends BaseActivity {
      */
     public void init() {
         lv_voucher=(PullToRefreshListView)this.findViewById(R.id.lv_voucher);
+        lv = lv_voucher.getRefreshableView();
+        tv=new TextView(this);
+        tv.setGravity(Gravity.CENTER);
+        tv.setText("数据加载完毕");
+
         View v= LayoutInflater.from(this).inflate(R.layout.empty_view,null);
         lv_voucher.setEmptyView(v);
         userid = SingleUserIdTool.newInstance().getUserid();
@@ -93,6 +101,7 @@ public class VoucherActivity extends BaseActivity {
         lv_voucher.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                lv.removeFooterView(tv);
                 current=1;
                 list.clear();
                 switch (checked) {
@@ -138,6 +147,7 @@ public class VoucherActivity extends BaseActivity {
         rg_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                lv.removeFooterView(tv);
                 current = 1;
                 //选中的RadioButton播放动画
                 ScaleAnimation sAnim = new ScaleAnimation(1, 1.1f, 1, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -225,6 +235,12 @@ public class VoucherActivity extends BaseActivity {
                             bean.setLotteryComent(object2.getString("lotteryComent"));
                             bean.setLotteryTitle(object2.getString("lotteryTitle"));
                             list2.add(bean);
+                        }
+                        if(list2.size()<10){
+                            int footerViewsCount = lv.getFooterViewsCount();
+                            if(footerViewsCount<2){
+                                lv.addFooterView(tv);
+                            }
                         }
                         adapter.addAll(list2);
                         lv_voucher.onRefreshComplete();

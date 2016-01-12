@@ -3,6 +3,7 @@ package com.wrmoney.administrator.plusadd.accountview.activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -49,6 +50,8 @@ public class MessageActivity extends BaseActivity{
     private MessageAdapter adapter;
     private PullToRefreshListView lv_news;
     private int current=1;
+    private ListView lv;
+    private TextView tv;
 
 
     @Override
@@ -65,6 +68,11 @@ public class MessageActivity extends BaseActivity{
         userid = SingleUserIdTool.newInstance().getUserid();
         utils = HttpXutilTool.getUtils();
         lv_news=(PullToRefreshListView)this.findViewById(R.id.lv_news);
+        lv = lv_news.getRefreshableView();
+        tv=new TextView(this);
+        tv.setGravity(Gravity.CENTER);
+        tv.setText("数据加载完毕");
+
         View v= LayoutInflater.from(this).inflate(R.layout.empty_view,null);
         lv_news.setEmptyView(v);
         adapter=new MessageAdapter(this,list);
@@ -88,6 +96,7 @@ public class MessageActivity extends BaseActivity{
         lv_news.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                lv.removeFooterView(tv);
                 current = 1;
                 list.clear();
                 dataRequest(current);
@@ -139,6 +148,14 @@ public class MessageActivity extends BaseActivity{
                             bean.setIsRead(object2.getString("isRead"));
                             list2.add(bean);
                         }
+
+                        if(list2.size()<10){
+                            int footerViewsCount = lv.getFooterViewsCount();
+                            if(footerViewsCount<2){
+                                lv.addFooterView(tv);
+                            }
+                        }
+
                         //  Log.i("====长度",list2.size()+"");
                         adapter.addAll(list2);
                         lv_news.onRefreshComplete();

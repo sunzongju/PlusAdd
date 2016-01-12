@@ -35,6 +35,7 @@ public class DiaLog {
     public static void showDialog2(Context context,String str){
         final AlertDialog dialog = new AlertDialog.Builder(context).create();
         //dialog.setTitle("���");
+        dialog.setCancelable(false);
         View view1 = LayoutInflater.from(context).inflate(R.layout.custom_dialog2, null);
         TextView tv = (TextView) view1.findViewById(R.id.tv_content);
         tv.setText(str);

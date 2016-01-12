@@ -18,6 +18,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -151,6 +152,7 @@ public class HomeFrament extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        init();
         thread = new Thread(new Runnable() {
 
             @Override
@@ -162,7 +164,7 @@ public class HomeFrament extends BaseFragment {
                 }
             }
         });
-        init();
+
     }
 
     @Override
@@ -192,6 +194,39 @@ public class HomeFrament extends BaseFragment {
         adapter1=new HomeContentAdapter(listBean,activity);
         lv_plan.setAdapter(adapter1);
         vp_index= (ViewPager) view.findViewById(R.id.pager_index);
+
+        vp_index.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:
+                    {
+                        //按住事件发生后执行代码的区域
+                        isloop=false;
+                        break;
+                    }
+                    case MotionEvent.ACTION_MOVE:
+                    {
+                        //移动事件发生后执行代码的区域
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    {
+                        //松开事件发生后执行代码的区域
+                        isloop=true;
+                        break;
+                    }
+
+                    default:
+
+                        break;
+                }
+             return false;
+            }
+        });
+
+
         checkNetWorkInfo();
             lv_plan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override

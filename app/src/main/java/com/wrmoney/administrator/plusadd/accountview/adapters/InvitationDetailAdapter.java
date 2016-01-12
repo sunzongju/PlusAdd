@@ -65,12 +65,17 @@ public class InvitationDetailAdapter extends BaseAdapter{
         }
         if("1".equals(bean.getType())){
             holder.btn_type.setText("注");
-
+            holder.tv_coment.setText("邀请成功");
         }else if("2".equals(bean.getType())){
             holder.btn_type.setText("投");
+            if("0".equals(bean.getReturnState())){
+                holder.tv_coment.setText("购买奖励");
+            }else if("1".equals(bean.getReturnState())){
+                holder.tv_coment.setText("返佣完成");
+            }
         }
-        holder.tv_commissionAmount.setText("待返"+bean.getCommissionAmount()+"元");
-        holder.tv_commissionTime.setText(bean.getCommissionTime());
+        holder.tv_commissionAmount.setText(bean.getCommissionAmountStr());
+        holder.tv_commissionTime.setText(bean.getComminssionTimeStr());
         holder.tv_coment.setText(bean.getComent());
         holder.tv_count.setText("共计"+bean.getCount()+"次");
 //        holder.tv_lotteryStatus.setText(redPacketBean.getLotteryStatus());

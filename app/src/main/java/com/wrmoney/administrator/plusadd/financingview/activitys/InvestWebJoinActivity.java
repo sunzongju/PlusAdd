@@ -56,45 +56,76 @@ public class InvestWebJoinActivity  extends BaseActivity implements View.OnClick
         wv_gobuy.setWebChromeClient(new WebChromeClient());
         wv_gobuy.setWebViewClient(new WebViewClient() {
             // ProgressDialog prDialog;
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                Log.i("=======网址1111",url);
+                if (UrlTool.financeUrl.equals(url)) {
+                    Intent intent1 = new Intent(InvestWebJoinActivity.this, CommnActivity.class);
+                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent1.putExtra("FLAG", "financeUrl");
+                    startActivity(intent1);
+                } else if (UrlTool.indexUrl.equals(url)) {
+                    Intent intent1 = new Intent(InvestWebJoinActivity.this, CommnActivity.class);
+                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent1.putExtra("FLAG", "indexUrl");
+                    startActivity(intent1);
+                }
+                return true;
+            }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                // prDialog = ProgressDialog.show(InvestWebJoinActivity.this, null, "数据加载中...");
-                Log.i("====网址111", wv_gobuy.getUrl());
-                if (UrlTool.financeUrl.equals(url)) {
-                    Intent intent1 = new Intent(InvestWebJoinActivity.this, CommnActivity.class);
-                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent1.putExtra("FLAG", "financeUrl");
-                    startActivity(intent1);
-                } else if (UrlTool.indexUrl.equals(url)) {
-                    Intent intent1 = new Intent(InvestWebJoinActivity.this, CommnActivity.class);
-                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent1.putExtra("FLAG", "indexUrl");
-                    startActivity(intent1);
-                }
+                 prDialog = ProgressDialog.show(InvestWebJoinActivity.this, null, "数据加载中...");
+//                Log.i("=======网址22222",url);
+//                if (UrlTool.financeUrl.equals(url)) {
+//                    Intent intent1 = new Intent(InvestWebJoinActivity.this, CommnActivity.class);
+//                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    intent1.putExtra("FLAG", "financeUrl");
+//                    startActivity(intent1);
+//                } else if (UrlTool.indexUrl.equals(url)) {
+//                    Intent intent1 = new Intent(InvestWebJoinActivity.this, CommnActivity.class);
+//                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    intent1.putExtra("FLAG", "indexUrl");
+//                    startActivity(intent1);
+//                }
                 super.onPageStarted(view, url, favicon);
             }
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+                super.onLoadResource(view, url);
+                Log.i("======网址333",url);
+            }
+
             @Override
             public void onPageFinished(WebView view, String url) {
-                Log.i("====网址222", wv_gobuy.getUrl());
-                if (UrlTool.financeUrl.equals(url)) {
-                    Intent intent1 = new Intent(InvestWebJoinActivity.this, CommnActivity.class);
-                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent1.putExtra("FLAG", "financeUrl");
-                    startActivity(intent1);
-                } else if (UrlTool.indexUrl.equals(url)) {
-                    Intent intent1 = new Intent(InvestWebJoinActivity.this, CommnActivity.class);
-                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent1.putExtra("FLAG", "indexUrl");
-                    startActivity(intent1);
-                }
-                Log.i("====网址222", wv_gobuy.getUrl());
+                prDialog.dismiss();
+                Log.i("=======网址444",url);
+//                Log.i("====网址222", wv_gobuy.getUrl());
+//                if (UrlTool.financeUrl.equals(url)) {
+//                    Intent intent1 = new Intent(InvestWebJoinActivity.this, CommnActivity.class);
+//                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    intent1.putExtra("FLAG", "financeUrl");
+//                    startActivity(intent1);
+//                } else if (UrlTool.indexUrl.equals(url)) {
+//                    Intent intent1 = new Intent(InvestWebJoinActivity.this, CommnActivity.class);
+//                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    intent1.putExtra("FLAG", "indexUrl");
+//                    startActivity(intent1);
+//                }
+//                Log.i("====网址222", wv_gobuy.getUrl());
                 super.onPageFinished(view, url);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                prDialog.dismiss();
+                super.onReceivedError(view, errorCode, description, failingUrl);
             }
         });
 
         url1=UrlTool.buyUrl+userid+"&id="+planId;
-        Log.i("========网络",url1);
+//        Log.i("========网络",url1);
         wv_gobuy.loadUrl(url1);
         ImageView iv_return=(ImageView)this.findViewById(R.id.iv_return);
         iv_return.setOnClickListener(this);

@@ -10,6 +10,25 @@ public class InvitationDetailBean {
     private String productType;//产品类型（计划ID）
     private String commissionAmount;//佣金
     private String commissionAmountStr;//佣金字符串类型
+    private String comminssionTimeStr;
+    private String returnState;
+
+    public String getComminssionTimeStr() {
+        return comminssionTimeStr;
+    }
+
+    public void setComminssionTimeStr(String comminssionTimeStr) {
+        this.comminssionTimeStr = comminssionTimeStr;
+    }
+
+    public String getReturnState() {
+        return returnState;
+    }
+
+    public void setReturnState(String returnState) {
+        this.returnState = returnState;
+    }
+
     private String coment;//备注
     private String regTime;//注册日期
     private String mobile;//手机号
